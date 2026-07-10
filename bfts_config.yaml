@@ -78,10 +78,13 @@ agent:
   # Options for summarizing findings and selecting the best node
   # If not specified, the default behavior will be used.
 
-  # summary:
-  #   model: gpt-4o
-  #   temp: 0.3
+  # Explicit models for summary/select_node: the in-code defaults are "gpt-4o",
+  # which the local proxy serves as HTTP 502 "unknown provider" -> mapped to
+  # openai.InternalServerError -> infinite backoff retry (2026-07-10 smoke run).
+  summary:
+    model: gemini-3-flash
+    temp: 0.3
 
-  # select_node:
-  #   model: gpt-4o
-  #   temp: 0.3
+  select_node:
+    model: gemini-3-flash
+    temp: 0.3

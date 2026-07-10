@@ -26,7 +26,10 @@ def backoff_create(
     try:
         return create_fn(*args, **kwargs)
     except retry_exceptions as e:
-        logger.info(f"Backoff exception: {e}")
+        # print too: the module logger has no stdout handler in BFTS runs, which
+        # made 45min of retries undiagnosable (2026-07-10).
+        print(f"[backoff] {type(e).__name__}: {e}", flush=True)
+        logger.warning(f"Backoff exception: {e}")
         return False
 
 
