@@ -114,12 +114,16 @@ class FunctionSpec(DataClassJsonMixin):
 
     @property
     def as_openai_tool_dict(self):
+        # Drop the nonstandard "strict" key from the schema: OpenAI tolerates it,
+        # but Gemini-compatible endpoints reject unknown fields inside function
+        # parameters with HTTP 400 (2026-07-10, local proxy run).
+        params = {k: v for k, v in self.json_schema.items() if k != "strict"}
         return {
             "type": "function",
             "function": {
                 "name": self.name,
                 "description": self.description,
-                "parameters": self.json_schema,
+                "parameters": params,
             },
         }
 
