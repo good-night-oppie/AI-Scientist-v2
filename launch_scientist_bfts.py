@@ -264,7 +264,8 @@ if __name__ == "__main__":
 
     aggregate_plots(base_folder=idea_dir, model=args.model_agg_plots)
 
-    shutil.rmtree(osp.join(idea_dir, "experiment_results"))
+    if os.path.exists(osp.join(idea_dir, "experiment_results")):
+        shutil.rmtree(osp.join(idea_dir, "experiment_results"))
 
     save_token_tracker(idea_dir)
 
@@ -276,7 +277,7 @@ if __name__ == "__main__":
             small_model=args.model_citation,
         )
         for attempt in range(args.writeup_retries):
-            print(f"Writeup attempt {attempt+1} of {args.writeup_retries}")
+            print(f"Writeup attempt {attempt + 1} of {args.writeup_retries}")
             if args.writeup_type == "normal":
                 writeup_success = perform_writeup(
                     base_folder=idea_dir,
@@ -344,19 +345,24 @@ if __name__ == "__main__":
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             continue
 
-    # Additional cleanup: find any orphaned processes containing specific keywords
-    keywords = ["python", "torch", "mp", "bfts", "experiment"]
-    for proc in psutil.process_iter(["name", "cmdline"]):
-        try:
-            # Check both process name and command line arguments
-            cmdline = " ".join(proc.cmdline()).lower()
-            if any(keyword in cmdline for keyword in keywords):
-                proc.send_signal(signal.SIGTERM)
-                proc.wait(timeout=3)
-                if proc.is_running():
-                    proc.kill()
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.TimeoutExpired):
-            continue
+    # Additional cleanup: find any orphaned processes containing specific keywords.
+    # SAFETY (2026-07-10, shared fleet host): this keyword sweep matches ANY process
+    # whose cmdline contains "python" — on a multi-agent host it kills unrelated
+    # sessions/daemons. Gated behind an opt-in env var; children-only cleanup above
+    # already handles this run's own processes.
+    if os.environ.get("AI_SCIENTIST_BROAD_KILL", "0") == "1":
+        keywords = ["python", "torch", "mp", "bfts", "experiment"]
+        for proc in psutil.process_iter(["name", "cmdline"]):
+            try:
+                # Check both process name and command line arguments
+                cmdline = " ".join(proc.cmdline()).lower()
+                if any(keyword in cmdline for keyword in keywords):
+                    proc.send_signal(signal.SIGTERM)
+                    proc.wait(timeout=3)
+                    if proc.is_running():
+                        proc.kill()
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.TimeoutExpired):
+                continue
 
     # Finally, terminate the current process
     # current_process.send_signal(signal.SIGTERM)

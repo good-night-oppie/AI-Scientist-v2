@@ -16,14 +16,14 @@ exp_name: run # a random experiment name will be generated if not provided
 
 # settings for code execution
 exec:
-  timeout: 3600
+  timeout: 1200
   agent_file_name: runfile.py
   format_tb_ipython: False
 
-generate_report: True
+generate_report: False
 # LLM settings for final report from journal
 report:
-  model: gpt-4o-2024-11-20
+  model: gemini-3-flash
   temp: 1.0
 
 experiment:
@@ -35,12 +35,12 @@ debug:
 # agent hyperparams
 agent:
   type: parallel
-  num_workers: 4
+  num_workers: 3
   stages:
-    stage1_max_iters: 20
-    stage2_max_iters: 12
-    stage3_max_iters: 12
-    stage4_max_iters: 18
+    stage1_max_iters: 5
+    stage2_max_iters: 3
+    stage3_max_iters: 3
+    stage4_max_iters: 3
   # how many improvement iterations to run
   steps: 5 # if stage-specific max_iters are not provided, the agent will use this value for all stages
   # whether to instruct the agent to use CV (set to 1 to disable)
@@ -54,19 +54,19 @@ agent:
 
   # LLM settings for coding
   code:
-    model: anthropic.claude-3-5-sonnet-20241022-v2:0
+    model: gemini-3-flash
     temp: 1.0
     max_tokens: 12000
 
   # LLM settings for evaluating program output / tracebacks
   feedback:
-    model: gpt-4o-2024-11-20
+    model: gemini-3-flash
     # gpt-4o
     temp: 0.5
     max_tokens: 8192
 
   vlm_feedback:
-    model: gpt-4o-2024-11-20
+    model: gemini-3-flash
     temp: 0.5
     max_tokens: null
 
