@@ -205,6 +205,25 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
 - **Any blockers:** parent condition 3 is an intentional promotion hold, not an
   infrastructure failure. Final search harvest remains pending.
 
+## Status update 2026-07-11T22:51Z (mixed-field evidence substrate committed)
+- **What's done:** inherited goal thread remains active; fleet enrollment and
+  doctor heal re-verified healthy. PokeChamp paper-release and MetaMon flagship
+  mechanisms were pinned and distilled clean-room. In isolated worktree
+  `feat/ptcg-pcmm-r1`, commit `0ed92d6` adds a three-arm canonical
+  source+deck-bound portfolio gate, per-run module isolation, raw Wilson/seat
+  gates, artifact mutation checks, and 21 deterministic/no-game tests. AI-Scientist
+  research/run evidence is committed at `eaddb5a`. Detached search PID 1829394 and
+  harvester PID 2260719 remain alive; a second local PROMOTABLE `58c77982cd`
+  reached confirm 0.56 [0.511,0.608] and reconfirm 0.5525 [0.504,0.6]. Status was
+  delivered to rpo/harness as A2A `#2921`; no build or submission followed.
+- **What's next:** finish and independently audit the pure MetaMon-style guarded
+  router and PokeChamp-style macro-turn max-min seams, then run only the recorded
+  bounded mixed-field screen if candidate packaging/preflight remains green.
+  Continue read-only monitoring until the harvester writes `HARVEST_RESULT.md`.
+- **Any blockers:** no infrastructure blocker. Parent hold `#2872` prohibits any
+  further Kaggle submission; final child completion still requires explicit rpo
+  approval.
+
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
 - BFTS relaunch: NOT recommended as-is (reproduces undeployable torch artifacts);

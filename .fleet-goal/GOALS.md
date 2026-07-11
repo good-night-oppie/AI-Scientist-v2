@@ -30,16 +30,19 @@ in Weco Observe run `7393d6ae-46a4-4b22-9cb5-a48abbab3d41`. The current fully
 reconfirmed candidate is `2c1368bc03`; the detached search and harvester may
 replace it only with stronger fully reconfirmed evidence.
 
-## M1 — Harvest and validate a promotable PTCG deck [ACTIVE]
+## M1 — Resolve ladder generalization failure and harvest bounded search [ACTIVE]
 
-Outcome: deliver to `rpo` the best legal deck that passes independent high-N
-confirm and reconfirm against frozen live-s14, together with a reproducible,
-runner-faithful Kaggle bundle and complete promotion evidence.
+Outcome: deliver to `rpo` (a) the final best legal deck from the already-running
+bounded search and (b) a clean-room PTCG-native agent candidate evaluated against
+a strategy/deck-diverse local portfolio, with runner-faithful artifacts and an
+honest no-submit/promotion decision.
 
 Scope:
 - In: monitor/harvest the detached deck search; audit saved metrics and legality;
-  track successful candidates in Weco; build and validate the submission bundle;
-  preserve s14 until a parent-approved ladder probe.
+  distill public PokeChamp/MetaMon mechanisms into deterministic PTCG-native
+  candidates; evaluate against a frozen mixed policy/deck portfolio; track only
+  successful metric-bearing experiments in Weco; preserve s14 until a
+  parent-approved ladder probe.
 - Out: auto-submitting to Kaggle; restarting unconstrained BFTS; reviving the
   exhausted search-tuning lever without new evidence; creating child fleet-agents.
 
@@ -52,10 +55,16 @@ Decisions:
   Its early follow-up score moved to `464.5`, below s14 `580.7`, activating the
   parent hold: no further deck submission without new reconfirmed evidence and a
   fresh rpo review.
+- The ladder contradiction makes single-opponent optimization insufficient.
+  PCMM-R1 therefore gates candidates against three canonical source+deck-distinct
+  arms before any confirm/reconfirm claim. Evidence gate commit: `0ed92d6`.
+- Clean-room transfer only: no upstream code, model weights, LLM runtime, provider,
+  GPU, or untrusted checkpoint enters the Kaggle package.
 
 Blockers:
 - No infrastructure blocker.
-- Final harvest waits on the bounded search; initial ladder-probe validation is complete.
+- Final harvest waits on the bounded search; search/harvester remain healthy.
+- No promotion or external submission is allowed under parent hold `#2872`.
 
 Evidence required:
 - PROGRESS.md updated with What's done / What's next / Any blockers.
@@ -68,5 +77,9 @@ Evidence required:
   search-active classification (`calls == games` must be recorded as fallback,
   never as active search).
 - Weco Observe updated with baseline and the final selected candidate.
+- Mixed-field manifest with distinct archive and canonical source+deck hashes;
+  raw per-arm/seat evidence; unique run IDs; no pooled promotion gate.
+- Pure counterfactual tests for dynamic legal options, guarded router overrides,
+  macro-turn stopping, max-min order, deadline abstention, and search-state release.
 - A2A completion-evidence message delivered to parent `rpo`.
 - Parent rpo approval recorded before status changes to COMPLETE.
