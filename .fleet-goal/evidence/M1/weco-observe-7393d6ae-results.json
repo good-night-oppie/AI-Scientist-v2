@@ -1,0 +1,21 @@
+{
+  "fetched_at_utc": "2026-07-11T21:12:00Z",
+  "command": "weco run results 7393d6ae-46a4-4b22-9cb5-a48abbab3d41 --format json",
+  "run_id": "7393d6ae-46a4-4b22-9cb5-a48abbab3d41",
+  "metric": "head_to_head_winrate",
+  "goal": "maximize",
+  "results": [
+    {
+      "step": 1,
+      "metric": 0.57125,
+      "plan": "Candidate 2c1368bc03: frozen live-s14 policy plus evolved legal deck; independent N=400 confirm 228-172 and reconfirm 229-171; combined 457-343.",
+      "node_id": "30b3ad6c-16b3-4a9c-b707-354057b77519"
+    },
+    {
+      "step": 0,
+      "metric": 0.495,
+      "plan": "A/A control: reference deck versus identical frozen live-s14 baseline; 198-202 over 400 games, validating an unbiased harness.",
+      "node_id": "cd9bf9d2-e39a-4db9-8c27-c5161f7aafa9"
+    }
+  ]
+}

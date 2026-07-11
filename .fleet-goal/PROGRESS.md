@@ -1,14 +1,168 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-## What's done
+_Updated: 2026-07-11T21:12Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
-- ai-scientist is linked as rpo's level-3 child fleet-agent.
-- Fleet guardian coverage is active from harness registry/diagnose.
+## Goal (assigned by Eddie mid-session)
+Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
+IT THROUGH the AI-Scientist-v2 BFTS pipeline — evolve the agent autonomously, then
+package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/seeds.
 
-## What's next
+## What's done (evidence in ./evidence/ + commits)
+1. Competition + engine recon: agent contract, option/select enums, card DB
+   (AllCard/AllAttack ctypes), submission format (.tar.gz main.py+deck.csv).
+2. Seed agent built in ~/gh/ready-player-one-ptcg (branch feat/ptcg-agent, commits
+   1a75620, 8570f2a): heuristic option-scoring policy, winrate 0.90 vs 'random' /
+   0.54 vs 'first' baselines; eval + trace harnesses; submission builder validated
+   by local self-play (DONE/DONE).
+3. AI-Scientist-v2 wired for the custom task (branch ptcg-run, commits 68fa1cd, +1):
+   idea json + seed .py (node contract: working/experiment_data.npy + plots, metric
+   = mean winrate over seat-alternated games vs both baselines, standalone-verified
+   mean_winrate 0.719); LLM backend = LOCAL cli-proxy-gemini (zero paid API) via
+   OPENAI_BASE_URL; patches: GEMINI_BASE_URL override, gemini VLM route, tool-schema
+   'strict' strip (gemini 400 fix), rmtree guard, psutil broad-kill sweep gated off
+   (fleet-host safety — never set AI_SCIENTIST_BROAD_KILL=1 here).
+4. BFTS smoke run #2 (b7xffdw0i, killed at session restart) VALIDATED the loop:
+   stage 1 → 3/3 non-buggy nodes, parsed metrics (best mean_winrate 0.694),
+   plots+VLM+archives OK. But post-step it hit an INFINITE LLM BACKOFF LOOP
+   (91 retries/45min) — exception swallowed by unconfigured logger.
+5. Backoff root cause CONFIRMED empirically (run #3 instrumented print):
+   `InternalServerError: 502 unknown provider for model gpt-4o` — journal.py's
+   summary/select_node fall back to "gpt-4o" when unset in config; proxy 502s
+   unknown models; 502 is in the retry list → infinite loop. FIXED: summary +
+   select_node pinned to gemini-3-flash in bfts_config; --model_agg_plots
+   gemini-3-flash added at launch (same trap, o1 default). Committed.
+6. Smoke run #4 (bg bak0yvzte, monitor bh2v0ujpm) CROSSED INTO STAGE 2
+   baseline_tuning — infinite-backoff class confirmed dead; plumbing validated
+   through the fatal transition. On clean completion → scale to full run.
+7. KAGGLE CREDS DELIVERED (Eddie, ~/.kaggle-pokemon-token 1P export → installed
+   ~/.kaggle/access_token mode 600, value never printed). esc-ced2411dbe ACKED.
+8. SUBMISSION VALIDATED: v1.1 ref 54539166 COMPLETE, publicScore 600.0 (mu0), in matchmaking pool. (v1 54539022 ERRORED: __file__ absent in runner exec; fixed e629707.)
+   Accrues rating (μ0=600) + real-opponent replays; evolved agent replaces it
+   later (latest-2 rule).
+9. Side-seed crawl (Eddie): agent-evolution.com deep-crawl via bounded ad-hoc
+   workflow w7dy2to3e → seeds/agent-evolution-distilled.md (BFTS loop upgrades).
 
-- Continue assigned ai-scientist work and produce evidence for rpo review.
+## Status update 2026-07-11T00:2xZ (ai-scientist-2 successor)
+- **s14 determinized-search champion SUBMITTED + VALIDATED on Kaggle** (ref
+  54554870, publicScore 600.0, COMPLETE) per Eddie "submit s14 as ladder probe,
+  dont wait for rpo". Bundled the VENDORED cg/libcg.so (good SearchBegin ABI) +
+  agpkg package; runner-faithful make(cabt) validation: 76 games, 0 forfeits,
+  search was initially reported active, 60 legal cards. **Later disproven:**
+  `search_begin == games` is the dead-search/fallback signature. Builder: ready-player-one-ptcg
+  scripts/build_submission_search.py (committed ce07f42). Latest-2 scored now
+  {seed v1.1 560.5, s14 600.0}.
+- **BFTS full run (b9faasveg) DIED** mid-stage-4: sweep auto-retired the
+  predecessor session ~00:19Z → SIGHUP'd its session-bound children (BFTS + weco
+  derives). Harvest verdict: stage 1/2/3 best_solutions are ALL torch-NN policies
+  (global_model), NOT Kaggle-deployable, weights unsaved → unverifiable/unpromotable.
+  BFTS drifts into neural-policy territory with this idea/seed. Champion stands = s14.
 
-## Any blockers
+## Status update 2026-07-11T19:4xZ (ai-scientist-3 rate-limit failover session)
+- **🔴 CRITICAL DISCOVERY: s14's search NEVER fired a move.** 19-agent adversarial
+  review (run to vet the new deck-search harness) confirmed statically+empirically:
+  `search_step(root_id,[i,j])` is an ABI misuse rejected on the FIRST search attempt
+  of every game → silent heuristic fallback for the entire game. `calls==games` in
+  every historical eval is the crash signature (the h2h guard only checked >0).
+  s15/s16 h2h = A/A tests; s14 ≈ heuristic; live Kaggle agent effectively heuristic.
+  Fix identified (step from branched child id) — s17 workstream opened.
+- **Deck search LAUNCHED (the #2717 diversified lever):** policy frozen, evolve the
+  60-card deck vs frozen live-s14 baseline via the trusted h2h harness verbatim.
+  4-rung ladder (40/160/400/400-reconfirm, ~0.03 expected false promotables per 3k
+  null screens), A/A control, legality-by-construction. DETACHED (setsid, PID
+  1829394, own session — long-compute-durability applied), 3 workers, 10h cap.
+  State: ready-player-one-ptcg runs/deck_search/ledger.jsonl; commits 48f0f9f+b374098
+  pushed. Deck-under-heuristic measurement is deployment-faithful given the discovery.
+- Evidence: .fleet-goal/evidence/2026-07-11-deck-search-ledger.md
 
-- None known.
+## Status update 2026-07-11T20:2xZ (ai-scientist-5 successor)
+- **DECK SEARCH → 1st fully-vetted PROMOTABLE `2c1368bc03`** (frozen live-s14 policy,
+  evolved deck). 4-rung ladder: n40 0.625 → n160 0.556 → n400 confirm 0.570 → n400
+  independent reconfirm 0.5725 [0.524,0.62]. Combined 457/800 = 0.571 vs live-s14.
+  Review-ready bundle built+validated: `submission_search_deck_2c1368bc03.tar.gz`
+  (self-play 20-0, search 20/20, 0 forfeits, 60 legal). Awaiting rpo review →
+  ladder-probe decision (no auto-submit). Evidence: evidence/2026-07-11-deck-search-promotable.md
+- **s18 SEARCH-TUNING LEVER EXHAUSTED:** powered N=300 h2h landed = 130-170, wr 0.4333
+  [0.378,0.49] vs s14 (cand search fires 43333/300 games; baseline 300=games dead
+  signature). Wilson-upper 0.49<0.50 → mechanically-correct search LOSES to the
+  heuristic-effective champion. DECK is the productive lever, not search internals.
+- **Champion s14 live (fresh poll):** Kaggle 54554870 publicScore 580.7 COMPLETE,
+  leads seed v1.1 (526.0) by +54.7. No privateScore. KEEP live.
+- Deck search still running (PID 1829394, 10h cap ~05:31Z); re-harvest best PROMOTABLE
+  at run end. Fleet hygiene: retired ai-scientist-4 + stale ai-scientist-3; harness-41
+  remains sole sweep orchestrator (no duplicate daemon).
+
+## Status update 2026-07-11T20:58Z (Codex takeover of ai-scientist-5)
+- **What's done:** recovered Claude session `6adb5ba8-e934-46e3-8270-9f17b96885ba`;
+  completed fleet enrollment (`#2794`, `#2795`); ran fleet-doctor heal and verified
+  a healthy fleet; deterministically re-audited candidate `2c1368bc03` and its
+  review bundle; registered A/A `0.495` and candidate `0.57125` in Weco Observe run
+  `7393d6ae-46a4-4b22-9cb5-a48abbab3d41`; sent refreshed parent evidence as A2A
+  `#2800`. Full evidence: `evidence/M1/2026-07-11-ai-scientist-5-takeover.md`.
+- **What's next:** keep the detached search + harvester running; at completion audit
+  the final best fully reconfirmed candidate, log it to the Weco run, rebuild/check
+  its review bundle, and return the promotion decision to parent `rpo`.
+- **Any blockers:** infrastructure is healthy. Kaggle ladder-probe promotion and
+  final child-goal completion require parent `rpo` approval.
+
+## Status update 2026-07-11T21:01Z (inherited goal activated)
+- **What's done:** created active goal-service thread
+  `019f52f2-7d79-7ad0-a1c6-d02bdcd3199e` from the predecessor's exact PTCG
+  objective; expanded `GOALS.md` from a generic child-evidence placeholder into
+  the explicit deck-search, validation, packaging, Weco, Kaggle, and `rpo`
+  approval contract. Parent/child cross-links remain intact.
+- **What's next:** continue M1 only: let detached search PID 1829394 and the then-live
+  harvester PID 2136762 finish (historical; replaced by corrected PID 2260719), audit the final selected candidate, persist the missing raw
+  runner-validation transcript, update Weco, and send completion evidence to rpo.
+- **Any blockers:** none operational. Final harvest is time-dependent; promotion
+  and goal completion remain parent-gated.
+
+## Status update 2026-07-11T21:05Z (runner-validation false-positive fixed)
+- **What's done:** independently reran the `2c1368bc03` bundle through the Kaggle
+  file-path runner (20 games: 19-1, invalid=0, zero forfeits) and persisted the raw
+  validator result plus hashes in
+  `evidence/M1/2026-07-11-runner-validation-2c1368bc03.md`. Corrected
+  `build_submission_search.py`: `search_begin == games` now reports the known
+  live-s14 inactive/fallback signature instead of falsely claiming active search;
+  optional strict mode fails unless calls exceed games. Updated LANE_STATE and
+  promotion evidence to describe this as a deck-only improvement under the
+  deployment-faithful heuristic-effective policy.
+- **What's next:** let the detached deck search/harvester finish, apply the same
+  honest runner validation to the final selected deck, update Weco, then request
+  rpo review.
+- **Any blockers:** none operational. Final selection is still running and parent
+  approval remains mandatory.
+
+## Status update 2026-07-11T21:09Z (final harvester evidence path hardened)
+- **What's done:** fixed `deck_search_harvest.py` so an already-built winning
+  bundle no longer bypasses validation. Every final selection is now validated,
+  its full output is written to `runs/deck_search/validation_<cid>.log`, and the
+  harvest succeeds only on validator rc=0 plus `VALIDATION OK`. Replaced the old
+  waiting harvester PID 2136762 with corrected detached PID 2260719; search PID
+  1829394 was untouched and remains live.
+- **What's next:** wait for the bounded search to end, audit HARVEST_RESULT and the
+  final validation log, update Weco if the winner changes, then send the complete
+  evidence bundle to rpo.
+- **Any blockers:** none operational; final search and parent gate remain open.
+
+## What's next (decision points for rpo/Eddie)
+- CHAMPION s14 is live on the ladder accruing rating — no action needed there.
+- BFTS relaunch: NOT recommended as-is (reproduces undeployable torch artifacts);
+  if pursued, constrain idea to deployable heuristic/search policies + launch
+  DETACHED (session-bound compute died once — see memory long-compute-durability).
+- weco-search round-2 (productive lineage, died too): resumable via
+  `weco run derive d0895b64 --from-step 14` if continuing to hunt > s14.
+
+## Historical blockers snapshot (superseded by current status updates)
+- NONE. Creds delivered + installed 2026-07-10 ~20:49Z (esc-ced2411dbe acked);
+  first submission live (ref 54539022).
+
+## Completion evidence offered for rpo approval
+- E1: local winrate table (seed vs evolved) from experiment_data.npy — reproducible
+  via scripts/ptcg_eval.py.
+- E2: BFTS run artifacts (journal.json, best_solution_*.py, tree_plot.html) under
+  ~/gh/AI-Scientist-v2/experiments/<ts>_ptcg_agent_evolution_attempt_0/.
+- E3: validated submission.tar.gz + (post-creds) Kaggle submission id + validation
+  episode result + leaderboard rating.
+Proposed completion bar: evolved agent beats seed baseline locally by a clear margin
+(≥+5pts mean winrate) AND a submission validates on Kaggle. Rating targets need
+ladder data, not promises.
