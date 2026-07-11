@@ -1,5 +1,5 @@
 {
-  "fetched_at_utc": "2026-07-11T21:12:00Z",
+  "fetched_at_utc": "2026-07-11T21:21:00Z",
   "command": "weco run results 7393d6ae-46a4-4b22-9cb5-a48abbab3d41 --format json",
   "run_id": "7393d6ae-46a4-4b22-9cb5-a48abbab3d41",
   "metric": "head_to_head_winrate",
@@ -10,6 +10,13 @@
       "metric": 0.57125,
       "plan": "Candidate 2c1368bc03: frozen live-s14 policy plus evolved legal deck; independent N=400 confirm 228-172 and reconfirm 229-171; combined 457-343.",
       "node_id": "30b3ad6c-16b3-4a9c-b707-354057b77519"
+    },
+    {
+      "step": 2,
+      "parent_step": 1,
+      "metric": 0.5475,
+      "plan": "Candidate d40d9dd567: child of 2c1368bc03; confirm 233-167 (0.5825, Wilson lower 0.534) but independent reconfirm regressed to 205-195 (0.5125, lower 0.464); combined 438-362, therefore not promotable.",
+      "node_id": "ac60545c-44d3-4e36-b257-23a2f5486802"
     },
     {
       "step": 0,

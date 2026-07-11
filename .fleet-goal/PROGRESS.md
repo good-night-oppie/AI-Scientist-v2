@@ -1,6 +1,6 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-_Updated: 2026-07-11T21:12Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
+_Updated: 2026-07-11T21:21Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
 ## Goal (assigned by Eddie mid-session)
 Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
@@ -143,6 +143,18 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   final validation log, update Weco if the winner changes, then send the complete
   evidence bundle to rpo.
 - **Any blockers:** none operational; final search and parent gate remain open.
+
+## Status update 2026-07-11T21:21Z (strong confirm rejected by reconfirm)
+- **What's done:** candidate `d40d9dd567` passed N=400 confirm at 233-167,
+  winrate 0.5825, Wilson lower 0.534, but the mandatory independent N=400
+  reconfirm regressed to 205-195, winrate 0.5125, Wilson lower 0.464. It is
+  correctly `reconfirm_out`, not promotable. Logged the completed negative result
+  as Weco Observe step 2 (parent step 1) and persisted
+  `evidence/M1/2026-07-11-d40d9dd567-reconfirm-out.md`.
+- **What's next:** continue the bounded search; `2c1368bc03` remains the only
+  fully reconfirmed candidate. Final harvester and rpo approval are still required.
+- **Any blockers:** rpo currently has unread evidence because its runtime is
+  quota-stranded; harness owns the active same-lineage recovery escalation.
 
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
