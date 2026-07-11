@@ -1,6 +1,6 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-_Updated: 2026-07-11T21:29Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
+_Updated: 2026-07-11T21:32Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
 ## Goal (assigned by Eddie mid-session)
 Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
@@ -169,6 +169,19 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   continue recording any candidate that reaches independent reconfirm, then audit
   the final harvest before asking rpo for the final approve/rework decision.
 - **Any blockers:** none operational. Parent approval is pending, not assumed.
+
+## Status update 2026-07-11T21:32Z (parent-approved Kaggle probe submitted)
+- **What's done:** rpo recovered, independently reviewed all evidence, and granted
+  explicit one-probe approval in A2A `#2852`. Rebuilt `2c1368bc03` through the
+  committed honest validator (18-2 vs random, invalid=0, zero forfeits,
+  `search_active=False`), verified exact deck bytes/legal composition and frozen
+  policy/engine hashes, then used the single authorized slot. Kaggle submission
+  `54585744` is `PENDING`; required description includes deck-only scope, full deck
+  SHA-256, search-fallback caveat, and s14-champion statement. Evidence:
+  `evidence/M1/2026-07-11-kaggle-probe-54585744.md`.
+- **What's next:** poll submission `54585744` to terminal status while the bounded
+  search/harvester continue. No further submission without fresh rpo review.
+- **Any blockers:** Kaggle validation/scoring and final search harvest are pending.
 
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.

@@ -47,11 +47,14 @@ Decisions:
 - Frozen live-s14 policy and engine are the baseline; the deck is the active lever.
 - A local win is a ladder-probe candidate, not proof of leaderboard improvement.
 - Final child completion and any Kaggle promotion require explicit `rpo` approval.
+- Parent rpo granted one-probe approval in A2A shared-log `#2852`; submission
+  `54585744` used that single slot and is pending. No chained submission is allowed
+  without a fresh parent review.
 
 Blockers:
 - No infrastructure blocker.
 - Final harvest waits on the already-running detached search/harvester.
-- Promotion waits on parent review.
+- Kaggle probe `54585744` waits on terminal validation/scoring.
 
 Evidence required:
 - PROGRESS.md updated with What's done / What's next / Any blockers.
