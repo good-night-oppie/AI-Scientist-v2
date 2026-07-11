@@ -1,6 +1,6 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-_Updated: 2026-07-11T21:21Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
+_Updated: 2026-07-11T21:29Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
 ## Goal (assigned by Eddie mid-session)
 Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
@@ -155,6 +155,20 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   fully reconfirmed candidate. Final harvester and rpo approval are still required.
 - **Any blockers:** rpo currently has unread evidence because its runtime is
   quota-stranded; harness owns the active same-lineage recovery escalation.
+
+## Status update 2026-07-11T21:29Z (deterministic validation tests landed)
+- **What's done:** harness restored rpo and its inbox is drained; rpo is actively
+  performing the independent parent review, but has not yet approved. Added
+  dependency-free deterministic tests for the corrected packaging/harvest gates:
+  `calls == games` is inactive, `calls > games` is active, an already-built bundle
+  is still validated with a persisted transcript, validator failure rejects the
+  bundle, and final selection prefers Wilson lower bound over point estimate.
+  `python -m unittest -v tests.test_deck_search_validation` passes 4/4. PTCG
+  commit: `838bb91`.
+- **What's next:** keep the bounded producer and corrected harvester running;
+  continue recording any candidate that reaches independent reconfirm, then audit
+  the final harvest before asking rpo for the final approve/rework decision.
+- **Any blockers:** none operational. Parent approval is pending, not assumed.
 
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
