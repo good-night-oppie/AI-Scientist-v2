@@ -49,11 +49,12 @@ Decisions:
 - Final child completion and any Kaggle promotion require explicit `rpo` approval.
 - Parent rpo granted one-probe approval in A2A shared-log `#2852`; submission
   `54585744` used that single slot and completed with initial public score `600.0`.
-  No chained submission is allowed without a fresh parent review.
+  Its early follow-up score moved to `464.5`, below s14 `580.7`, activating the
+  parent hold: no further deck submission without new reconfirmed evidence and a
+  fresh rpo review.
 
 Blockers:
 - No infrastructure blocker.
-- Final harvest waits on the already-running detached search/harvester.
 - Final harvest waits on the bounded search; initial ladder-probe validation is complete.
 
 Evidence required:

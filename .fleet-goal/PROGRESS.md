@@ -1,6 +1,6 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-_Updated: 2026-07-11T21:34Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
+_Updated: 2026-07-11T21:38Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
 ## Goal (assigned by Eddie mid-session)
 Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
@@ -193,6 +193,17 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   probe without reacting to rating noise. No additional submission without fresh
   rpo review.
 - **Any blockers:** only final search harvest and child-completion review remain.
+
+## Status update 2026-07-11T21:38Z (probe fell below s14; hold activated)
+- **What's done:** Kaggle ref `54585744` moved from its initial `600.0` to early
+  publicScore `464.5`; same poll s14 `580.7`, seed `521.0`. This contradicts the
+  initial favorable read but remains noisy early ladder evidence, not a settled
+  causal verdict. Updated Weco step 1 and notified rpo/harness in A2A `#2870`.
+- **What's next:** no further external submission. Continue only the bounded
+  search/final harvest and audit; any future probe requires new reconfirmed evidence
+  plus fresh rpo review.
+- **Any blockers:** parent condition 3 is an intentional promotion hold, not an
+  infrastructure failure. Final search harvest remains pending.
 
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.

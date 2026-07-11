@@ -1,5 +1,5 @@
 {
-  "fetched_at_utc": "2026-07-11T21:34:00Z",
+  "fetched_at_utc": "2026-07-11T21:38:00Z",
   "command": "weco run results 7393d6ae-46a4-4b22-9cb5-a48abbab3d41 --format json",
   "run_id": "7393d6ae-46a4-4b22-9cb5-a48abbab3d41",
   "metric": "head_to_head_winrate",
@@ -9,8 +9,11 @@
       "step": 1,
       "metric": 0.57125,
       "kaggle_public_score_initial": 600.0,
+      "kaggle_public_score_current": 464.5,
+      "s14_public_score_same_poll": 580.7,
+      "further_submission_hold": true,
       "kaggle_ref": 54585744,
-      "plan": "Candidate 2c1368bc03: confirm 228-172 and independent reconfirm 229-171 (combined 457-343, 0.57125); rpo-approved deck-only Kaggle probe 54585744 completed with initial publicScore 600.0 while s14 remains live.",
+      "plan": "Candidate 2c1368bc03: local confirm+reconfirm 457-343 (0.57125). Kaggle probe 54585744 completed at initial 600.0, then early rating moved to 464.5 versus live s14 580.7; rpo hold condition is active, so no further deck submission without fresh review.",
       "node_id": "30b3ad6c-16b3-4a9c-b707-354057b77519"
     },
     {
