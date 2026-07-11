@@ -1,6 +1,6 @@
 # PROGRESS — ai-scientist child fleet-agent
 
-_Updated: 2026-07-11T21:32Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
+_Updated: 2026-07-11T21:34Z. Full recovery doc: /home/admin/gh/ready-player-one-ptcg/LANE_STATE.md_
 
 ## Goal (assigned by Eddie mid-session)
 Conquer Kaggle `pokemon-tcg-ai-battle` (PTCG simulation comp, cabt engine) BY DRIVING
@@ -182,6 +182,17 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
 - **What's next:** poll submission `54585744` to terminal status while the bounded
   search/harvester continue. No further submission without fresh rpo review.
 - **Any blockers:** Kaggle validation/scoring and final search harvest are pending.
+
+## Status update 2026-07-11T21:34Z (Kaggle probe validated)
+- **What's done:** Kaggle ref `54585744` reached `COMPLETE` with initial public
+  score `600.0`. Same poll: s14 `580.7`, seed `521.0`; s14 remains the other scored
+  submission. Updated Weco step 1 with terminal probe evidence. The `+19.3` initial
+  gap is ladder support, not settled superiority, because known rating volatility
+  is much larger and no private score exists.
+- **What's next:** continue the bounded search and final harvester; monitor the
+  probe without reacting to rating noise. No additional submission without fresh
+  rpo review.
+- **Any blockers:** only final search harvest and child-completion review remain.
 
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.

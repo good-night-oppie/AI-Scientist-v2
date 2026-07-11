@@ -48,13 +48,13 @@ Decisions:
 - A local win is a ladder-probe candidate, not proof of leaderboard improvement.
 - Final child completion and any Kaggle promotion require explicit `rpo` approval.
 - Parent rpo granted one-probe approval in A2A shared-log `#2852`; submission
-  `54585744` used that single slot and is pending. No chained submission is allowed
-  without a fresh parent review.
+  `54585744` used that single slot and completed with initial public score `600.0`.
+  No chained submission is allowed without a fresh parent review.
 
 Blockers:
 - No infrastructure blocker.
 - Final harvest waits on the already-running detached search/harvester.
-- Kaggle probe `54585744` waits on terminal validation/scoring.
+- Final harvest waits on the bounded search; initial ladder-probe validation is complete.
 
 Evidence required:
 - PROGRESS.md updated with What's done / What's next / Any blockers.
