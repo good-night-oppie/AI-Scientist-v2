@@ -9,8 +9,8 @@ inherited_from: ai-scientist-5 / Claude session 6adb5ba8-e934-46e3-8270-9f17b968
 parent_agent: rpo
 parent_cwd: /home/admin/gh/ready-player-one
 tree_level: 3
-children: []
-may_create_child_fleet_agents: false
+children: [sctst-aide]  # level-4 leaf, corpus-expansion worker (Eddie order + height-4 decree #3158, 2026-07-12)
+may_create_child_fleet_agents: true (LIMITED — height-4 decree #3158/#3159: max 2 durable level-4 leaf children; sctst-aide is #1; each requires an Eddie order or parent-approval-gated capsule)
 completion_requires_parent_approval: true
 operating_mode: COORDINATOR (orch-proj doctrine; Eddie directive 2026-07-12) —
   no direct coding/editing by this agent; implementation delegated to mroute
@@ -19,7 +19,7 @@ operating_mode: COORDINATOR (orch-proj doctrine; Eddie directive 2026-07-12) —
 
 ## Guardrails
 
-- ai-scientist is level 3 and cannot create durable child fleet-agents.
+- ai-scientist is level 3; per height-4 decree #3158 it may run <=2 durable level-4 LEAF children (current: sctst-aide). Children cannot create children.
 - ai-scientist may use ad-hoc/one-time subagents for bounded work, but those do not become tree nodes.
 - ai-scientist completion is not final until rpo reviews and approves evidence.
 - Keep this `.fleet-goal/` cross-linked with rpo's `.fleet-goal/`.
