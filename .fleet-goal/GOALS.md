@@ -2,7 +2,9 @@
 
 status: ACTIVE — child of rpo
 goal_thread_id: (UNSET by Eddie 2026-07-12 via /goal; former 019f52f2-7d79-7ad0-a1c6-d02bdcd3199e.
-  Goal now anchored on THIS .fleet-goal/ + ai-scientist-5 Claude session task list + A2A intents.)
+  Goal anchored on THIS .fleet-goal/ + A2A intents + the ai-scientist-6 session
+  Monitor loop. Eddie confirmed continuation in-session 2026-07-12 ~11:4xZ:
+  "同意，开始干" — M2 approved to execute.)
 inherited_from: ai-scientist-5 / Claude session 6adb5ba8-e934-46e3-8270-9f17b96885ba
 parent_agent: rpo
 parent_cwd: /home/admin/gh/ready-player-one
@@ -35,7 +37,48 @@ in Weco Observe run `7393d6ae-46a4-4b22-9cb5-a48abbab3d41`. The current fully
 reconfirmed candidate is `2c1368bc03`; the detached search and harvester may
 replace it only with stronger fully reconfirmed evidence.
 
-## M1 — Resolve ladder generalization failure and harvest bounded search [ACTIVE]
+## M2 — Imitation joint intervention: fixed-policy × mined-deck [ACTIVE]
+
+Approved by Eddie in-session 2026-07-12 ("同意，开始干") on the verified
+root-cause analysis (evidence/M1/2026-07-12-plateau-root-cause-analysis.md:
+31 agents, 24 adversarial verdicts). Supersedes M1's "deck is the active
+lever" premise — deck-transfer was twice n400-falsified; the verified levers
+are the policy bugs + MAIN-level scheduling, deployed JOINTLY with a mined
+meta deck (deck↔policy co-adaptation is the system-level difference).
+
+Outcome: a candidate agent (bug-fixed / retuned / imitation-distilled policy ×
+mined 1180-tier deck) that passes n400 h2h vs frozen s14 AND self-play vs >=2
+mined meta decks, then ONE Kaggle probe slot with Eddie/rpo notice; a per-poll
+delta < +100 pts is recorded as UNRESOLVED (rating resolution limit), not failed.
+
+Execution pipeline (mroute, capsules in .fleet-goal/capsules/):
+- A1 policy.py bug patches (trimmed scope: bug1 DECK half, bug3, bug4
+  area-aware) + regression tests + bug-fix-only h2h gate  [IN PROGRESS]
+- A2 build_imitation_dataset.py (t+1 alignment per bus #3098 invariants)
+- B  MAIN_SCORES reorder per verified verdicts (NO BENCH_TARGET change;
+  ability 25→85 w/ deny-list; item>supporter; conditional retreat;
+  bench-preferring attach w/ target quality)
+- C  policy_imitation.py distilled from A2 dataset; 3-way ablation A1 / A1+B / C
+- ptcg-mh-surrogate-adapter: proposer forced through surrogate (static
+  pre-screen, evidence cards, k>1 n600/alpha-spending, racing arms)
+- ptcg-deck-search-uncage: remove/parameterize deck_search.py is_legal floors
+  (Kyogre>=2, {W}energy>=15) that exclude all 14 meta decks — prerequisite for
+  any future deck-mutation operator in the mh loop.
+
+Evidence required: per-phase gate results in evidence/M1/ (ablation table),
+frontier.jsonl evidence cards once the adapter lands, probe decision memo
+before any slot consumption. Champion s14 stays live until full reconfirm.
+
+## M1 — Resolve ladder generalization failure and harvest bounded search [CLOSED 2026-07-12]
+
+Closing outcome: bounded deck search harvested (2,857 decks, 46 local
+PROMOTABLE — all within the is_legal cage, max Jaccard 0.11 to meta decks);
+probe 54585744 (548.1 < s14 607.6) falsified the local→ladder link; PCMM
+3-arm mixed-field gate delivered (commit 0ed92d6); deck-transfer twice
+n400-falsified; root cause of the 607.6 plateau verified and published
+(evidence/M1/2026-07-12-plateau-root-cause-analysis.md). The deck-only lever
+is DEAD; M2 carries the verified successor plan. Original M1 text preserved
+below for the record.
 
 Outcome: deliver to `rpo` (a) the final best legal deck from the already-running
 bounded search and (b) a clean-room PTCG-native agent candidate evaluated against
