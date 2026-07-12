@@ -34,9 +34,12 @@ from __future__ import annotations
 
 import fcntl
 import json
+import logging
 import os
 import re
 import subprocess
+
+logger = logging.getLogger(__name__)
 
 # A helios snapshot id is a content hash: the literal prefix "blake3:" followed by
 # 64 lowercase hex chars. Keep it a plain str -- never a Path, never .relative_to().
@@ -231,3 +234,87 @@ class HeliosStore:
                 f"HELIOS_STORE_DIR {s} is inside workspace_dir {w}; "
                 "the atexit rmtree would destroy the store"
             )
+
+
+def snapshot_node_working_dir(cfg, working_dir, *, node_id=None):
+    """Write-only provenance hook for the BFTS snapshot seam (parallel_agent.py:1527).
+
+    Commit ``working_dir`` (the node's post-exec ``working/`` dir) to the helios store
+    and return its snapshot id string (``"blake3:<64hex>"``). Runs for EVERY node,
+    buggy or not -- buggy nodes are the reproducibility black hole this hook exists to
+    close (today they archive nothing and get ``exp_results_dir=None``).
+
+    Duck-typed on purpose: it reads ``cfg.helios`` and ``working_dir`` by plain
+    attribute/path access so the replay harness can drive the REAL function with a
+    ``SimpleNamespace`` cfg, without importing config/journal (both un-importable on
+    this host).
+
+    Contract (all load-bearing):
+      * NO-OP -> ``None`` if helios is disabled/absent: ``getattr(cfg, "helios", None)
+        is None`` OR ``not helios.enabled``. No subprocess is spawned in that case.
+      * NEVER RAISES into the caller. Any failure (missing/relative binary, exit 1 with
+        empty stdout, JSONDecodeError, unresolvable store, malformed id) is caught,
+        logged at WARNING, and turned into ``None``. A write-only hook that throws would
+        kill the node result at :1785 and REGRESS the search -- the inverse of this
+        phase's guarantee.
+      * Commits ONLY ``working_dir`` (constraint 8: ``commit`` ignores .gitignore and
+        reads every regular file whole into RAM -- never point it at
+        workspace/idea_dir/repo root).
+      * Delegates the CLI call to :class:`HeliosStore` -- the single audited chokepoint
+        (stdout-JSON parse per constraint 9, ``flock`` per constraint 4, pinned
+        ``HELIOS_STORE_DIR`` per constraint 6, materialize-not-restore discipline).
+        Returns a PLAIN ``str``; the caller assigns it directly to
+        ``child_node.snapshot_id`` (constraint 6 -- never through
+        ``Path().resolve().relative_to(os.getcwd())``).
+    """
+    helios = getattr(cfg, "helios", None)
+    if helios is None or not getattr(helios, "enabled", False):
+        return None
+    try:
+        if not os.path.isdir(working_dir):
+            return None
+        # Forward whatever Phase 4's HeliosConfig defined; HeliosStore validates that
+        # binary_path/store_dir are absolute+usable and raises loudly otherwise -- which
+        # this except turns into a graceful None, never a propagated exception.
+        lock_path = getattr(helios, "lock_file", None) or getattr(
+            helios, "lock_path", None
+        )
+        store = HeliosStore(
+            getattr(helios, "binary_path", None),
+            getattr(helios, "store_dir", None),
+            lock_path=lock_path,
+        )
+        return store.snapshot(working_dir)
+    except (
+        Exception
+    ) as e:  # belt-and-suspenders: a write-only hook must never propagate
+        logger.warning(
+            "helios snapshot skipped (node=%s dir=%s): %s", node_id, working_dir, e
+        )
+        return None
+
+
+def materialize(snapshot_id, out_dir, cfg):
+    """Reconstruct a snapshot into a FRESH EMPTY ``out_dir`` (the reproduction path).
+
+    The read-side counterpart to :func:`snapshot_node_working_dir`, exposed at module
+    scope so the replay harness can import it alongside the write hook. Duck-typed on
+    ``cfg.helios`` (``binary_path`` / ``store_dir`` / optional ``lock_file``) exactly
+    like the write hook.
+
+    Unlike the write hook this DOES surface errors -- the reproduction path is where a
+    byte-for-byte proof must fail loudly rather than silently return a wrong dir.
+    Constraint 5: this delegates to :meth:`HeliosStore.materialize`, which shells out to
+    ``materialize --id X --out <fresh empty dir>`` and NEVER to the merge-style
+    ``restore`` (which never deletes stale files and would leak sibling-branch content).
+    """
+    helios = getattr(cfg, "helios", None)
+    if helios is None:
+        raise HeliosUnavailableError("cfg.helios is None; cannot materialize")
+    lock_path = getattr(helios, "lock_file", None) or getattr(helios, "lock_path", None)
+    store = HeliosStore(
+        getattr(helios, "binary_path", None),
+        getattr(helios, "store_dir", None),
+        lock_path=lock_path,
+    )
+    return store.materialize(snapshot_id, out_dir)

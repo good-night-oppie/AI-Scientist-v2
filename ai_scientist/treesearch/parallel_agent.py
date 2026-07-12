@@ -1526,6 +1526,19 @@ class ParallelAgent:
             exec_result = process_interpreter.run(child_node.code, True)
             process_interpreter.cleanup_session()
 
+            # --- Helios write-only provenance hook (Phase 5) ---
+            # Snapshot the node's post-exec working dir for EVERY node, incl. buggy.
+            # Placed after cleanup_session (files flushed) but BEFORE parse_exec_result
+            # / the metric-parse and plotting runs mutate the dir, and OUTSIDE the
+            # `if not child_node.is_buggy:` archival gate below that rename()s the
+            # .npy/.png out. Write-only: never restores, never raises (a throw here
+            # would kill the node result at to_dict() and regress the search).
+            from .helios_store import snapshot_node_working_dir
+
+            child_node.snapshot_id = snapshot_node_working_dir(
+                cfg, working_dir, node_id=child_node.id
+            )
+
             print("Parsing execution results")
             worker_agent.parse_exec_result(
                 node=child_node, exec_result=exec_result, workspace=working_dir
