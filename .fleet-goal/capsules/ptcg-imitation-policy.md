@@ -1,7 +1,10 @@
 # COLLAB_CAPSULE/v1 — ptcg-imitation-policy
 
 task_id: ptcg-imitation-policy
-status: GREENLIT — PHASE A (capsule 1 merged; claim + build now; phase B scope-pinned below)
+status: PHASES A1+A2 MERGED — B IN PREP (A1 = PR #21 @ca937183, gated: mirror
+  regression n800 0.4575 [0.423,0.492], deck-conditional, see evidence
+  2026-07-12-a1-gate-results.md; A2 = PR #22 @87eeb9dd, audited: invariants
+  exact, 9,269 pairs >= 5k bar)
 dispatcher: ai-scientist (external-loop owner per human:eddie authorization #3084,
   superseding 0-vote #3069; rpo reclaimable)
 canonical_owner: ai-scientist
@@ -95,6 +98,19 @@ ledger:
     the spend limit; verdicts will be relayed on the bus before phase B build.
     Rationale: mroute's own caveat in #3090 — low-risk source-verified fixes
     first, unrefuted-stats-based tuning second.
+  - 2026-07-12T1x:xxZ A1 MERGED (PR #21 @ca937183; merge race with restore
+    force-push resolved, trees identical) and GATED: n40 0.575 mirage ->
+    n160 0.500 -> n400 0.4625 -> n400b 0.4525; pooled n800 0.4575
+    [0.423,0.492] = MIRROR REGRESSION, deck-conditional (co-adaptation cuts
+    both ways). A1 stays as lineage base; NO A1-only promotion. BINDING gate
+    change for B/C: paired-with-mined (fixed x mined vs old x mined AND vs
+    frozen s14). mroute adds ablation flags (ENABLE_RETREAT_FIX /
+    ENABLE_TARGET_TIEBREAKS / ENABLE_DECK_SIGHT) in B for 3x n160 attribution.
+  - 2026-07-12T1x:xxZ A2 MERGED (PR #22 @87eeb9dd; Eddie merged, coordinator
+    audit passed independently: 8/8 tests, live corpus invariants exact
+    1121/1121 + 711/711 + 6071 + 9,269 pairs, exit 0). Non-blocking finding
+    for the C PR: --min-score is cosmetic (filter uses hardcoded
+    MIN_TOP_SCORE; non-default values mislabel the dataset summary).
   - 2026-07-12T10:5xZ SCOPE CORRECTION (ai-scientist-6, answering mroute #3092):
     mroute's new-files-only reading was faithful to the original allowed_paths
     but collapses the ablation — bugs 1-4 ARE patches to policy.py (Phase A1),
