@@ -1,5 +1,5 @@
 {
-  "fetched_at_utc": "2026-07-11T21:38:00Z",
+  "fetched_at_utc": "2026-07-11T23:42:00Z",
   "command": "weco run results 7393d6ae-46a4-4b22-9cb5-a48abbab3d41 --format json",
   "run_id": "7393d6ae-46a4-4b22-9cb5-a48abbab3d41",
   "metric": "head_to_head_winrate",
@@ -17,11 +17,32 @@
       "node_id": "30b3ad6c-16b3-4a9c-b707-354057b77519"
     },
     {
+      "step": 4,
+      "parent_step": 3,
+      "metric": 0.56875,
+      "plan": "Candidate 89f76904cf, child of 58c77982cd: fully independent local confirm 226-174 (0.5650, Wilson [0.516,0.613]) and reconfirm 229-171 (0.5725, Wilson [0.524,0.620]); combined 455-345 (0.56875). Local evidence only; final harvester and rpo review still required.",
+      "node_id": "0fd580d0-a6ed-4bf0-941f-d6a4c03990da"
+    },
+    {
+      "step": 3,
+      "parent_step": 0,
+      "metric": 0.55625,
+      "plan": "Candidate 58c77982cd: fully independent local confirm 224-176 (0.5600, Wilson [0.511,0.608]) and reconfirm 221-179 (0.5525, Wilson [0.504,0.600]); combined 445-355 (0.55625). Local deck-search evidence only; no Kaggle action under parent hold.",
+      "node_id": "2f6d5456-f58f-443c-88da-be9f0d22efa1"
+    },
+    {
       "step": 2,
       "parent_step": 1,
       "metric": 0.5475,
       "plan": "Candidate d40d9dd567: child of 2c1368bc03; confirm 233-167 (0.5825, Wilson lower 0.534) but independent reconfirm regressed to 205-195 (0.5125, lower 0.464); combined 438-362, therefore not promotable.",
       "node_id": "ac60545c-44d3-4e36-b257-23a2f5486802"
+    },
+    {
+      "step": 5,
+      "parent_step": 0,
+      "metric": 0.53375,
+      "plan": "Candidate f007dbfd89: local confirm 229-171 (0.5725, Wilson [0.524,0.620]) but independent reconfirm collapsed to 198-202 (0.4950, Wilson [0.446,0.544]); combined 427-373 (0.53375), therefore reconfirm_out and not promotable.",
+      "node_id": "3e5b6a1f-a796-4e52-bf42-07b936b16a8a"
     },
     {
       "step": 0,
