@@ -245,6 +245,28 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   HARVEST_RESULT existed. The no-submit hold remains binding and completion still
   requires explicit rpo approval.
 
+## Status update 2026-07-12T01:18Z (immutable Stage-B runner merged)
+- **What's done:** published the exact PCMM screen/confirm/reconfirm producer as
+  ready-player-one PR #17 and babysat it through green CI, a clean merge surface,
+  zero comments/reviews/threads, and MERGED commit `fca4dc4`. The runner freezes
+  config, artifact hashes, phase, and unique arm run IDs; persists an exact ordered
+  prefix of receipt-bound raw arm evidence; makes interrupted bootstrap/arm writes
+  safely retryable; hard-stops invalid/search-inactive/latency failures; and
+  requires a passing, fresh, disjoint, independently recomputed confirm dataset
+  before reconfirm. Final no-game verification passed 45 tests and 18 subtests
+  plus Ruff, format, byte-compile, and diff checks. An adversarial re-audit of the
+  exact final hashes returned `COMMIT`.
+- **What's next:** keep detached search PID 1829394 and harvester PID 2260719
+  read-only until terminal harvest evidence exists and load settles, then recheck
+  all bundle hashes and invoke PR #17's immutable N=40-per-arm screen.
+- **Any blockers:** the measurement hold remains intentional. At 01:08Z, three
+  evaluator children were active, the ledger had reached 2,111 rows and was still
+  advancing, no `HARVEST_RESULT` existed, and 8-core load was 7.80/6.94/6.45. No
+  games, Weco credits, or submissions were consumed. A durable A2A refresh found
+  rpo's one-deck probe grant for `2804af5498`; it remains unconsumed until the
+  terminal harvester strict-builds and validates that exact artifact. Every other
+  deck remains held, and explicit rpo completion approval is still required.
+
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
 - BFTS relaunch: NOT recommended as-is (reproduces undeployable torch artifacts);

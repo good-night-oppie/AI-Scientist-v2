@@ -171,6 +171,37 @@ Observe run `7393d6ae-46a4-4b22-9cb5-a48abbab3d41` now also records:
 This was Observe only. No Optimize run or optimization credits were consumed;
 the observed account balance remained 62.92.
 
+## Immutable Stage-B phase runner
+
+Ready-player-one PR #17 published `scripts/run_pcmm_portfolio.py` and its no-game
+regression suite as one isolated logical unit. The reviewed head was
+`02db2a641afd564c1066b75030c675cd9eecc749`; GitHub CI passed, the PR had no
+comments, reviews, or review threads, and it merged into `feat/ptcg-agent` as
+`fca4dc4a9b747bc9e87a86e59f1a4ffa7fbd9b68`.
+
+The producer:
+
+- freezes the config bytes, candidate/baseline archive and canonical strategy
+  hashes, phase contract, portfolio ID, and distinct per-arm run IDs before games;
+- accepts only an exact ordered prefix of raw arm JSON plus immutable SHA-256
+  receipt sidecars, and compares completed raw hashes across every evaluator call;
+- emits invalid results before terminal hard-stop failure while cleaning partial
+  bootstrap/arm temporary state on interruption so an incomplete arm can resume;
+- recomputes every completed arm, rows payload, portfolio aggregate, and exact
+  report wrapper rather than trusting derived summaries;
+- requires reconfirm to cite a complete passing confirm directory, re-hashes all
+  of its evidence throughout the run, enforces fresh disjoint run IDs, and
+  aggregates only the reconfirm rows.
+
+Final packaging-only gates passed: 45 tests, 18 subtests, Ruff check, Ruff format
+check, `py_compile`, and `git diff --check`. The exact final runner/test SHA-256
+digests were `7736b873033a2f9f6afdf7b51bdbdef90e6a3ad136962ab9e8a4b9741ec2c8d1`
+and `b09fc34b61b670c144ff39e1d0a8297c7ef9e31127354162a1015b7a20c0de8e`.
+Two independent no-edit audits returned `COMMIT`; one first identified valid
+completed-raw replacement and interruption-residue attacks, which were closed with
+receipt/hash-window and atomic-cleanup regressions before the final approval.
+No games, provider calls, Weco credits, or ladder submissions occurred.
+
 ## Stage-B defer and launch condition
 
 At the 2026-07-12T00:27Z snapshot, deck-search PID `1829394` and harvester PID
@@ -183,7 +214,21 @@ Launch the N=40-per-arm, seat-balanced screen only after the producer and evalua
 children exit, the harvester writes its terminal result (or is explicitly audited
 terminal), load settles, and all five archive/canonical hashes re-verify. Any pass
 earns parent review for at most one probe; it does not displace the live champion.
-The Kaggle no-submit hold remains binding. For evolved decks, in-basin PROMOTABLE
-results are auto-HOLD unless independent reconfirm reaches at least 235/400 with
-Wilson lower bound above 0.5367; out-of-basin distance greater than 16 remains
-reviewable by rpo.
+The Kaggle no-submit hold remains binding except for an explicit one-candidate rpo
+release. For evolved decks, in-basin PROMOTABLE results are auto-HOLD unless
+independent reconfirm reaches at least 235/400 with Wilson lower bound above
+0.5367; out-of-basin distance greater than 16 remains reviewable by rpo.
+
+The 2026-07-12T01:08Z read-only refresh still did not satisfy the launch condition:
+both parent processes were alive, three evaluator children were active, the ledger
+had advanced to 2,111 rows, no terminal harvest marker existed, and 8-core load was
+7.80/6.94/6.45. The uncontaminated PCMM screen therefore remained deferred.
+
+The live A2A history contains that explicit exception: rpo `#2943` granted exactly
+one ladder probe for `2804af5498` after its independent reconfirm reached 238/400
+(0.595, Wilson lower 0.5462), clearing the preregistered in-basin bar. Rpo `#2952`
+confirmed it remained the unconsumed grant holder while later candidates were
+HOLD. The probe will not be packaged or submitted under active search load; the
+detached harvester is expected to select this same deck, strict-build it, and run
+the committed 20-game validator after search exit. Only a matching terminal
+artifact may consume the single released slot; all other submissions remain held.
