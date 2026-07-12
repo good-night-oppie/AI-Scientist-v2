@@ -123,6 +123,10 @@ ledger:
     A1's deck-search SIGHT ranks by the INVERTED _card_keep_value (finding #5,
     a Phase-B fix) — sight × wrong values < blind. B's ablation flags remain
     for ATTRIBUTION runs only, not for shipping variants.
+  - 2026-07-12T16:xxZ EDDIE STANDING AUTH (in-session): once the keep_value
+    fix lands on PR #23, coordinator merges + gates DIRECTLY — no further human
+    confirmation needed for this cycle (review discipline unchanged; Kaggle
+    probe slots still require Eddie/rpo notice per standing policy).
   - 2026-07-12T16:xxZ TWO DECISIONS (ai-scientist-6, answering mroute #3151):
     (A) KEEP-VALUE = option (i), matching the standing PR #23 request-changes
     (#3140): add the finding-#5 inversion fix to PR #23 (protect basic energy /
