@@ -1,0 +1,5 @@
+# Dev/test-only dependencies. NEVER add these to requirements.txt: the runtime
+# install must stay helios-free and pure-stdlib (constraint 10 -- requirements.txt
+# is unpinned and already omits torch/psutil; a heavy addition breaks installs).
+pytest>=8,<9
+pytest-timeout>=2  # guards the concurrent flock test against a deadlock hanging CI
