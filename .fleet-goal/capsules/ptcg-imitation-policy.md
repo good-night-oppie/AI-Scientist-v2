@@ -21,6 +21,17 @@ motivation (evidence-backed):
   - Purest signal: ZETADIVISION deck = 0.20 under our policy, 1180+ under theirs.
   - Replays of 1180-1220 sids are auth-free and contain full per-step
     (observation, action) pairs → imitation-grade supervision.
+IMPLEMENTATION SPEC NOW EXISTS (2026-07-12, workflow wpgxy045l):
+  .fleet-goal/evidence/M1/2026-07-12-policy-divergence-imitation-spec.md
+  Our policy agrees with >=1100 play on only 40.6% of 9,267 real decisions.
+  4 CODE BUGS found (blind deck/prize search; blind evolve/attach target;
+  retreat literally never fires; CTX_TO_DECK misclassified as self-loss) plus
+  a MAIN_SCORES ordering that is inverted vs observed play (ability 25 -> 85,
+  item above supporter, attach demoted + bench-preferring, retreat gated on).
+  START THERE — bugs 1-4 are verifiable by reading policy.py, no stats needed.
+  CAVEAT: adversarial verify phase died on a spend limit; findings are
+  count-grounded but not independently refuted.
+
 spec:
   1. build_imitation_dataset.py: from mined replays (runs/replay_mining/ +
      miner output), extract per-decision-point records: observation dict,
