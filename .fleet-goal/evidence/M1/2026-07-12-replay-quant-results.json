@@ -1,0 +1,338 @@
+{
+ "decision_counts": {
+  "top1100_seats": {
+   "total": 10484,
+   "forced": 711,
+   "forced_idx0": 711,
+   "multi": 9773,
+   "main_multi": 6071,
+   "total_ex_yesno": 9980,
+   "forced_ex_yesno": 711,
+   "multi_ex_yesno": 9269
+  },
+  "known_seats": {
+   "total": 10999,
+   "forced": 758,
+   "forced_idx0": 758,
+   "multi": 10241,
+   "main_multi": 6370,
+   "total_ex_yesno": 10486,
+   "forced_ex_yesno": 758,
+   "multi_ex_yesno": 9728
+  },
+  "all_seats": {
+   "total": 15459,
+   "forced": 1121,
+   "forced_idx0": 1121,
+   "multi": 14338,
+   "main_multi": 8918,
+   "total_ex_yesno": 14725,
+   "forced_ex_yesno": 1121,
+   "multi_ex_yesno": 13604
+  }
+ },
+ "strict_both1100": {
+  "episodes": 28,
+  "multi_decisions": 4231
+ },
+ "top_buckets_seltype_ctx": {
+  "0/0": 6071,
+  "1/7": 1744,
+  "9/43": 434,
+  "1/4": 368,
+  "1/3": 266,
+  "1/5": 169,
+  "1/21": 103,
+  "1/14": 90,
+  "1/8": 88,
+  "9/41": 70,
+  "1/1": 58,
+  "1/22": 47,
+  "7/37": 45,
+  "1/9": 38,
+  "1/13": 37,
+  "1/15": 35,
+  "8/40": 32,
+  "8/38": 27,
+  "1/16": 18,
+  "4/30": 14
+ },
+ "ability": {
+  "main_multi_with_ability": 1786,
+  "ability_taken": 798,
+  "rate": 0.4468,
+  "both_ability_attack_legal": 918,
+  "ability_taken_in_both": 345,
+  "rate_in_both": 0.3758
+ },
+ "retreat": {
+  "decisions_retreat_legal": 3457,
+  "retreat_chosen": 173,
+  "per_decision_rate": 0.05,
+  "turns_retreat_legal": 693,
+  "turns_retreated": 173,
+  "per_turn_rate": 0.2496,
+  "retreat_events_tracked": 173,
+  "zero_energy_paid": 134,
+  "free_rate": 0.7746
+ },
+ "energy_attach": {
+  "attach_chosen": 846,
+  "to_bench": 557,
+  "bench_rate": 0.6584,
+  "both_legal": 813,
+  "both_legal_bench": 545,
+  "both_legal_bench_rate": 0.6704
+ },
+ "ctx_to_deck": {
+  "decisions": 39,
+  "count_flexible(min<max)": 19,
+  "took_effective_max": 19,
+  "detail": [
+   {
+    "ep": 84117853,
+    "min": 1,
+    "max": 3,
+    "nopt": 3,
+    "picked": 3
+   },
+   {
+    "ep": 84119162,
+    "min": 1,
+    "max": 5,
+    "nopt": 8,
+    "picked": 5
+   },
+   {
+    "ep": 84119807,
+    "min": 1,
+    "max": 5,
+    "nopt": 9,
+    "picked": 5
+   },
+   {
+    "ep": 84124830,
+    "min": 1,
+    "max": 4,
+    "nopt": 4,
+    "picked": 4
+   },
+   {
+    "ep": 84129838,
+    "min": 1,
+    "max": 5,
+    "nopt": 6,
+    "picked": 5
+   },
+   {
+    "ep": 84162376,
+    "min": 1,
+    "max": 4,
+    "nopt": 4,
+    "picked": 4
+   },
+   {
+    "ep": 84164734,
+    "min": 1,
+    "max": 4,
+    "nopt": 4,
+    "picked": 4
+   },
+   {
+    "ep": 84166015,
+    "min": 1,
+    "max": 4,
+    "nopt": 4,
+    "picked": 4
+   },
+   {
+    "ep": 84169769,
+    "min": 1,
+    "max": 5,
+    "nopt": 6,
+    "picked": 5
+   },
+   {
+    "ep": 84186361,
+    "min": 1,
+    "max": 5,
+    "nopt": 5,
+    "picked": 5
+   },
+   {
+    "ep": 84187155,
+    "min": 1,
+    "max": 5,
+    "nopt": 8,
+    "picked": 5
+   },
+   {
+    "ep": 84216193,
+    "min": 1,
+    "max": 3,
+    "nopt": 3,
+    "picked": 3
+   },
+   {
+    "ep": 84333815,
+    "min": 1,
+    "max": 2,
+    "nopt": 2,
+    "picked": 2
+   },
+   {
+    "ep": 84342899,
+    "min": 1,
+    "max": 4,
+    "nopt": 4,
+    "picked": 4
+   },
+   {
+    "ep": 84343500,
+    "min": 1,
+    "max": 3,
+    "nopt": 3,
+    "picked": 3
+   },
+   {
+    "ep": 84343506,
+    "min": 1,
+    "max": 5,
+    "nopt": 8,
+    "picked": 5
+   },
+   {
+    "ep": 84344129,
+    "min": 1,
+    "max": 5,
+    "nopt": 6,
+    "picked": 5
+   },
+   {
+    "ep": 84344149,
+    "min": 1,
+    "max": 5,
+    "nopt": 8,
+    "picked": 5
+   },
+   {
+    "ep": 84347610,
+    "min": 1,
+    "max": 3,
+    "nopt": 3,
+    "picked": 3
+   }
+  ]
+ },
+ "play_mix_top": {
+  "ITEM": 1171,
+  "POKEMON": 696,
+  "SUPPORTER": 510,
+  "STADIUM": 109,
+  "ENERGY": 1
+ },
+ "play_mix_item_vs_supporter_ratio": 2.296,
+ "cadence_mean_tac": {
+  "ABILITY": {
+   "n": 798,
+   "mean": 5.57
+  },
+  "ATTACH": {
+   "n": 846,
+   "mean": 6.82
+  },
+  "ATTACK": {
+   "n": 660,
+   "mean": 10.17
+  },
+  "END": {
+   "n": 116,
+   "mean": 7.29
+  },
+  "EVOLVE": {
+   "n": 991,
+   "mean": 5.97
+  },
+  "PLAY_ENERGY": {
+   "n": 1,
+   "mean": 4
+  },
+  "PLAY_ITEM": {
+   "n": 1171,
+   "mean": 5.96
+  },
+  "PLAY_POKEMON": {
+   "n": 696,
+   "mean": 6.82
+  },
+  "PLAY_STADIUM": {
+   "n": 109,
+   "mean": 7.3
+  },
+  "PLAY_SUPPORTER": {
+   "n": 510,
+   "mean": 6.15
+  },
+  "RETREAT": {
+   "n": 173,
+   "mean": 8.01
+  }
+ },
+ "main_action_mix_top": {
+  "7": 2487,
+  "9": 991,
+  "8": 846,
+  "10": 798,
+  "13": 660,
+  "12": 173,
+  "14": 116
+ },
+ "bench": {
+  "seat_games": 134,
+  "ever_full5": 109,
+  "full5_rate": 0.8134,
+  "mean_bench_end_turn3": 4.04,
+  "n_turn3_obs": 89
+ },
+ "deck_energy": {
+  "seat_decks": 134,
+  "unique_team_decks": 10,
+  "mean_energy_unique": 10.4,
+  "per_unique_deck": [
+   7,
+   8,
+   9,
+   9,
+   10,
+   10,
+   10,
+   13,
+   13,
+   15
+  ]
+ },
+ "game_length": {
+  "n_episodes": 106,
+  "steps_mean": 148.7,
+  "steps_median": 150.5,
+  "steps_min": 25,
+  "steps_max": 262,
+  "turns_mean": 14.1,
+  "turns_median": 14.0,
+  "turns_min": 3,
+  "turns_max": 33
+ },
+ "rewards_vs_rating": {
+  "both_rated_games": 34,
+  "higher_rated_won": 13,
+  "higher_rated_winrate": 0.382,
+  "top1100_seat_games": 134,
+  "top1100_mean_reward": 0.104,
+  "top1100_winrate": 0.552
+ },
+ "actions_per_turn_top": {
+  "turns": 952,
+  "mean_max_tac": 9.61,
+  "median": 9.0
+ }
+}
