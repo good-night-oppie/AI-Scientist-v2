@@ -387,6 +387,24 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   on its curator — may delay claims; harness owns that); meta2 chain finish;
   imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
 
+## Status update 2026-07-12T11:3xZ (⚠️ A1 GATE: MIRROR REGRESSION — co-adaptation cuts both ways)
+- **PR #21 MERGED (ca937183)** after one review round (area-aware bug4 + format;
+  merge race with mroute's restore force-push resolved — trees verified identical).
+- **A1 gate result (bug-fixed policy × UNCHANGED s14 deck vs frozen live-s14):**
+  n40 0.575 (mirage #6) → n160 0.500 → n400 0.4625 → n400b 0.4525;
+  **combined n800 = 0.4575 [0.423, 0.492] — Wilson-upper < 0.50, a real mirror
+  REGRESSION.** Evidence: evidence/M1/2026-07-12-a1-gate-results.md.
+- **Reading:** deck↔policy co-adaptation confirmed in REVERSE — top-player-correct
+  mechanics hurt the degenerate 33-energy deck; the old bugs were accidental
+  co-adaptations. Does NOT test the M2 joint intervention (fixed × mined deck),
+  which is now the only informative experiment. A1 stays merged as lineage base;
+  NO A1-only bundle promotion; champion s14 untouched.
+- **Consequences wired:** B/C gates must pair with mined decks (fixed×mined vs
+  old×mined AND vs s14 bundle); mroute asked to expose per-pathway ablation
+  flags in B for cheap attribution (3×n160). Mirror-only gates are now known to
+  mis-rank policy work in both directions.
+- **mroute:** A2 dataset builder in progress (alignment #3098 + 4 invariants).
+
 ## Status update 2026-07-12T11:2xZ (🔬 PLATEAU ROOT-CAUSE VERIFIED — READ FIRST)
 - **Analysis complete (Eddie's ask):** evidence/M1/2026-07-12-plateau-root-cause-analysis.md
   (31-agent workflow wf_fc1549e0-ff8, 0 errors — the verify phase that died on spend
