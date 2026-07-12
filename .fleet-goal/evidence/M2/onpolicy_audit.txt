@@ -1,0 +1,57 @@
+known meta deck pool: 14 distinct decks (from 40 entries)
+
+>=1100 supervision records total: 76,405 across 33 teams
+
+TEAM                    RECORDS   %SUP   k/6  JAC_OURS ENERGY3 BEST_META_MATCH           
+--------------------------------------------------------------------------------------------------------
+kazuki0123               16,426  21.5%   1/6     0.034       0 tonakaiiii~54349578_ (0.48)
+WinDecks                 15,062  19.7%   1/6     0.115       7 meta7_978_フクフク (0.37)     
+tonakaiiii                7,310   9.6%   1/6     0.074       0 tonakaiiii~54349578_ (1.00)
+Dũng Đỗ                   6,872   9.0%   0/6     0.094       0 MPGaming~54553615_ag (0.68)
+nasuo445                  5,617   7.4%   3/6     0.033       0 nasuo445~54330715_ag (1.00)
+Majkel1337                4,408   5.8%   1/6     0.000       0 Majkel1337~54349578_ (1.00)
+Yushin Ito                3,470   4.5%   1/6     0.032       0 tonakaiiii~54349578_ (0.44)
+zoroark190                3,369   4.4%   1/6     0.065       1 vibechu~54395750_age (0.19)
+  ---------------------------------------- [80% of supervision covered above] --------------------
+btk15049                  2,754   3.6%   3/6     0.031       0 btk15049~54285670_ag (1.00)
+THIRD PTCG Club           2,312   3.0%   1/6     0.000       0 meta2_1031_NghiaTran (0.78)
+easonyanyan               2,036   2.7%   1/6     0.036       0 tonakaiiii~54349578_ (0.71)
+ZETADIVISION              1,001   1.3%   1/6     0.061       0 meta1_1106_ZETADIVIS (1.00)
+LiamK                       784   1.0%   2/6     0.069       1 meta5_979_pztriatomi (0.28)
+kashiwashira                631   0.8%   1/6     0.069       0 meta0_1106_BenjaminZ (0.09)
+Benjamin Zhao3927           553   0.7%   6/6     0.037       0 meta0_1106_BenjaminZ (1.00)
+BluezLee                    433   0.6%   1/6     0.143      18 MPGaming~54553615_ag (0.24)
+capbloo                     417   0.5%   1/6     0.000       0 meta2_1031_NghiaTran (0.78)
+vibechu                     339   0.4%   1/6     0.100       0 vibechu~54395750_age (1.00)
+XP3RiX                      317   0.4%   2/6     0.067       6 meta2_1031_NghiaTran (0.18)
+S4nkurero                   293   0.4%   1/6     0.074       0 tonakaiiii~54349578_ (1.00)
+aaa                         264   0.3%   1/6     0.000       0 Majkel1337~54349578_ (0.82)
+Boss's Orders Are All       245   0.3%   1/6     0.034       0 tonakaiiii~54349578_ (0.48)
+Michael Long                235   0.3%   1/6     0.029       0 Majkel1337~54349578_ (0.76)
+hoshippi                    232   0.3%   1/6     0.036       0 tonakaiiii~54349578_ (0.50)
+ShumpeiNomura               198   0.3%   1/6     0.077       0 meta4_983_monnosuke (0.20)
+MPGaming                    191   0.2%   0/6     0.036       0 MPGaming~54553615_ag (1.00)
+Gengar                      160   0.2%   4/6     0.069       0 nasuo445~54330715_ag (0.60)
+ごんさくよねきち                     96   0.1%   1/6     0.038       0 tonakaiiii~54349578_ (0.55)
+やる気元気ミワハルキ                   92   0.1%   6/6     0.033       0 meta0_1106_BenjaminZ (0.76)
+mitomeat823                  87   0.1%   6/6     0.037       0 meta0_1106_BenjaminZ (0.70)
+Hase2727                     70   0.1%   0/6     0.103       0 MPGaming~54553615_ag (0.77)
+Klein Houmani                68   0.1%   1/6     0.000       0 Majkel1337~54349578_ (0.83)
+kidekikish                   63   0.1%   1/6     0.029       0 Majkel1337~54349578_ (0.34)
+
+=== ON-POLICY FRACTION — two definitions ===
+(A) vs ARCHETYPE_CORE (k/6 >= 5, i.e. Benjamin-Zhao Mega-Lucario archetype):
+      732 / 76,405 = 0.96% of >=1100 supervision
+(B) vs the deck WE ACTUALLY FIELD (Jaccard >= 0.5 vs submission/deck.csv):
+      0 / 76,405 = 0.00% of >=1100 supervision
+
+MAX Jaccard vs OUR deck across ALL 135 ladder teams in the corpus:
+   0.429  masaaki imai                   (energy3=35)
+   0.429  Tanaka Chiromo                 (energy3=35)
+   0.375  Bulbaflare                     (energy3=27)
+   0.235  mojyaP                         (energy3=27)
+   0.190  松野恭成                           (energy3=0)
+   0.154  Pokkén                         (energy3=7)
+
+ladder teams whose modal deck carries >=20 basic energy (card-3), like ours (33): 4 / 135
+our deck: 11 distinct cards, 33x card-3, k/6=0, Jaccard vs meta0(BZ)=0.037

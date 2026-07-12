@@ -1,0 +1,31 @@
+TEAM                  RECORDS   %SUP   k/6  JAC_OURS   #LISTS ENERGY3
+------------------------------------------------------------------------
+kazuki0123             16,426  21.5%   1/6     0.034        1       0
+WinDecks               15,062  19.7%   1/6     0.115        2       7
+tonakaiiii              7,310   9.6%   1/6     0.074        1       0
+Dũng Đỗ                 6,872   9.0%   0/6     0.094        2       0
+nasuo445                5,617   7.4%   3/6     0.033        1       0
+Majkel1337              4,408   5.8%   1/6     0.000        4       0
+Yushin Ito              3,470   4.5%   1/6     0.032        3       0
+zoroark190              3,369   4.4%   1/6     0.065        3       1
+
+cumulative coverage of top 8: 81.8% of >=1100 supervision (charter asked >=80%)
+
+=== TEAMS AT 6/6 ARCHETYPE_CORE (the true on-policy-vs-CORE slice) ===
+  Benjamin Zhao3927         553 recs  k/6=6  jac_ours=0.037  lists=1
+  やる気元気ミワハルキ                 92 recs  k/6=6  jac_ours=0.033  lists=1
+  mitomeat823                87 recs  k/6=6  jac_ours=0.037  lists=1
+
+=== MODAL DECKLISTS (60 cards, sorted) — the two we were blind to ===
+
+kazuki0123  (1 distinct lists; modal played 168x)
+  composition: {7: 10, 66: 2, 112: 4, 305: 3, 646: 4, 647: 3, 648: 3, 649: 1, 1079: 3, 1086: 4, 1097: 2, 1119: 1, 1139: 1, 1152: 4, 1159: 1, 1197: 2, 1227: 4, 1231: 4, 1259: 4}
+  distinct cards: 19 | k/6 core: 1 | card-3 energy: 0
+
+WinDecks  (2 distinct lists; modal played 341x)
+  composition: {3: 7, 17: 4, 131: 2, 132: 2, 133: 2, 1030: 4, 1031: 3, 1086: 4, 1119: 2, 1121: 4, 1122: 3, 1152: 4, 1167: 1, 1192: 3, 1213: 3, 1225: 4, 1227: 4, 1229: 4}
+  distinct cards: 18 | k/6 core: 1 | card-3 energy: 7
+
+OUR FIELDED DECK (submission/deck.csv == s14, identical in all 5 submission tarballs)
+  composition: {3: 33, 721: 2, 722: 4, 723: 4, 1092: 1, 1121: 2, 1145: 2, 1163: 2, 1219: 4, 1227: 4, 1262: 2}
+  distinct cards: 11 | k/6 core: 0 | card-3 energy: 33
