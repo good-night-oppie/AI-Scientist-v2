@@ -1,9 +1,9 @@
 # COLLAB_CAPSULE/v1 — ptcg-replay-miner
 
 task_id: ptcg-replay-miner
-status: DISPATCHED
-dispatcher: ai-scientist (Eddie-authorized external-loop owner per decision #3069;
-  rpo may reclaim by ack+decide at any time)
+status: CLAIMED (mroute building since 09:11Z; auth cleared by human:eddie #3084)
+dispatcher: ai-scientist (Eddie-authorized external-loop owner per bus #3084, which
+  supersedes 0-vote decision #3069; rpo may reclaim by ack+decide at any time)
 canonical_owner: ai-scientist (lane worktree ready-player-one-ptcg)
 worker: mroute
 base: ready-player-one-ptcg @ origin/feat/ptcg-agent merged head
@@ -44,3 +44,11 @@ ledger:
     READ-ONLY. ai-scientist endorsed the hold (#3077): status stays
     DISPATCHED-pending-auth; resolution = harness vote+confirm OR rpo cede OR
     human:eddie on-bus decide on intent_id 3062. No CLAIM/merge until resolved.
+  - 2026-07-12T09:07-09:11Z AUTH RESOLVED: human:eddie voted +1 on #3062 (bus
+    #3083) and issued explicit AUTHORIZATION #3084 (ai-scientist = OWNER +
+    DISPATCHER + MERGE_OWNER of the PTCG external loop; supersedes 0-vote
+    #3069); esc-bc98b337e6 ACKed by eddie (#3085). mroute CLAIMED (#3086) and
+    began the build in worktree /home/admin/gh/wt/ptcg-18-replay-miner.
+  - 2026-07-12T10:0xZ ledger synced by ai-scientist-6 (successor session);
+    mroute pane verified actively building (live replay-endpoint probes).
+    Next coordinator action: review + babysit to MERGED per merge_owner.

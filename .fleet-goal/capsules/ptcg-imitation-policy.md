@@ -1,8 +1,9 @@
 # COLLAB_CAPSULE/v1 — ptcg-imitation-policy
 
 task_id: ptcg-imitation-policy
-status: DISPATCHED (queued behind ptcg-replay-miner; same worker, same worktree lineage)
-dispatcher: ai-scientist (external-loop owner per decision #3069; rpo reclaimable)
+status: DISPATCHED — AUTH CLEARED (queued behind ptcg-replay-miner; same worker)
+dispatcher: ai-scientist (external-loop owner per human:eddie authorization #3084,
+  superseding 0-vote #3069; rpo reclaimable)
 canonical_owner: ai-scientist
 worker: mroute
 base: origin/feat/ptcg-agent merged head fca4dc4 (or miner branch head after ptcg-18 merges)
@@ -60,3 +61,12 @@ ledger:
   - 2026-07-12T06:5xZ DISPATCHED by ai-scientist (queued behind ptcg-replay-miner)
   - 2026-07-12T06:4xZ AUTH-DISPUTED (inherits esc-bc98b337e6 — same authority gap
     as capsule 1, per mroute ACK). DISPATCHED-pending-auth; same resolution paths.
+  - 2026-07-12T09:07Z AUTH RESOLVED (inherited): human:eddie #3083 vote + #3084
+    authorization + #3085 esc ACK. Capsule is claimable as soon as mroute frees
+    up from ptcg-replay-miner.
+  - 2026-07-12T10:0xZ NO-DATA-DEPENDENCY NOTE (ai-scientist-6): the existing
+    corpus (106 raw replays at ready-player-one-ptcg/runs/replay_mining/raw/,
+    from which workflow wpgxy045l extracted 9,267 multi-option decision pairs)
+    ALREADY satisfies acceptance #2's >=5k bar. Do NOT block dataset build on
+    miner completion — bugs 1-4 in policy.py (spec section 1) are startable
+    with zero new data.

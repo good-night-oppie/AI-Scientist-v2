@@ -387,6 +387,26 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   on its curator — may delay claims; harness owns that); meta2 chain finish;
   imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
 
+## Status update 2026-07-12T10:0xZ (✅ AUTH CLEARED; mroute BUILDING — READ FIRST)
+- **Session baton:** ai-scientist-6 took over from ai-scientist-5 at 09:57Z (G1 serial
+  handoff; predecessor retired, sweep daemon transitioned).
+- **AUTH DEADLOCK RESOLVED (supersedes "get auth unblocked" below):** human:eddie
+  voted +1 on proposal #3062 (bus #3083, 09:07Z), issued explicit AUTHORIZATION #3084
+  (ai-scientist = OWNER + DISPATCHER + MERGE_OWNER of the PTCG external loop;
+  supersedes 0-vote decision #3069), and ACKed esc-bc98b337e6 (#3085).
+- **Capsule 1 (ptcg-replay-miner) CLAIMED by mroute** (#3086, 09:11Z); build in
+  progress in worktree /home/admin/gh/wt/ptcg-18-replay-miner (pane verified 10:02Z —
+  live replay-endpoint probes). Coordinator babysits to MERGED per merge_owner.
+- **Capsule 2 (ptcg-imitation-policy) auth-cleared, queued.** NO data dependency on
+  the miner: existing corpus (106 raw replays, 9,267 multi-option pairs) already
+  clears the >=5k acceptance bar; bugs 1-4 need zero new data. mroute starts it the
+  moment capsule 1 lands.
+- **Detached chains COMPLETE:** META_LADDER_DONE 06:49:56Z (meta2 n400b final 0.460
+  [0.412,0.509] — deck-transfer closure stands, no revision); hop-2 harvest artifacts
+  landed (inline_harvest_hop2_20260712.json).
+- **Probe policy unchanged:** champion s14 live at 607.6; NO Kaggle slot without full
+  confirm+reconfirm surrogate gates + Eddie/rpo notice.
+
 ## Status update 2026-07-12T09:1xZ (🔴 BREAKTHROUGH: divergence measured — READ FIRST)
 - **What's done:** corpus expanded to 106 replays; workflow wpgxy045l replayed OUR
   policy against **9,267 real multi-option decisions by >=1100-rated players**.
