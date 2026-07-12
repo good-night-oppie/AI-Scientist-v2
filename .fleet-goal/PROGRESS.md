@@ -387,6 +387,30 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   on its curator — may delay claims; harness owns that); meta2 chain finish;
   imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
 
+## Status update 2026-07-12T15:3xZ (🔴 IN-FLIGHT: paired meta0 gate trending A1-NEGATIVE — context-clear checkpoint)
+- **Coordinator context may be cleared (Eddie notice). Ground truth for successor:**
+  this file + capsules/ + evidence/M1/ + bus (a2a-coord.db, last relevant ~#3130)
+  + two Monitors in session ai-scientist-6 (lane bus watch; paired-gate log watch).
+- **Paired meta0 gate RUNNING** (detached pid on host, log:
+  session scratchpad a1-gate/paired_meta0_ladder.log). Design: chain1 =
+  A1-policy×meta0_1106 vs old-policy×meta0_1106 (policy delta where bugs bind);
+  chain2 = A1×meta0 vs frozen s14 (historical ref old×meta0 = 0.5075 n400).
+- **Chain1 so far: n40 0.45 → n160 0.5125 → n400 #1 = 0.395 [0.348, 0.444]**
+  (Wilson-upper ≪ 0.50). If the second n400 + chain2 confirm: A1 is WORSE on the
+  engine deck too — bug fixes alone are harmful everywhere tested.
+- **Leading hypothesis (mechanism):** A1 gave deck-search SIGHT but ranks picks
+  with `_card_keep_value`, whose extremes are INVERTED vs top play (they protect
+  energy, shed spare Pokémon — verified finding #5, scheduled for Phase B).
+  Blind index-0 was accidentally aligned (cf. EVOLVE index-0 = 94% top-play
+  match); sighted-with-inverted-values is confidently wrong. ⇒ A1 (sight) and
+  B (correct value model) are COUPLED — never ship/gate A1 alone again.
+  Attribution test when B lands: ENABLE_DECK_SIGHT=off should recover most gap.
+- **Worker:** mroute-1→mroute-2 baton (bus #3130), Phase B in prep (ablation
+  flags ENABLE_RETREAT_FIX/ENABLE_TARGET_TIEBREAKS/ENABLE_DECK_SIGHT + reorder).
+- **Next actions:** (1) await chain1 reconfirm + chain2 → commit evidence memo;
+  (2) relay to mroute: B priority rises, A1+B gate as ONE candidate;
+  (3) then attribution 3×n160 with B's flags. NO Kaggle slots; s14 live.
+
 ## Status update 2026-07-12T11:3xZ (⚠️ A1 GATE: MIRROR REGRESSION — co-adaptation cuts both ways)
 - **PR #21 MERGED (ca937183)** after one review round (area-aware bug4 + format;
   merge race with mroute's restore force-push resolved — trees verified identical).
