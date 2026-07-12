@@ -123,6 +123,15 @@ ledger:
     A1's deck-search SIGHT ranks by the INVERTED _card_keep_value (finding #5,
     a Phase-B fix) — sight × wrong values < blind. B's ablation flags remain
     for ATTRIBUTION runs only, not for shipping variants.
+  - 2026-07-12T18:2xZ EDDIE STANDING AUTH EXTENDED TO PHASE C (in-session:
+    "C 好了直接 gate，过了走 probe 流程"): C delivery -> coordinator review ->
+    merge -> paired gates (vs old x same-deck AND vs frozen s14, n400 +
+    independent reconfirm) -> on FULL PASS, execute the probe process directly:
+    build probe bundle, commit probe decision memo, post Eddie/rpo NOTICE on
+    the bus (notice-at-submission, no wait — pre-authorized by this directive;
+    halt only if rpo objects before submission completes), consume ONE slot.
+    Context: A1+B flat-reorder candidate is gate-FAILED (chain1 0.15/0.18/0.215);
+    C (learned per-card selectivity) is the expected probe candidate.
   - 2026-07-12T16:xxZ EDDIE STANDING AUTH (in-session): once the keep_value
     fix lands on PR #23, coordinator merges + gates DIRECTLY — no further human
     confirmation needed for this cycle (review discipline unchanged; Kaggle
