@@ -387,6 +387,34 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   on its curator — may delay claims; harness owns that); meta2 chain finish;
   imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
 
+## Status update 2026-07-12T11:2xZ (🔬 PLATEAU ROOT-CAUSE VERIFIED — READ FIRST)
+- **Analysis complete (Eddie's ask):** evidence/M1/2026-07-12-plateau-root-cause-analysis.md
+  (31-agent workflow wf_fc1549e0-ff8, 0 errors — the verify phase that died on spend
+  limit in wpgxy045l now COMPLETE: 24 adversarial verdicts on 12 claims × 2 lenses).
+- **Verdicts:** bugs 1/3/4 + orderings 1,2,3,5,6 CONFIRMED×2. TWO CORRECTIONS:
+  (a) bug2 select-level fix DOWNGRADED — ~3 divergent decisions/106 games
+  (ATTACH_TO never carries inPlay* 0/103; EVOLVE index-0 = top play 94%);
+  (b) BENCH_TARGET 3→5 REFUTED (non-binding for bench count; wrong direction
+  intra-turn). Also: bug1 PRIZE half is a no-op (hidden info); bug4 negligible
+  until a Night-Stretcher-class meta deck is adopted; bug4 fix must be
+  area-aware, NOT removal from SELF_LOSS_CONTEXTS.
+- **NEW ROOT CAUSE (unowned):** deck_search.py is_legal floors (Kyogre>=2,
+  {W}energy>=15) exclude ALL 14 mined meta decks — the whole 2,857-deck archive
+  lives in a caged region (max Jaccard 0.11 to any meta deck; we run 1 of the
+  5-6 near-universal staples). Needs a follow-on capsule before any future deck
+  search matters.
+- **Rating mechanics:** all submissions enter at 600; volatility band ~182pts;
+  607.6 ≈ parity-with-pool equilibrium; per-poll effects <~100pts unmeasurable.
+  Bottom line: ship policy-fixes × mined-deck as ONE joint intervention, gate
+  n400 vs s14 AND vs >=2 mined meta decks, then ONE probe slot; treat <+100pt
+  poll delta as unresolved (not failed).
+- **mroute pipeline:** capsule 1 MERGED+audited (PR #20 → 30ef89fb); capsule 2
+  Phase A CLAIMED — A1 bugs cleared by mroute's own 6-verifier pass (#3097),
+  alignment algorithm delivered (t+1 convention, invariants, ref code committed);
+  Phase B verdicts relayed → UNBLOCKED with corrected scope. Capsule 3
+  (mh-surrogate-adapter) revised per Eddie's Meta+Continuous directive
+  (static pre-screen, evidence cards, k>1 n600/alpha-spending, racing arms).
+
 ## Status update 2026-07-12T10:0xZ (✅ AUTH CLEARED; mroute BUILDING — READ FIRST)
 - **Session baton:** ai-scientist-6 took over from ai-scientist-5 at 09:57Z (G1 serial
   handoff; predecessor retired, sweep daemon transitioned).
