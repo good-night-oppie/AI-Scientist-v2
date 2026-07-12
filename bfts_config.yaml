@@ -85,3 +85,11 @@ agent:
   # select_node:
   #   model: gpt-4o
   #   temp: 0.3
+
+# --- Optional helios snapshot layer (checkpoint provenance) -------------------
+# Disabled unless uncommented. Commented => cfg.helios is None (semantics-neutral).
+# TOP-LEVEL: helios is a Config field, a sibling of agent:/exec:/debug: (NOT under agent:).
+# helios:
+#   enabled: false
+#   store_dir: null       # abs path OUTSIDE workspace_dir (atexit rmtree); e.g. under log_dir
+#   binary_path: null     # abs path to helios-cli built from HEAD (never the tracked ELF)

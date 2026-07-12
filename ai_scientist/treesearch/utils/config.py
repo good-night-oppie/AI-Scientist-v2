@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Hashable, cast, Literal, Optional
+from typing import Hashable, cast, Optional
 
 import coolname
 import rich
@@ -73,11 +73,21 @@ class AgentConfig:
     summary: Optional[StageConfig] = None
     select_node: Optional[StageConfig] = None
 
+
 @dataclass
 class ExecConfig:
     timeout: int
     agent_file_name: str
     format_tb_ipython: bool
+
+
+@dataclass
+class HeliosConfig:
+    enabled: bool = False  # OFF by default
+    store_dir: Optional[str] = None  # abs path OUTSIDE workspace_dir (Phase 5+)
+    binary_path: Optional[str] = (
+        None  # abs path to helios-cli built from HEAD (Phase 5+)
+    )
 
 
 @dataclass
@@ -107,6 +117,7 @@ class Config(Hashable):
     agent: AgentConfig
     experiment: ExperimentConfig
     debug: DebugConfig
+    helios: Optional[HeliosConfig] = None  # MUST be LAST — the only defaulted field
 
 
 def _get_next_logindex(dir: Path) -> int:
