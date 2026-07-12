@@ -387,6 +387,26 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   on its curator — may delay claims; harness owns that); meta2 chain finish;
   imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
 
+## Status update 2026-07-12T09:1xZ (🔴 BREAKTHROUGH: divergence measured — READ FIRST)
+- **What's done:** corpus expanded to 106 replays; workflow wpgxy045l replayed OUR
+  policy against **9,267 real multi-option decisions by >=1100-rated players**.
+  **AGREEMENT = 40.6%.** MAIN bucket (62% of decisions) = 28.2%; mean rank of THEIR
+  pick under our scorer = 4.57. The imitation thesis is CONFIRMED — and the gap is
+  **mostly BUGS**: blind deck/prize search (19.8% of decisions are coin-flips),
+  blind evolve/attach target (100% blind), retreat NEVER fires (0/6071),
+  CTX_TO_DECK misclassified. Biggest behavioral miss: OPT_ABILITY(25) < OPT_ATTACK(30)
+  ⇒ we fire abilities 1.7% vs their 44.1% — the draw/search engine is disabled.
+  Full spec + MAIN_SCORES rewrite: evidence/M1/2026-07-12-policy-divergence-imitation-spec.md
+  (committed 098eeae; bus #3087). Capsule ptcg-imitation-policy points at it.
+- **What's next (SUCCESSOR — this is the top of the queue):** get auth unblocked, then
+  mroute fixes bugs 1-4 (verifiable by READING policy.py — no stats needed) + reorders
+  MAIN_SCORES → n40/n160/n400/n400-reconfirm h2h ladder → mixed-field vs 1180-tier decks.
+  Pair the fixed policy with a mined top deck (policy+deck must move TOGETHER — that is
+  why deck-transfer alone failed).
+- **Any blockers:** AUTH (below). Also: workflow verify phase died on a monthly spend
+  limit (25/30 verifiers errored) → findings are count-grounded but NOT independently
+  refuted. Bugs 1-4 need no stats; verify them by reading the source.
+
 ## Status update 2026-07-12T07:0xZ (deck-transfer CLOSED; auth dispute pending)
 - meta2 final rungs: n400 0.4675 [0.419,0.516], n400b 0.460 — BOTH mined decks
   sub-parity at high N. Deck-transfer negative result FINAL (bus #3079-ish).
