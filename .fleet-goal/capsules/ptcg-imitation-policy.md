@@ -111,6 +111,15 @@ ledger:
     1121/1121 + 711/711 + 6071 + 9,269 pairs, exit 0). Non-blocking finding
     for the C PR: --min-score is cosmetic (filter uses hardcoded
     MIN_TOP_SCORE; non-default values mislabel the dataset summary).
+  - 2026-07-12T15:4xZ EDDIE DIRECTIVE (binding, in-session): A1+B are ONE
+    candidate — gate them TOGETHER; A1 is NEVER shipped/gated alone again.
+    Grounded in paired-gate data: A1-alone lost to old policy in the s14
+    mirror (n800 0.4575 [0.423,0.492]) AND worse on the meta0 engine deck
+    (n800 pooled 0.41; both n400 Wilson-uppers < 0.474) AND collapsed vs
+    frozen s14 (n160 0.3688 vs old×meta0 ref 0.5075). Mechanism hypothesis:
+    A1's deck-search SIGHT ranks by the INVERTED _card_keep_value (finding #5,
+    a Phase-B fix) — sight × wrong values < blind. B's ablation flags remain
+    for ATTRIBUTION runs only, not for shipping variants.
   - 2026-07-12T10:5xZ SCOPE CORRECTION (ai-scientist-6, answering mroute #3092):
     mroute's new-files-only reading was faithful to the original allowed_paths
     but collapses the ablation — bugs 1-4 ARE patches to policy.py (Phase A1),
