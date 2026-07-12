@@ -14,6 +14,9 @@ isolation: branch pr/ptcg-19-imitation-policy
 allowed_paths:
   - src/ready_player_one/ptcg/policy.py  (REVISED 10:5xZ — Phase A1 bug fixes
     ONLY; Phase B may touch MAIN_SCORES values; nothing else in this file)
+    (RE-REVISED 16:xxZ — Phase B may ALSO correct _card_keep_value per the
+    Eddie coupling directive: finding #5 inversion fix is B's load-bearing
+    element, behind ENABLE_KEEPVALUE_FIX default ON; see decision ledger below)
   - scripts/build_imitation_dataset.py   (new)
   - scripts/policy_imitation.py          (new — the distilled policy, Phase C)
   - tests/test_imitation_*.py            (new)
@@ -120,6 +123,25 @@ ledger:
     A1's deck-search SIGHT ranks by the INVERTED _card_keep_value (finding #5,
     a Phase-B fix) — sight × wrong values < blind. B's ablation flags remain
     for ATTRIBUTION runs only, not for shipping variants.
+  - 2026-07-12T16:xxZ TWO DECISIONS (ai-scientist-6, answering mroute #3151):
+    (A) KEEP-VALUE = option (i), matching the standing PR #23 request-changes
+    (#3140): add the finding-#5 inversion fix to PR #23 (protect basic energy /
+    shed spare Pokémon in _score_card_pick paths), + regression tests, behind
+    ENABLE_KEEPVALUE_FIX (default ON). allowed_paths widened accordingly —
+    mroute's hesitation was caused by the coordinator's own earlier
+    MAIN_SCORES-only scope note, now superseded. Empirical derivation from the
+    A2 dataset preferred if cheap; constants matching the give-up ordering fine.
+    (B) PHASE C SCOPE AMENDED by data: strict 6/6 archetype-core = 553
+    decisions from ONE pilot (Benjamin Zhao) — too small to train a ranker.
+    TRAIN on the full top1100 set (9,269 pairs), EVALUATE on both the full set
+    (targets the 28.2% MAIN-agreement metric) and the strict archetype slice
+    (deployment-relevant, matches the meta0 gate deck). Keep the parametric
+    --archetype-core-min knob; episode-level held-out split (no leakage);
+    h2h acceptance #3 unchanged (n160 >= 0.55 on the target deck, coordinator
+    runs). C design ACCEPTED: stdlib-only averaged-perceptron structured
+    ranker, weights baked as constants, deployable choose()/score_option.
+    Suggestion (not requirement): keep a hard lethal/KO override rail on top
+    of the learned scorer.
   - 2026-07-12T10:5xZ SCOPE CORRECTION (ai-scientist-6, answering mroute #3092):
     mroute's new-files-only reading was faithful to the original allowed_paths
     but collapses the ablation — bugs 1-4 ARE patches to policy.py (Phase A1),
