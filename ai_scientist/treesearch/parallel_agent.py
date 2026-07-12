@@ -392,6 +392,30 @@ class MinimalAgent:
                 f"The evaluation should be based on {self.cfg.agent.k_fold_validation}-fold cross-validation but only if that's an appropriate evaluation for the task at hand."
             )
 
+        # --- Phase 7 warm-start reuse instruction (flag-gated, default OFF) ---
+        # LOAD-BEARING: without telling the model to reuse the restored cache, a
+        # warm-started (materialized) parent working dir is IGNORED and the speedup is
+        # ZERO. Gated on cfg.helios.warm_start so flag-OFF stays byte-identical to the
+        # Phase-6 baseline guideline; the getattr keeps it None-safe on installs
+        # without helios. "validate, else regenerate" is ALSO the torn-.npy mitigation:
+        # a truncated cache fails np.load -> the script recomputes instead of crashing.
+        if (
+            getattr(self.cfg, "helios", None) is not None
+            and self.cfg.helios.enabled
+            and self.cfg.helios.warm_start
+        ):
+            impl_guideline.extend(
+                [
+                    "Warm-start / cached-artifact reuse: a previous node's working directory has "
+                    "been restored into working_dir. BEFORE any expensive download or preprocessing:",
+                    "  - Check whether the artifact already exists in working_dir (e.g. os.path.exists).",
+                    "  - Load and VALIDATE it (wrap np.load(..., allow_pickle=True) in try/except); if it "
+                    "loads and passes a shape/sanity check, REUSE it and skip regeneration.",
+                    "  - If the cached file is missing, corrupt, or fails validation, regenerate it "
+                    "from scratch exactly as you otherwise would (this keeps the script self-contained).",
+                ]
+            )
+
         return {"Implementation guideline": impl_guideline}
 
     @property
@@ -1547,6 +1571,15 @@ class ParallelAgent:
 
             # Execute and parse results
             print("Running code")
+            # --- Phase 7 warm-start (flag-gated, default OFF) ---
+            # Seed this node's FRESH per-node working_dir (Phase 6) with the parent's
+            # committed filesystem BEFORE exec so cached artifacts are already on disk.
+            # Never raises: draft/buggy-parent/disabled/failure all degrade to cold.
+            from .helios_store import maybe_warm_start
+
+            warm_state = maybe_warm_start(cfg, parent_node, working_dir)  # 'warm'|'cold'
+            logger.info("node warm_state=%s", warm_state)
+            # --- end Phase 7 ---
             exec_result = process_interpreter.run(child_node.code, True)
             process_interpreter.cleanup_session()
 

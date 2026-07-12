@@ -89,6 +89,9 @@ class HeliosConfig:
         None  # abs path to helios-cli built from HEAD (Phase 5+)
     )
     isolate_node_dirs: bool = False  # Phase 6: per-node exec dirs (OFF => baseline)
+    warm_start: bool = (
+        False  # Phase 7: children inherit parent filesystem (OFF => baseline)
+    )
 
 
 @dataclass

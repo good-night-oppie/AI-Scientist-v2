@@ -318,3 +318,68 @@ def materialize(snapshot_id, out_dir, cfg):
         lock_path=lock_path,
     )
     return store.materialize(snapshot_id, out_dir)
+
+
+def _materialize(cfg, snapshot_id, out_dir):
+    """Internal warm-start read shim -- the SINGLE monkeypatch target for the tests.
+
+    Delegates to the audited :func:`materialize` (which shells ``materialize --id X
+    --out <fresh empty dir>`` per constraint 5, NEVER the merge-style read verb).
+    Kept as a thin,
+    separately-named function so a unit test can ``monkeypatch`` it to raise / to
+    assert-never-called without needing a real helios binary. :func:`maybe_warm_start`
+    calls this and nothing else, so patching it fully controls the materialize path.
+    """
+    return materialize(snapshot_id, out_dir, cfg)
+
+
+def maybe_warm_start(cfg, parent_node, working_dir) -> str:
+    """Materialize a non-buggy parent's snapshot into the (empty) per-node ``working_dir``.
+
+    Phase 7's speed lever: before a non-draft node executes, seed its FRESH per-node
+    working dir (Phase 6) with the parent's committed post-exec filesystem, so a cached
+    dataset / preprocessed tensor / intermediate is already on disk and the node's code
+    (steered by the flag-gated reuse prompt at ``parallel_agent._prompt_impl_guideline``)
+    can skip regenerating it.
+
+    Returns ``"warm"`` iff a materialize actually ran, else ``"cold"``. NEVER RAISES:
+    every failure mode degrades to a plain cold-start so the node still executes from
+    scratch -- a throw here would regress the search (the inverse of this phase's job).
+
+    Guards (each returns ``"cold"`` without spawning any subprocess):
+      * flag OFF / helios absent -- ``getattr(cfg, "helios", None)`` falsy, or
+        ``enabled``/``warm_start`` False. Zero helios calls when disabled (byte-identity).
+      * DRAFT node -- ``parent_node is None`` (there is no parent filesystem to inherit).
+      * BUGGY parent -- ``parent_node.is_buggy`` True. The debug branch DELIBERATELY
+        re-enters buggy parents (``parallel_agent`` ``_debug``), and a buggy parent's
+        snapshot can be torn (timeout SIGKILL half-writes a ``.npy``) or wrong; inheriting
+        it would poison the whole subtree. This is failure-mode (a)'s in-code guard.
+      * no ``snapshot_id`` on the parent (nothing to materialize).
+    Any exception from the materialize (bogus/unknown id, missing binary, exit 1, torn
+    store) is caught, logged at WARNING, and turned into ``"cold"``.
+
+    ``working_dir`` MUST be the fresh per-node Phase-6 dir and MUST still be empty:
+    :meth:`HeliosStore.materialize` refuses a non-empty out dir (which likewise degrades
+    to cold here), so stale-file contamination cannot leak in.
+    """
+    helios = getattr(cfg, "helios", None)
+    if not (
+        helios
+        and getattr(helios, "enabled", False)
+        and getattr(helios, "warm_start", False)
+    ):
+        return "cold"
+    if parent_node is None or getattr(parent_node, "is_buggy", False):
+        return "cold"  # draft OR buggy parent -> failure-mode (a) guard
+    sid = getattr(parent_node, "snapshot_id", None)
+    if not sid:
+        return "cold"
+    try:
+        # constraint 5: materialize --out <FRESH EMPTY dir>, never the merge read verb.
+        # constraint 4: flock-serialized inside the Phase-2 wrapper (Pebble single-writer).
+        # constraint 9: exit!=0 -> HeliosCommandError (stderr surfaced) -> fall back cold.
+        _materialize(cfg, sid, working_dir)
+        return "warm"
+    except Exception as e:  # a speed hint must never break the node
+        logger.warning("warm-start materialize failed for %s -> cold-start: %s", sid, e)
+        return "cold"

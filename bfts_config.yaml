@@ -94,3 +94,4 @@ agent:
 #   store_dir: null       # abs path OUTSIDE workspace_dir (atexit rmtree); e.g. under log_dir
 #   binary_path: null     # abs path to helios-cli built from HEAD (never the tracked ELF)
 #   isolate_node_dirs: false  # Phase 6: key exec dirs on node id (fixes metric contamination); OFF => baseline
+#   warm_start: false  # Phase 7: children inherit parent filesystem (cached-artifact reuse); OFF => baseline
