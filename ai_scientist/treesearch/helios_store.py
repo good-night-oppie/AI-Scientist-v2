@@ -262,7 +262,7 @@ def snapshot_node_working_dir(cfg, working_dir, *, node_id=None):
         workspace/idea_dir/repo root).
       * Delegates the CLI call to :class:`HeliosStore` -- the single audited chokepoint
         (stdout-JSON parse per constraint 9, ``flock`` per constraint 4, pinned
-        ``HELIOS_STORE_DIR`` per constraint 6, materialize-not-restore discipline).
+        ``HELIOS_STORE_DIR`` per constraint 6, materialize-only read discipline).
         Returns a PLAIN ``str``; the caller assigns it directly to
         ``child_node.snapshot_id`` (constraint 6 -- never through
         ``Path().resolve().relative_to(os.getcwd())``).
@@ -306,7 +306,7 @@ def materialize(snapshot_id, out_dir, cfg):
     byte-for-byte proof must fail loudly rather than silently return a wrong dir.
     Constraint 5: this delegates to :meth:`HeliosStore.materialize`, which shells out to
     ``materialize --id X --out <fresh empty dir>`` and NEVER to the merge-style
-    ``restore`` (which never deletes stale files and would leak sibling-branch content).
+    read verb (which never deletes stale files and would leak sibling-branch content).
     """
     helios = getattr(cfg, "helios", None)
     if helios is None:
