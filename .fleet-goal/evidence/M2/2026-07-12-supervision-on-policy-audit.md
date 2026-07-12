@@ -96,9 +96,9 @@ The charter assumed (A) *is* (B). It is not.
 Both are **mono-list** (or near it) — they are stable archetypes, not noise. Together they
 are **41 % of our supervision**, and neither is our deck nor the ARCHETYPE_CORE deck.
 
-### Full 6/6 ARCHETYPE_CORE slice — the charter undercounted it
+### Full 6/6 ARCHETYPE_CORE slice — and a correction *against me*
 
-The charter said *"the only ≥1100 team hitting 6/6 core is Benjamin Zhao3927."* There are **three**:
+Against the **raw 679-episode corpus** there are **three** teams at 6/6:
 
 | team | records | k/6 | Jaccard vs OUR deck |
 |---|---:|:---:|---:|
@@ -106,6 +106,18 @@ The charter said *"the only ≥1100 team hitting 6/6 core is Benjamin Zhao3927."
 | やる気元気ミワハルキ | 92 | 6/6 | 0.033 |
 | mitomeat823 | 87 | 6/6 | 0.037 |
 | **total** | **732** | | **0.96 % of supervision** |
+
+> **RETRACTION — I was unfair to the charter here.** I originally wrote that the charter
+> "undercounted" this slice. It did not. `archetype_teams()` selects from the
+> **`inline_harvest_*.json` files (16 decks / 9 teams)**, *not* from the 679-episode raw
+> corpus. Under **the code's own selector**, k ≥ 6 picks **only Benjamin Zhao3927** → 553
+> records = 0.72 %. The charter's single-team framing **matches what the code actually does**.
+> My 732 / 3-teams figure is correct only against the raw corpus, which is a different
+> population. The charter was right; I was measuring a different thing. Retracted.
+
+> **Second self-correction:** the fielded deck is byte-identical across **six** tarballs
+> (SHA256 `1156379a…`), not five — `s15_ordered_reply` also carries it. I undercounted my
+> own evidence.
 
 ---
 
@@ -162,13 +174,71 @@ deepened a distribution we do not play.
 
 ---
 
-## Verification
+## Verification — 4-lane adversarial, **0 of 4 refuted**, all high confidence
 
-An independent 4-lane adversarial workflow re-derived these numbers from the bytes and
-attacked each claim (is `submission/deck.csv` really what we field; is ARCHETYPE_CORE really
-just a filter; recompute Jaccard/k6 independently incl. threshold-robustness and a count-aware
-metric; is the Task-2 consequence sound or does a deck-agnostic ranker rescue it).
-Result appended on the bus; see the DONE mail for the verdict.
+Independent lenses re-derived everything from the bytes and attacked each claim. All four
+failed to refute. Two produced evidence **stronger than mine**.
+
+**Threshold robustness (the key attack — it fails).** On-policy fraction vs our deck:
+
+| Jaccard ≥ | 0.05 | 0.10 | 0.12 | **0.15** | 0.20 | 0.30 | 0.50 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| % of supervision | 48.2 % | 20.8 % | 0.57 % | **0.00 %** | 0.00 % | 0.00 % | 0.00 % |
+
+**0 % holds at every threshold from 0.15 up.** To get a nonzero fraction you must drop to
+≈ 0.10 — decks sharing ~3 of ~30 card names. Not threshold-gamed. Count-aware metrics make it
+**stronger**: weighted/multiset Jaccard = 0.00 % at ≥ 0.3; Bray-Curtis = 0.57 % at ≥ 0.3
+(BluezLee alone, 433 records). And the four teams that *are* genuinely similar to us
+(Bray-Curtis up to **0.817**, Tanaka Chiromo) have **zero supervision records** — one seat
+each, none in the ≥ 1100 split — and both their seat-decks **lost** (reward −1).
+
+### THE DECISIVE FACT — Task 2 is not merely useless, it is *actively harmful*
+
+The steelman ("the ranker scores option *types*, not card identities, so it transfers") is
+**false**. `featurize()` (`policy_imitation.py:165-240`) emits two **pure card-identity**
+features — `play_card={cid}` and `abil_card={acid}` — and the comment at `:202-207` says this
+is deliberate: *"Let the ranker learn a per-source-card weight — this per-card/state
+selectivity is the whole point of distillation."*
+
+Retrained from the 76,405 records (episode-disjoint split): **176 weights = 132 card-identity
++ 44 generic.** Ablating card identity costs **−11.73 pp MAIN** (47.13 % → 35.40 %) — the
+per-card channel carries the **majority of the model's lift** over the 28.2 % heuristic.
+
+**Per-card coverage of the 11 cards in the deck we actually field:**
+
+| ranker trained on | cards of OUR deck covered |
+|---|---|
+| all top-1100 supervision | **5 / 11** → 1092 Secret Box, 1121 Ultra Ball, 1145 Mega Signal, 1219 Petrel, 1227 Lillie's |
+| **archetype-core (= what Task 2 deepens)** | **1 / 11** → 1227 only |
+
+Those 5 are exactly our **trainer engine** — the cards you hold several of at once, where
+`play_card=` is the only available tiebreak. **Task 2 would strip 4 of the 5 per-card weights
+our deck can actually use**, and spend the corpus on `play_card=678` (Mega Lucario ex), 1102,
+1141, 1142, 1152 — cards we never draw, whose weights are **dead at serve time**.
+
+Corroborating: leave-one-team-out transfer costs **−5.7 to −11.0 pp MAIN** even *between
+ladder decks* (which resemble each other far more than any resembles ours). And Task 2's
+direction taken to its limit (train on the 564-record archetype slice) scores 58.95 % MAIN on
+its own decisions but only **35.18 % on every other deck** vs 47.19 % for the full-corpus model
+— **−12.01 pp; it does not transfer.**
+
+### The honest counterweight (in fairness to the charter — option 2 is live)
+
+A genuine deck-agnostic backbone **does** exist, and it is bigger than I first thought:
+
+- 44 generic features carry **93.1 %** of all feature firings; a generic-only model still
+  reaches **35.40 % MAIN**, above the 28.2 % hand-tuned heuristic.
+- **33 of our 60 cards are basic {W} energy (card 3), played via `OPT_ATTACH` — featurized with
+  ZERO card-identity features.** Over half our deck is handled by fully transferable signal.
+- **40 %** of multi-option decisions (all non-MAIN, 28,274 / 69,966) use **no** card-identity
+  feature at all. That entire bucket is deck-agnostic.
+- Structurally our deck is the **same archetype shape** as BZ's: a Mega-ex beatdown
+  (723 Mega Abomasnow ex + 722 Snover + 721 Kyogre + heavy basic energy) vs BZ's Mega Lucario
+  ex + basic {F} energy. Role-level transfer is plausible in principle.
+
+So **option 2 (deck-agnostic ranker) is viable** — it just costs the −11.73 pp card-identity
+channel, and it should be gated on cross-deck transfer rather than on an "on-policy fraction"
+that is structurally 0 %.
 
 ## Reproduce
 
