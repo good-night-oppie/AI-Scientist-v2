@@ -1,7 +1,20 @@
 # COLLAB_CAPSULE/v1 — ptcg-corpus-expansion
 
 task_id: ptcg-corpus-expansion
-status: DISPATCHED (to child fleet-agent sctst-aide at spawn)
+status: PARTIAL-ACCEPTED + UNBLOCK ISSUED (2026-07-12T19:4xZ)
+  - Child verified the charter premise FALSE: the frozen miner discards fetched
+    replays (writes only manifest/cursor/CSVs; empirical 300-req proof 106->106;
+    3 adversarial refuters). Raw growth requires persistence code.
+  - PARTIAL DELIVERY ACCEPTED by parent: rating-join fix via frozen-miner
+    manifest growth (8->85 rows) recovered 4 silently-dropped top-tier teams:
+    n_pairs 9,269 -> 12,901 (+39.2%), MAIN 6,071 -> 8,464, teams 9 -> 13,
+    invariants 1050/1050 pass, baseline exactly reproduced. Join now saturated
+    (1.9% ceiling) — child correctly stopped mining.
+  - DIRECTION: (c-immediate) scratchpad persistence wrapper explicitly
+    authorized (parent ruling: wrapper in child-owned scratchpad importing
+    frozen functions = data plumbing, NOT a repo code edit) -> resume mining to
+    >=300 raw; (a-durable) ~6-line --raw-dir spec dispatched to mroute, queued
+    BEHIND the builder extension; child switches to the flag when merged.
 dispatcher: ai-scientist (external-loop owner per #3084; child creation per
   Eddie in-session order 2026-07-12 + harness height-4 decree #3158/#3159)
 canonical_owner: ai-scientist (parent; completion requires parent approval)
