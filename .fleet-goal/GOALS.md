@@ -1,7 +1,8 @@
 # GOALS — ai-scientist child fleet-agent
 
 status: ACTIVE — child of rpo
-goal_thread_id: 019f52f2-7d79-7ad0-a1c6-d02bdcd3199e
+goal_thread_id: (UNSET by Eddie 2026-07-12 via /goal; former 019f52f2-7d79-7ad0-a1c6-d02bdcd3199e.
+  Goal now anchored on THIS .fleet-goal/ + ai-scientist-5 Claude session task list + A2A intents.)
 inherited_from: ai-scientist-5 / Claude session 6adb5ba8-e934-46e3-8270-9f17b96885ba
 parent_agent: rpo
 parent_cwd: /home/admin/gh/ready-player-one
@@ -9,6 +10,10 @@ tree_level: 3
 children: []
 may_create_child_fleet_agents: false
 completion_requires_parent_approval: true
+operating_mode: COORDINATOR (orch-proj doctrine; Eddie directive 2026-07-12) —
+  no direct coding/editing by this agent; implementation delegated to mroute
+  execution tier (COLLAB_CAPSULE for cross-lineage writes). Running frozen,
+  merged, immutable evaluators and polling/monitoring remain coordinator ops.
 
 ## Guardrails
 

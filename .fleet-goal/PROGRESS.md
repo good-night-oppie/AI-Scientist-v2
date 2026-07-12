@@ -267,6 +267,137 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   terminal harvester strict-builds and validates that exact artifact. Every other
   deck remains held, and explicit rpo completion approval is still required.
 
+## Status update 2026-07-12T05:5xZ (ai-scientist-5 Claude coordinator — goal re-armed)
+- **What's done:** Eddie unset the /goal thread; goal re-anchored on .fleet-goal/ +
+  session task list + A2A (GOALS.md updated: operating_mode COORDINATOR per Eddie —
+  no direct coding, implementation → mroute). Fleet-enroll SELF-CHECK/SETUP green
+  (ON_BUS, WATCHED, retro #3059); fleet-doctor DIAGNOSE: healthy (exit 0).
+  **DECK SEARCH TERMINAL 05:37Z:** 3,399 evals, 46 PROMOTABLE; harvester fired
+  cleanly (honest validator rc=0): best `58f62b5135` reconfirm 261/400 wr 0.6525
+  Wilson [0.605,0.698] — CLEARS the preregistered in-basin bar (≥235/400, lo>0.5367);
+  bundle submission_search_deck_58f62b5135.tar.gz + validation log persisted;
+  harvester A2A #3058. **Kaggle fresh poll:** probe 54585744 recovered 464.5→548.1;
+  champion s14 54554870 at 602.4 (leads +54.3). Hold #2872 still binding.
+- **What's next:** (1) launch the frozen PCMM Stage-B N=40/arm screen — launch
+  condition NOW satisfied (producer+harvester exited, HARVEST_RESULT exists, load
+  settling) — from a read-only worktree at origin merged head fca4dc4 after
+  re-verifying all five archive/canonical hashes; (2) dispatch mroute (capsule) to
+  reconcile diverged feat/ptcg-agent (local 6 ahead — content-dupes of merged PRs —
+  / 31 behind); (3) ask rpo: grant currently on a41403b867 (lo .579) vs terminal
+  best 58f62b5135 (lo .605) — transfer decision + reviews #18-#20.
+- **Any blockers:** rpo review latency (rpo-27 quota-blocked per #3052, since
+  healed per fleet-doctor); hold #2872 prohibits all submissions pending rpo.
+
+## Status update 2026-07-12T06:0xZ (PCMM Stage-B screens LAUNCHED)
+- **What's done:** all launch conditions verified — producer/harvester exited,
+  HARVEST_RESULT.md terminal, load settled, **all five archive hashes PASS** vs
+  frozen configs/pcmm_r1_portfolio.json, runner digest byte-identical to audited
+  `7736b873…`. Both candidate screens launched DETACHED + SEQUENTIAL from
+  read-only worktree `ready-player-one-ptcg-screen` @ merged head fca4dc4:
+  metamon_router_r1 then pokechamp_macro_minimax_r1, phase=screen (N=40/arm,
+  seat-balanced, ≤3.0 s/game). Run dirs:
+  `ready-player-one-ptcg-pcmm-r1/runs/pcmm_r1/screen_{metamon,pokechamp}_r1/`;
+  done-marker `stageB_screen.done`. No code edits (coordinator ops only);
+  diverged feat/ptcg-agent left untouched — mroute reconcile capsule requested
+  from harness in A2A #3060.
+- **What's next:** on done-marker → read per-arm raw JSON + portfolio summaries,
+  deliver per-arm table to rpo alongside the grant-transfer question
+  (a41403b867 lo .579 vs terminal best 58f62b5135 lo .605). Any screen pass earns
+  parent review for at most one probe; it does not displace champion s14.
+- **Any blockers:** hold #2872 binding; rpo decision latency.
+
+## Status update 2026-07-12T06:1xZ (PCMM Stage-B screens COMPLETE — both FAIL)
+- **What's done:** both screens finished clean (~5 min total, zero invalids, spg
+  within budget). **metamon_router_r1 gates_pass=False** (macro .5583 OK but
+  worst-arm .375 < .40 — collapses vs the evolved-deck arm while beating both
+  reference arms .625/.675). **pokechamp_macro_minimax_r1 gates_pass=False**
+  (macro .4667 < .55 with search genuinely active, 976/742/1130 calls). PCMM
+  candidate stream CLOSED at screen — honest negative; the mixed-field gate
+  prevented a 4th overfit promotion. Results → rpo/harness A2A #3061; evidence
+  evidence/M1/2026-07-12-pcmm-stageB-screen-results.md; immutable artifacts in
+  ready-player-one-ptcg-pcmm-r1/runs/pcmm_r1/screen_{metamon,pokechamp}_r1/.
+- **What's next:** deck stream is the sole promotion path. Awaiting rpo:
+  grant transfer a41403b867 → 58f62b5135 + reviews #18-#20. mroute reconcile
+  capsule pending from harness (#3060). Ladder monitoring continues (probe
+  548.1 vs s14 602.4).
+- **Any blockers:** hold #2872 binding; all next moves are rpo-gated.
+
+## Status update 2026-07-12T06:0xZ (EDDIE DIRECTIVE: external loop — break the 600 stall)
+- **Ground truth:** leaderboard top 1232.3, a dozen teams >1100; we are 607.6
+  (s14) + 548.1 (probe). ~620pt CLASS gap — the inner ±5pt loop cannot close it.
+- **What's done:** PROPOSAL #3062 on the bus (rpo-owned external loop: L0 mroute
+  replay miner → L1 bene mh_search seeded from MINED top-meta decks → L2 frozen
+  PCMM portfolio runner with top-meta arms as surrogate gate → L3 ~3/day ladder
+  probes as true fitness; reframe: mid-season rating is information, final
+  ranking = latest-2 at deadline, so slot conservation now optimizes the wrong
+  objective). ENFORCED escalation esc-8f57f8aa02 → rpo (ack by 06:30Z).
+  Capsule request #3064 → harness (mroute miner build). **L0 FEASIBILITY
+  CONFIRMED live** (#3065): EpisodeService/ListEpisodes works by submissionId;
+  opponent submissionIds + scores visible in our own episodes → graph-walk to
+  >1100 teams → GetEpisodeReplay → decks+actions readable. No auth needed.
+- **What's next:** rpo decide #3062 (+ hold conversion to budgeted probes);
+  harness capsule → mroute builds miner; then swap PCMM arms to top-meta
+  reconstructions and rpo starts mh_search. ai-scientist coordinates evidence +
+  probe bookkeeping only.
+- **Any blockers:** rpo ack pending (enforcer backs up after 06:30Z).
+- **EDDIE AUTHORIZATION 2026-07-12 ~06:1xZ (recorded verbatim intent):** if rpo
+  does not ack esc-8f57f8aa02 by 06:30Z, ai-scientist DRIVES the external loop
+  itself: assumes loop ownership (decide #3062 citing this authorization),
+  becomes dispatcher for the mroute miner capsule, starts bene-mh surrogate-gated
+  search, and operates the L3 probe budget per #3062. Coding stays delegated to
+  mroute; ai-scientist drives via orchestration/MCP/frozen evaluators. This
+  authorization supersedes the rpo hold posture in the no-ack branch.
+
+## Status update 2026-07-12T06:3xZ (TAKEOVER EXECUTED — external loop live)
+- **esc-8f57f8aa02 expired unacked 06:30:19Z; rpo silent since 04:19Z.** Posted
+  decision #3069 on proposal #3062 (verified type=decision by read-back):
+  ai-scientist ASSUMES external-loop ownership per Eddie order; rpo reclaimable.
+- **L0 LIVE + producing:** replays confirmed AUTH-FREE (redirect-follow;
+  correction #3068). Inline harvest: 8 unique top-meta decks (≤1106-rated) at
+  runs/replay_mining/ + manifest. META FINDING: top decks play ZERO card-3
+  energy (ours carry 33) — our whole deck search explored the wrong basin;
+  dominant archetype core {6,678,1102,1141,1142,1152} across ≥6 top players.
+- **First surrogate screens (frozen h2h, n40):** meta0_1106 deck under OUR
+  frozen policy 25-15 (0.625) vs live-s14; meta2_1031 24-16 (0.600); meta1_1106
+  8-32, meta4_983 11-29 → mined decks TRANSFER selectively; policy-deck
+  coevolution confirmed necessary.
+- **Running detached:** (a) full ladder chain meta0+meta2 (n160→n400→n400
+  reconfirm, runs/replay_mining/ladder.log); (b) hop-2 harvest seeded at
+  1106-tier targeting >1200 (hop2.log).
+- **Dispatched:** COLLAB_CAPSULE ptcg-replay-miner → mroute (#3070; capsule doc
+  in .fleet-goal/capsules/), base = origin merged head fca4dc4.
+- **Probe policy under my ownership:** NO Kaggle slot until a candidate passes
+  full confirm+reconfirm surrogate gates; Eddie/rpo notified before any consume.
+
+## Status update 2026-07-12T06:5xZ (LOOP PIVOT: deck-transfer dead, policy is the gap)
+- **Ladder verdicts (frozen h2h):** meta0_1106 deck n40 0.625 → n160 0.450 →
+  n400 0.5075 [0.459,0.556] = confirm_out; meta2_1031 trending 0.459 @ n400.
+  Deck-transfer under our policy ≈ parity — dead end, twice confirmed. Sharpest
+  proof: ZETADIVISION deck 0.20 under our policy vs 1180+ under theirs → the
+  620pt gap is POLICY. (Winner's-curse discipline caught the n40 mirage again.)
+- **Hop-2 harvest:** reached 1220 tier (sid 54349578); 16 more decks
+  (inline_harvest_hop2_20260712.json); all top decks zero card-3 energy.
+- **CAPSULE 2 dispatched → mroute:** ptcg-imitation-policy (dataset from
+  1100+ replays ≥5k (obs,action) pairs + stdlib-only distilled policy targeting
+  dominant archetype {6,678,1102,1141,1142,1152}; frozen-gate acceptance).
+  bene-mh benchmark adapter = follow-on capsule (mh needs a registered
+  benchmark; candidates are def run(problem) harnesses — adapter is code →
+  mroute, not coordinator).
+- **Next:** miner CLAIM by mroute (note: mroute mid-escalation esc-0de9ce977c
+  on its curator — may delay claims; harness owns that); meta2 chain finish;
+  imitation dataset → policy → gates → probe decision w/ Eddie/rpo notice.
+
+## Status update 2026-07-12T07:0xZ (deck-transfer CLOSED; auth dispute pending)
+- meta2 final rungs: n400 0.4675 [0.419,0.516], n400b 0.460 — BOTH mined decks
+  sub-parity at high N. Deck-transfer negative result FINAL (bus #3079-ish).
+- AUTH DISPUTE (mroute, procedurally correct): decision #3069 is 0-vote; both
+  capsules DISPATCHED-pending-auth (ledgers updated). Resolution = harness
+  adjudication (esc-bc98b337e6) OR rpo cede OR human:eddie decide on 3062.
+  Eddie given the exact one-line command in-session. NO claim/merge meanwhile.
+- IMITATION DATASET SIZED (16 raw replays archived): ~159 pairs/replay, 96%
+  single-option selects → option-scorer re-weighting, stdlib-distillable;
+  5k bar ≈ 31 replays. Capsule 2 de-risked; mroute starts warm post-auth.
+
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
 - BFTS relaunch: NOT recommended as-is (reproduces undeployable torch artifacts);
