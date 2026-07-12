@@ -520,7 +520,13 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
 - NONE. Creds delivered + installed 2026-07-10 ~20:49Z (esc-ced2411dbe acked);
   first submission live (ref 54539022).
 
-## Completion evidence offered for rpo approval
+## [M1-HISTORICAL — RETIRED 2026-07-12 per rpo condition (a), bus #3203]
+The completion bar below predates the negative closure and contradicts it (it
+assumed a positive result: "evolved agent beats seed >=+5pts AND submission
+validates"). M1 closed as an honest NEGATIVE result (GOALS.md M1 section);
+M2's bar supersedes. Preserved verbatim for the record:
+
+## Completion evidence offered for rpo approval [RETIRED]
 - E1: local winrate table (seed vs evolved) from experiment_data.npy — reproducible
   via scripts/ptcg_eval.py.
 - E2: BFTS run artifacts (journal.json, best_solution_*.py, tree_plot.html) under

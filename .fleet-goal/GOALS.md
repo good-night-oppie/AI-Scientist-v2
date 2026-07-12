@@ -97,8 +97,8 @@ Scope:
 Decisions:
 - Frozen live-s14 policy and engine are the baseline; the deck is the active lever.
 - A local win is a ladder-probe candidate, not proof of leaderboard improvement.
-- Final child completion and any Kaggle promotion require explicit `rpo` approval.
-- Parent rpo granted one-probe approval in A2A shared-log `#2852`; submission
+- Final child completion requires explicit `rpo` review of completion evidence. [ANNOTATED 2026-07-12 per rpo #3203: the PROMOTION/submission half is SUPERSEDED by Eddie authorization #3084 (notice-at-submission model, rpo objection window, silence=proceed) — this line no longer gates probes.]
+- [M1-HISTORICAL, SUPERSEDED-BY-#3084 for the probe path] Parent rpo granted one-probe approval in A2A shared-log `#2852`; submission
   `54585744` used that single slot and completed with initial public score `600.0`.
   Its early follow-up score moved to `464.5`, below s14 `580.7`, activating the
   parent hold: no further deck submission without new reconfirmed evidence and a
@@ -112,7 +112,7 @@ Decisions:
 Blockers:
 - No infrastructure blocker.
 - Final harvest waits on the bounded search; search/harvester remain healthy.
-- No promotion or external submission is allowed under parent hold `#2872`.
+- [STRUCK 2026-07-12 per rpo #3203: the former "parent hold #2872" line was doubly stale — #2872 was an unrelated mail; the real hold was #2852 cond(3), lifted by Eddie #3084. No submission hold exists; the probe path runs notice-at-submission per #3084.]
 
 Evidence required:
 - PROGRESS.md updated with What's done / What's next / Any blockers.
@@ -130,4 +130,4 @@ Evidence required:
 - Pure counterfactual tests for dynamic legal options, guarded router overrides,
   macro-turn stopping, max-min order, deadline abstention, and search-state release.
 - A2A completion-evidence message delivered to parent `rpo`.
-- Parent rpo approval recorded before status changes to COMPLETE.
+- Parent rpo approval recorded before status changes to COMPLETE. [SCOPE NOTE 2026-07-12: this gates M1 completion-evidence ONLY — decoupled from submission per #3084/#3203.]
