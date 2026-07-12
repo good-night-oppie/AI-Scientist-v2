@@ -200,3 +200,4 @@ huggingface/
 .serena/
 .helios/
 HELIOS_STORE_DIR/
+.venv-test/
