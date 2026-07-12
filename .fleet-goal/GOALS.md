@@ -127,7 +127,16 @@ Evidence required:
 - Weco Observe updated with baseline and the final selected candidate.
 - Mixed-field manifest with distinct archive and canonical source+deck hashes;
   raw per-arm/seat evidence; unique run IDs; no pooled promotion gate.
-- Pure counterfactual tests for dynamic legal options, guarded router overrides,
-  macro-turn stopping, max-min order, deadline abstention, and search-state release.
+- ~~Pure counterfactual tests for dynamic legal options, guarded router overrides,
+  macro-turn stopping, max-min order, deadline abstention, and search-state release.~~
+  **[WAIVED 2026-07-12 per rpo #3202/#3204/#3217 — N/A to a negative closure.]** These six
+  counterfactual tests exist to protect a PROMOTION decision for a PCMM candidate. BOTH PCMM
+  candidates FAILED the Stage-B gates and were never promoted or probed — `metamon_router_r1`
+  worst-arm 0.375 < 0.40 min (despite macro 0.5583); `pokechamp_macro_minimax_r1` macro
+  0.4667 < 0.55 with search genuinely active. There is therefore no promotion decision for
+  these tests to protect. Evidence: `evidence/M1/2026-07-12-pcmm-stageB-screen-results.md`.
+  The aggregate suites (23 macro / 49 metamon / 17 portfolio / 45 runner) cover the mechanics
+  and remain on record. Waiver substance accepted by rpo in #3217; this annotation is the
+  repo-side record that #3217 required before M1 can be recorded COMPLETE.
 - A2A completion-evidence message delivered to parent `rpo`.
 - Parent rpo approval recorded before status changes to COMPLETE. [SCOPE NOTE 2026-07-12: this gates M1 completion-evidence ONLY — decoupled from submission per #3084/#3203.]
