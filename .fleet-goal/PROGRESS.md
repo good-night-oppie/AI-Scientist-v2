@@ -224,6 +224,27 @@ package + submit. Research seeds: ~/gh/ready-player-one/src/ready_player_one/see
   further Kaggle submission; final child completion still requires explicit rpo
   approval.
 
+## Status update 2026-07-12T00:29Z (PCMM implementation published; screen safely deferred)
+- **What's done:** completed and independently audited both clean-room strategy
+  families: PokeChamp-style complete-turn macro-minimax (`7b6dbb2`, 23 tests) and
+  MetaMon-style guarded proposer/judge (`e9a9484`, 49 tests). Built/imported both
+  immutable bundles and bound their archive plus canonical source/deck hashes into
+  the three-arm portfolio alongside exact live ladder availability. Refreshed Weco
+  Observe with `58c77982cd` (0.55625), `89f76904cf` (0.56875), and negative
+  `f007dbfd89` (0.53375, reconfirm_out); no Optimize credits were used. Published
+  the full ready-player-one chain as green, review-thread-free merged PRs #3-#16,
+  including CI repairs and the durable s18 N=300 rejection artifact. Parent rpo
+  independently returned `SOUND` for the macro candidate in A2A `#2940`.
+- **What's next:** continue read-only monitoring of detached search PID 1829394 and
+  harvester PID 2260719. Only after their evaluator children exit, terminal harvest
+  evidence exists, and CPU load settles: re-verify all hashes and run the frozen
+  N=40-per-arm seat-balanced PCMM screen, then send the per-arm table to rpo.
+- **Any blockers:** no implementation or infrastructure blocker. The running search
+  intentionally blocks uncontaminated game measurement; at 00:27Z the ledger was
+  still advancing (1,874 rows), three workers occupied about three cores, and no
+  HARVEST_RESULT existed. The no-submit hold remains binding and completion still
+  requires explicit rpo approval.
+
 ## What's next (decision points for rpo/Eddie)
 - CHAMPION s14 is live on the ladder accruing rating — no action needed there.
 - BFTS relaunch: NOT recommended as-is (reproduces undeployable torch artifacts);

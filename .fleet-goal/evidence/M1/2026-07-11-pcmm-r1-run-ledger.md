@@ -1,6 +1,6 @@
 # AI-Scientist run ledger — PCMM-R1
 
-status: DETERMINISTIC STAGE A COMPLETE; POLICY IMPLEMENTATION IN PROGRESS; GAME SCREEN PENDING FINAL PREFLIGHT
+status: DETERMINISTIC STAGE A + POLICY IMPLEMENTATION + IMMUTABLE PREFLIGHT COMPLETE; GAME SCREEN DEFERRED UNTIL LIVE PRODUCER IDLE
 approval evidence: user said `go with $ai-scientist and $weco and $andrej-karpathy-perspective` on 2026-07-11 UTC
 goal thread: `019f52f2-7d79-7ad0-a1c6-d02bdcd3199e`
 AI-Scientist repo: `/home/admin/gh/AI-Scientist-v2` (`ptcg-run`)
@@ -111,3 +111,79 @@ bundle archive/strategy hashes, selected candidate mode, game count, seat gates,
 timeout, CPU load, and output paths. Preserve each per-arm raw JSON and a normalized
 portfolio summary. A confirm and reconfirm must remain separate datasets and
 separate decisions.
+
+## Candidate implementation and immutable packaging
+
+Both clean-room candidate families are complete and independently reviewed:
+
+- PokeChamp-style macro-minimax: source commit `7b6dbb2`, published via PR #13.
+  It performs bounded complete-turn max-min over two deterministic hidden-zone
+  priors and falls back through the frozen anchor to an emergency legal selection.
+  The substrate/candidate suite passes 23 tests. Parent rpo review in A2A `#2940`
+  returned `SOUND` and authorized proceeding to the recorded screen.
+- MetaMon-style guarded router: source commit `e9a9484`, published via PR #14.
+  It accepts only re-derived audited final-prize or conservative-retreat proposals;
+  malformed attacker/opponent attachments and effectful off-reference matchups
+  fail closed. The final independent review returned `COMMIT`; 49 tests pass.
+
+No-game bundles build and import successfully:
+
+- `runs/pcmm_r1/pokechamp_macro_minimax_r1.tar.gz`: archive SHA-256
+  `e5f94f2be8d00fd66868513757efdc6b142be28a40a98b62db2467381b64a5d5`,
+  canonical strategy SHA-256
+  `58a3fde783c0d7581e2109ee932d926535c9e768b6f0bc818c1a1f28d9576322`.
+- `runs/pcmm_r1/metamon_router_r1.tar.gz`: archive SHA-256
+  `0b259d61bf1402e07bcd436777a64e065d6fa75d9c508035127d6a36e04f11c9`,
+  canonical strategy SHA-256
+  `3f3de70e5be2bda8b67cbd3b3050e28050b479605129adfca7eec52f79958266`.
+
+The canonical digest covers `main.py`, `deck.csv`, and every bundled Python
+source. `configs/pcmm_r1_portfolio.json` binds both candidates plus all three
+baseline archives and records live ladder availability: s14 `54554870` at 580.7,
+evolved deck `54585744` at 464.5, and s18 explicitly `not_submitted`.
+
+## Publication and CI evidence
+
+Every ready-player-one change was isolated and babysat through live GitHub CI,
+zero review threads, and MERGED state into `feat/ptcg-agent`:
+
+- PR #4 repaired the previously baseline-broken Ruff gate by checking changed
+  Python files while retaining full pytest; PR #6 invokes pytest through the
+  active interpreter.
+- PRs #3, #5, #7-#10 published honest harvest validation, independent rejection,
+  deterministic tests, approved-probe state, initial ladder evidence, and the
+  post-probe hold as separate units.
+- PRs #11-#14 published the PCMM evidence gate, macro substrate, macro candidate,
+  and guarded MetaMon candidate.
+- PR #15 persisted the s18 N=300 rejection payload (130-170, Wilson
+  `[0.378,0.490]`, zero invalids); PR #16 published immutable candidate/baseline
+  hashes and per-arm ladder snapshots.
+
+## Weco Observe extension
+
+Observe run `7393d6ae-46a4-4b22-9cb5-a48abbab3d41` now also records:
+
+- step 3: `58c77982cd`, combined independent evidence `0.55625`;
+- step 4: `89f76904cf`, combined independent evidence `0.56875`;
+- step 5: `f007dbfd89`, combined `0.53375` but `reconfirm_out` after a 198-202
+  independent reconfirm.
+
+This was Observe only. No Optimize run or optimization credits were consumed;
+the observed account balance remained 62.92.
+
+## Stage-B defer and launch condition
+
+At the 2026-07-12T00:27Z snapshot, deck-search PID `1829394` and harvester PID
+`2260719` were alive, the ledger was still advancing at 1,874 rows, three evaluator
+children occupied roughly three full CPU cores, and no `HARVEST_RESULT.md` existed.
+Running the PCMM screen concurrently would contaminate both latency and win-rate
+evidence, so no games were started.
+
+Launch the N=40-per-arm, seat-balanced screen only after the producer and evaluator
+children exit, the harvester writes its terminal result (or is explicitly audited
+terminal), load settles, and all five archive/canonical hashes re-verify. Any pass
+earns parent review for at most one probe; it does not displace the live champion.
+The Kaggle no-submit hold remains binding. For evolved decks, in-basin PROMOTABLE
+results are auto-HOLD unless independent reconfirm reaches at least 235/400 with
+Wilson lower bound above 0.5367; out-of-basin distance greater than 16 remains
+reviewable by rpo.
