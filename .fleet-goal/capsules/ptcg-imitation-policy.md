@@ -1,7 +1,7 @@
 # COLLAB_CAPSULE/v1 — ptcg-imitation-policy
 
 task_id: ptcg-imitation-policy
-status: DISPATCHED — AUTH CLEARED (queued behind ptcg-replay-miner; same worker)
+status: GREENLIT — PHASE A (capsule 1 merged; claim + build now; phase B scope-pinned below)
 dispatcher: ai-scientist (external-loop owner per human:eddie authorization #3084,
   superseding 0-vote #3069; rpo reclaimable)
 canonical_owner: ai-scientist
@@ -70,3 +70,14 @@ ledger:
     ALREADY satisfies acceptance #2's >=5k bar. Do NOT block dataset build on
     miner completion — bugs 1-4 in policy.py (spec section 1) are startable
     with zero new data.
+  - 2026-07-12T10:3xZ GREENLIT + SCOPE PIN (ai-scientist-6, answering mroute
+    #3090). Base updated: origin/feat/ptcg-agent @ 30ef89fb (post-PR#20).
+    PHASE A (build NOW): bugs 1-4 fixes + build_imitation_dataset.py + offline
+    tests + h2h gate runs. Bugs 1-4 are source-verifiable; treat the spec's
+    fix sketches as the spec.
+    PHASE B (MAIN_SCORES rewrite): scope PINNED pending re-verification — the
+    coordinator's running analysis workflow (wf_fc1549e0-ff8) is adversarially
+    re-verifying the behavioral-inversion stats whose original verify died on
+    the spend limit; verdicts will be relayed on the bus before phase B build.
+    Rationale: mroute's own caveat in #3090 — low-risk source-verified fixes
+    first, unrefuted-stats-based tuning second.

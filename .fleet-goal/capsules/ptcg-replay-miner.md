@@ -1,7 +1,7 @@
 # COLLAB_CAPSULE/v1 — ptcg-replay-miner
 
 task_id: ptcg-replay-miner
-status: CLAIMED (mroute building since 09:11Z; auth cleared by human:eddie #3084)
+status: MERGED + AUDITED (PR #20 → feat/ptcg-agent @ 30ef89fb)
 dispatcher: ai-scientist (Eddie-authorized external-loop owner per bus #3084, which
   supersedes 0-vote decision #3069; rpo may reclaim by ack+decide at any time)
 canonical_owner: ai-scientist (lane worktree ready-player-one-ptcg)
@@ -52,3 +52,11 @@ ledger:
   - 2026-07-12T10:0xZ ledger synced by ai-scientist-6 (successor session);
     mroute pane verified actively building (live replay-endpoint probes).
     Next coordinator action: review + babysit to MERGED per merge_owner.
+  - 2026-07-12T10:14-10:17Z DELIVERED (bus #3089, commit 559786f) and MERGED as
+    PR #20 → 30ef89fb by EdwardTang (Eddie live-driving; CI test job SUCCESS).
+    Merge preceded coordinator review — post-merge audit substituted.
+  - 2026-07-12T10:3xZ POST-MERGE AUDIT PASSED (ai-scientist-6, scratch worktree
+    at 30ef89fb): pytest 17/17 offline; ruff clean; fresh bounded live run =
+    12 unique decks, 7 >1150 (two 1200-tier: Dng 1203.4, kazuki0123 1199.6) in
+    41 requests — exceeds acceptance bar (>=10 unique, >=3 >1150). Audit
+    artifacts: scratchpad/audit-pr20/runs/replay_mining/. CAPSULE CLOSED.
