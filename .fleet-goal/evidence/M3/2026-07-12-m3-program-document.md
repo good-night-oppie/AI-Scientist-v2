@@ -141,3 +141,31 @@ Execute Phase 1 exactly per §3: reuse the frozen `scripts/mine_replays.py` seam
   of the mixed-field gate on the correct engine before M3 trusts it, and reframes the M2 reads.
   Handling: immediate bus escalation to rpo + Eddie; no gate result is treated as ladder-predictive
   until the version question is resolved. A mismatch outranks any battery outcome.
+
+## ADDENDUM 3 — 2026-07-13 (rpo #3309: C2 verdict logic AMENDED before the log lands)
+
+**A sha mismatch does NOT imply an engine mismatch.** Proven on this host: runtime env engine
+(7acbfc7b, `.venv/.../cabt/cg/libcg.so`) vs the copy bundled into every search agent (ffd89bf9,
+`src/.../ptcg/cg/libcg.so`) — same 1,342,400 bytes, identical 99-symbol export tables, different
+sha = same source compiled twice (non-reproducible build). Kaggle compiles its own copy; a third
+sha is EXPECTED, not alarming.
+
+**Amended C2 verdict ladder (supersedes "any mismatch = STOP-AND-ESCALATE"):**
+1. sha MATCH → CONCLUSIVE same-engine-same-build. Gates admissible. C1(ii) live.
+2. sha MISMATCH → **INCONCLUSIVE — never halt on bytes.** Escalate semantically, cheapest first:
+   (a) .so size + exported-symbol count/set (same ⇒ same code, different build ⇒ no drift;
+       future probes print these — one-line payload addition);
+   (b) version string if libcg exports one (kaggle_environments 1.32.0 already printed);
+   (c) **behavioral engine canary** — seeded rollout whose outcome differs between engine builds,
+       encoded into the ACTION channel exactly like the numpy bit; decoded from the public episode
+       JSON, immune to compilation noise AND log rate-limits.
+3. Only a confirmed SEMANTIC difference is STOP-AND-ESCALATE. Bytes alone = investigate flag.
+
+**Board items (from the same review):**
+- SEARCH-vs-ENV BUILD EQUIVALENCE (low priority, not blocking): every search agent (incl. s18, the
+  reference arm of every gate) searches on ffd89bf9 while games resolve on 7acbfc7b. Same
+  size/symbols ⇒ almost certainly harmless, but NEVER CHECKED — one seeded-rollout equivalence test
+  closes a potential third silent-instrument bug permanently.
+- **LADDER NOISE FLOOR, measured free:** the probe plays the SAME s14 policy as 54554870 ⇒
+  |probe_score − s14_score| on a fixed policy IS the poll-noise floor guardrail (7') demands.
+  Record it explicitly once the probe's rating stabilizes. (Early: probe 568.9@7ep vs s14 605.3.)
