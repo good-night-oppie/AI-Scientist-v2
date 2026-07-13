@@ -95,3 +95,20 @@ model-tier-specific contention). ~25 attempts over ~90 min. PARKED, not abandone
 - Results append to the program doc as a dated REVIEW ANNEX (never edited into the body).
 - Nothing blocks on this: rpo's #3292 full-text review (C1/C2/C3, accepted @535398e) already
   provides the independent external critique; Phase 0/1 approved and running.
+
+## DELTA — 2026-07-13 ~05:55Z (screen verdicts + probe elevation)
+
+- SCREEN: armA KILLED (0.350/0.200); B1 KILLED on macro (0.467/0.425 — cleared worst floor, beat
+  armA; language of record: "NOT SUPPORTED at screen", NOT "refuted" — ΔB1 never computed, n40).
+  Both kills VALID+CONSERVATIVE (slow s18 flatters candidates; they lost anyway).
+- G6 pulse: on-policy moved macro +11.7pp — first evidence on-policy supervision has value.
+  B2 = ceiling test, PENDING an IN-BAND screen: s18 pre-flight must be ≤2.4 spg (healthy band),
+  not merely <3.0 — B2 might WIN and wins against a starved reference are inadmissible (rpo
+  asymmetry ruling #3299). Sequencing: in-band screen → (pass) coordinated ~40min window for n400
+  (harness request posted, rpo endorsement on record).
+- PROBE: elevated to parallel foreground at mroute (build NOW; deliverable = tarball + transcript +
+  ENGINE-VERSION answer to Eddie; never submit — latest-2 composition is Eddie's). Version mismatch
+  = STOP-AND-ESCALATE (program doc addendum 2).
+- mroute at ~64% ctx; told to detach the battery auto-watch (setsid) or make re-arming it baton
+  item #1 — an in-session watch dies silently on handoff.
+- fable-5 seats remain PARKED (retry one-liner in the parked section above).
