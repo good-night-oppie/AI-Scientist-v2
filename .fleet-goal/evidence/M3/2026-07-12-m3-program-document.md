@@ -127,3 +127,17 @@ Execute Phase 1 exactly per §3: reuse the frozen `scripts/mine_replays.py` seam
   initialization prior only — never evidence of ladder strength. Anchors re-derived per corpus
   build (679-corpus: full-set MAIN 0.3385, val-split MAIN 0.3318 — see
   `M2/2026-07-13-r0-anchor-correction.md`).
+
+## ADDENDUM 2 — 2026-07-13 ~05:50Z (rpo #3301, adopted)
+
+- **The Phase-0 probe is an INDEPENDENT gate-validation path, not a battery-death fallback.**
+  Negative battery → the probe is the SOLE C1 path. Positive battery → a local pass is still
+  necessary-not-sufficient (the M1 lesson: 2c1368bc03 passed local twice, lost on ladder); the
+  probe's one real ladder point is what turns a local pass into calibrated evidence. Either way:
+  critical path.
+- **PRE-REGISTERED: an engine-version MISMATCH is a STOP-AND-ESCALATE finding.** If the probe's C2
+  canary shows the Kaggle runner executing cabt ≠ local 1.32.0 (e.g. 1.30.1), then every local gate
+  has been scoring a DIFFERENT GAME: it retro-explains M1's local→ladder gap, forces re-validation
+  of the mixed-field gate on the correct engine before M3 trusts it, and reframes the M2 reads.
+  Handling: immediate bus escalation to rpo + Eddie; no gate result is treated as ladder-predictive
+  until the version question is resolved. A mismatch outranks any battery outcome.
