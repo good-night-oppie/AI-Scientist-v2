@@ -80,3 +80,18 @@ Successor: hand off BY HAND. Read this + `.fleet-goal/evidence/M2/*` + `/M3/*` f
 - Output-token blowouts kill workers silently (mroute-3 died 26min at 15% ctx); write incrementally.
 - TSA dispatch: text + Enter separately; verify with capture-pane; missed-Enter stalls look like idle.
 - n40 = mirage (six recorded, both directions). Load-contaminated runs = quarantined.
+
+## PARKED — fable-5 external review seats (2026-07-13 ~01:50Z)
+
+Eddie directed a fable-5 (TeamClaude :3456) dual-seat review of the M3 program (seatA architect,
+seatB adversary). The proxy cannot admit fable-5 while the fleet is hot: persistent 429s, transient
+auth flaps from account rotation, then 60s hangs on even a 16-token probe (haiku admits fine —
+model-tier-specific contention). ~25 attempts over ~90 min. PARKED, not abandoned:
+- Prompts ready on disk: `<scratchpad>/seatA.json`, `seatB.json` (self-contained, no session state).
+- RETRY TRIGGER: any quiet window (fleet workers idle — e.g. right after the battery completes and
+  before the next dispatch wave), or Eddie says go. One command:
+  `curl -s --max-time 570 http://127.0.0.1:3456/v1/messages -H "content-type: application/json"
+   -H "anthropic-version: 2023-06-01" -d @<seat>.json` — success signature `"type":"message"`.
+- Results append to the program doc as a dated REVIEW ANNEX (never edited into the body).
+- Nothing blocks on this: rpo's #3292 full-text review (C1/C2/C3, accepted @535398e) already
+  provides the independent external critique; Phase 0/1 approved and running.
