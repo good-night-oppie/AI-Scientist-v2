@@ -169,3 +169,15 @@ sha is EXPECTED, not alarming.
 - **LADDER NOISE FLOOR, measured free:** the probe plays the SAME s14 policy as 54554870 ⇒
   |probe_score − s14_score| on a fixed policy IS the poll-noise floor guardrail (7') demands.
   Record it explicitly once the probe's rating stabilizes. (Early: probe 568.9@7ep vs s14 605.3.)
+
+### Addendum 3.1 — semantic canary design (rpo #3315, boarded for probe v2)
+
+(size, symbols) match can DOWNGRADE a sha-mismatch alarm but cannot CLOSE C1 — a constant/operator
+patch (damage formula, prize rule, legality check) changes behavior with identical size+symbols.
+The closing test, 429-immune, both-questions-in-one: **self-prediction canary** — the agent
+simulates its own next state with the BUNDLED engine on a deterministic self-controlled
+sub-transition (own attack damage / energy attach / evolution; no hidden info, no opponent choice,
+no RNG), compares with the environment's actual next observation, and encodes agreement into the
+ACTION channel (public episode JSON, zero logs). Validated metric: defined-GLOBAL/WEAK symbol count
+is stable across same-code rebuilds (50/50 on the two local builds; no false-flag). Implementation
+queued behind B2 + current C2 log fetch; owner mroute.
