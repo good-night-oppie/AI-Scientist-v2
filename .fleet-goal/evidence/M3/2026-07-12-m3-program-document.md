@@ -101,3 +101,29 @@ Execute Phase 1 exactly per §3: reuse the frozen `scripts/mine_replays.py` seam
 **Pre-registered kill numbers:** G0 probe fails/p95>1s → no training ever happens. G1 MAIN agreement <0.505 episode-disjoint in 30 epochs → transformer dead, GBM proceeds. G4 >2pp frozen-field macro decay over 3 rounds → self-play halted. G5 engine-diff/invariant failure → batch quarantined. Phase-1 yield <10K unique episodes → harvest re-scoped.
 
 **Honest timeline and honest framing:** Phase 0 ≈ 1 day + slot latency; Phase 1 backfill 1.5–2 days (starts now — the rolling window is destroying data); Phase 2 ≈ 1 week; Phase 3 ≈ 2–3 weeks; **first gate-eligible NN candidate ≈ 4–6 weeks**, with a possible GBM candidate gate-eligible in 1–2 weeks. We do not promise 978+. Eddie is right that prior methods failed — ~600 vs 978–1279 is the fact this program exists to answer. What M3 promises is narrower and checkable: unlimited on-policy data for our deck, a model class with actual capacity, deployability proven before a single training FLOP, and candidates that either pass the same gate everything else failed or die at a numbered kill line.
+---
+
+## ADDENDUM 2026-07-13 — rpo review #3292 accepted in full (C1/C2/C3 binding)
+
+- **C1 (BINDING GO/NO-GO):** Phase 0 + Phase 1 approved and running. **Phase 2/3 training spend is
+  CONTINGENT** on the local instrument demonstrating a relationship to the ladder via EITHER
+  (i) the Arm-B G6 readout (pre-registered at `M2/2026-07-13-g6-readout-preregistration.md`,
+  committed BEFORE any B-data existed) showing agreement→winrate re-aligns on-policy, OR
+  (ii) a Phase-0-probe ladder datapoint calibrating the local gate. If both say the gate does not
+  track the ladder: NO training; the READOUT gets redesigned, not the optimizer pointed harder at
+  a broken proxy.
+- **C2 (G5 EXTENDED):** local-vs-corpus engine drift was covered; local-vs-KAGGLE-RUNNER was not.
+  The Phase-0 probe now carries an engine-version print (cabt/libcg identity to stderr) and/or a
+  1.30.1-vs-1.32.0 behavior-diff canary. **G5 final form: corpus == local == Kaggle-runner engine,
+  or the gate is measuring a different game and is inadmissible for ladder inference.**
+- **C3 (G4 BLIND SPOT, documented as required):** G4 detects self-play COLLAPSE (frozen-field macro
+  decay). It CANNOT detect league-overfit — a degenerate strategy that beats the frozen field and
+  league while being ladder-exploitable in ways the frozen field does not contain; in that mode all
+  local numbers go UP. **No frozen-field metric can see this; only the ladder can.** Defenses:
+  league diversity as a first-class requirement (recentered on the live top-6, refreshed from the
+  running harvest every round; the league's opponent distribution is our only cheap proxy for
+  ladder-representativeness), and the C1 calibration point. This failure mode is NAMED and OPEN.
+- G1 clarified per rpo: a passed G1 (agreement ≥0.505) is a TRAINING-SANITY gate for the
+  initialization prior only — never evidence of ladder strength. Anchors re-derived per corpus
+  build (679-corpus: full-set MAIN 0.3385, val-split MAIN 0.3318 — see
+  `M2/2026-07-13-r0-anchor-correction.md`).
