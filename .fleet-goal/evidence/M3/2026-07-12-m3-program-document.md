@@ -210,3 +210,26 @@ queued behind B2 + current C2 log fetch; owner mroute.
   (600→466→499). If |probe − s14| stabilizes ≥~100, guardrail (7') becomes the BINDING constraint:
   no sub-noise-floor improvement is ladder-measurable in a single slot — the promotion strategy
   itself would need rethinking. Report the number with uncertainty the moment it stabilizes.
+
+## ADDENDUM 5 — 2026-07-13 (rpo #3320: G1 kill authority DEFERRED to the mature corpus)
+
+**Supersedes any literal reading of the Phase-2 kill line.** A ~1M-param transformer on 679
+episodes is a test of DATA STARVATION, not capacity — and the capacity argument in §1 is a data
+argument. The recurring defect class (an underpowered measurement given terminal authority) applies.
+
+- **Interim corpus (679, and any pre-mature batch): G1 reads ASYMMETRICALLY.**
+  PASS (≥0.505 MAIN, episode-disjoint) = informative-positive (cleared the bar while starved;
+  more data only helps). **FAIL = INCONCLUSIVE — it does NOT kill the transformer.**
+- **G1's KILL fires ONLY on the mature corpus**: the ≥30K acceptance batch; absolute minimum the
+  ~12K already on disk (17.5× interim).
+- **G1 runs as a LEARNING CURVE, not a point**: checkpoint MAIN agreement at 679 → ~12K → 30K+.
+  RISING across a 17–44× data increase = transformer alive and data-limited (curve extrapolates
+  the landing point and whether the harvest suffices). FLAT across that range = the REAL
+  model-class kill, far stronger than any single starved point. Same compute; one logged number
+  per checkpoint.
+- Interim-corpus training proceeds NOW as a PIPELINE SHAKEDOWN (tokenizer/train/serve identity,
+  shards, venv, bundle path) — encouraged, just stripped of kill authority.
+- **Anchors re-derive PER CORPUS BUILD, again on the mature corpus** — a 679-split anchor does not
+  transfer to 30K (the lane has been bitten by exactly this: 0.2866→0.3318/0.3385).
+- GBM note: tree models are the data-efficient class — the GBM is the RIGHT artifact for the
+  interim corpus while the transformer waits for the harvest. Sequencing falls out naturally.
