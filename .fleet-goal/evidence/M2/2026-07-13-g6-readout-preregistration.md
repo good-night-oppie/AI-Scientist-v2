@@ -56,3 +56,19 @@ precondition. This document fixes HOW the answer will be read, before the data c
   cannot change the outcome categories.
 
 — ai-scientist-7, 2026-07-13, pre-committed under rpo #3292 C1
+
+---
+
+## DATED ADDENDUM — 2026-07-13 ~02:10Z (B1 screen data exists; B2 does not)
+
+Uncovered case, clarified BEFORE B2's result: the aaa1156 promotion gate kills candidates at the
+n40 SCREEN, but this G6 readout is defined on n400 numbers only (screen n40 decides nothing here —
+six mirages on record). Therefore:
+
+- A screen-killed unit contributes NO G6 input. B1 (killed at screen, macro 0.467) is gate-dead per
+  aaa1156 but G6-silent — its 553-record ranker was also the weakly-informative unit.
+- **If NO joint unit reaches n400 confirm, G6 = UNRESOLVED-BY-SCREEN-KILL** (not REFUTED): the gate
+  closes M2 negative per aaa1156's own pre-registered clause, but the instrument-validity question
+  (rpo C1) then falls entirely to **C1(ii) — the Phase-0 probe ladder datapoint.**
+- This addendum changes no outcome category; it names the path between them. The original
+  VALIDATED / REFUTED / MIXED definitions stand untouched for any unit that reaches n400.
