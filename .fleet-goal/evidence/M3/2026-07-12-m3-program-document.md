@@ -181,3 +181,32 @@ no RNG), compares with the environment's actual next observation, and encodes ag
 ACTION channel (public episode JSON, zero logs). Validated metric: defined-GLOBAL/WEAK symbol count
 is stable across same-code rebuilds (50/50 on the two local builds; no false-flag). Implementation
 queued behind B2 + current C2 log fetch; owner mroute.
+
+## ADDENDUM 4 — 2026-07-13 (rpo #3318: C2 closed, C1 STAGED, torch excluded, noise-floor watch)
+
+- **C2 CLOSED: MATCH, conclusive, rpo-verified from the raw log.** rpo's engine-mismatch hypothesis
+  is REFUTED (its own words). The confound is eliminated permanently.
+- **THE SHARPER READING (doctrine):** the match STRIPS the last innocent explanation for M1's
+  local→ladder gap. 2c1368bc03 passed local n400 twice and lost on the ladder ON A BYTE-IDENTICAL
+  ENGINE — the gate's predictive failure is real and unexplained. Field composition is the surviving
+  HYPOTHESIS; the mixed-field gate is the PROPOSED FIX; it has NEVER been tested against the ladder.
+  Coherence is not evidence.
+- **C1 STAGED RULING (binding):**
+  - **Phase 2 (offline training + GBM baseline): UNBLOCKED NOW.** Engine match removes the
+    wrong-game confound; G1 is a training-sanity gate; and the GBM is the cheapest vehicle
+    (gate-eligible 1–2 wk) to validate the ruler itself. Blocking Phase 2 would block C1's own
+    discharge path.
+  - **Phase 3 (self-play): GATED** on C1-discharge: one candidate that PASSED the mixed-field gate,
+    probed on the ladder, MOVING ABOVE THE NOISE FLOOR. Vehicle = B2 or the GBM or any gate-passer,
+    whichever first. **KILL:** a gate-passing candidate probed that does NOT clear the noise floor
+    ⇒ the mixed-field gate is REFUTED as a ladder predictor on the correct engine ⇒ STOP, redesign
+    the readout before any self-play week.
+- **TORCH EXCLUDED AT INFERENCE (standing rule reaffirmed):** torch is on the runner but ABSENT
+  locally ⇒ a torch path cannot be validated in runner-faithful local play ⇒ shipping it is the
+  BFTS trap re-run. numpy is the plan of record; zero latency pressure justifies the risk
+  (0.01–16.8ms measured vs 500ms design target). If torch inference is ever wanted: install torch
+  locally FIRST.
+- **NOISE-FLOOR WATCH (potentially program-reframing):** fixed artifact already swung ~130 pts
+  (600→466→499). If |probe − s14| stabilizes ≥~100, guardrail (7') becomes the BINDING constraint:
+  no sub-noise-floor improvement is ladder-measurable in a single slot — the promotion strategy
+  itself would need rethinking. Report the number with uncertainty the moment it stabilizes.
