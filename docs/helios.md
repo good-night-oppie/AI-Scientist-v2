@@ -8,7 +8,7 @@ nodes, whose artifacts the stock pipeline destroys — can be reconstructed byte
 
 **Read the benchmark verdict before enabling.** The pre-registered crossover benchmark
 concluded helios does **not** beat `tar` at realistic BFTS workspace sizes
-(see [`.supergoal/evidence/M8/verdict.md`](../.supergoal/evidence/M8/verdict.md)):
+(see [`benchmarks/results/verdict.md`](../benchmarks/results/verdict.md)):
 
 > RECOMMENDATION: helios beats tar for realistic per-node dirs: NO
 >
