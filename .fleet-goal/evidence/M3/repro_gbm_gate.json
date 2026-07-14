@@ -1,0 +1,250 @@
+{
+ "stageA_fidelity": {
+  "val_option_rows": 103296,
+  "val_decisions": 14087,
+  "per_option_max_abs_delta": 0.0,
+  "per_decision_argmax_agreement": 1.0,
+  "argmax_mismatch_decisions": 0,
+  "argmax_mismatch_rate": 0.0,
+  "n_trees": 300,
+  "model_bundle_bytes": 517695,
+  "stop_threshold": 0.001,
+  "stop_triggered": false
+ },
+ "stageB_bundle": {
+  "bundle": "submission_gbm.tar.gz",
+  "bundle_kind": "imitation",
+  "bytes": 95846,
+  "archive_sha256": "06e729e14efaf3edb10820d5d55c086d2fb66d4896f4edbcde606b6b33b721d6",
+  "strategy_sha256": "245b9ad7149c0afa0ef980853d9221d44d3fe60d4665ff6b45c8f31c5df6a6d2",
+  "model_ships_inside": "agpkg/imitation_weights.json (vocab+trees, 517KB json)",
+  "seam": "score_feats->stdlib tree walk; load_weights->GBM model; STATS/rank_options/choose byte-identical",
+  "bundled_module_val_main_agreement": 0.5181,
+  "deck": "default water deck (same as linear/s14)"
+ },
+ "stageC_liveness": {
+  "positive_control": {
+   "liveness": "LIVE",
+   "bundle_kind": "imitation",
+   "decisions": 196,
+   "ranker_ok": 196,
+   "fallback_heuristic": 0,
+   "fallback_structural": 0,
+   "rank_calls": 195,
+   "rank_nontrivial": 156,
+   "nontrivial_frac": 0.8,
+   "I5_floor": 0.3,
+   "feat_key_hit_frac": 0.9965,
+   "I6_floor": 0.5,
+   "weights_n": 177,
+   "ko_rail": 1,
+   "full_json": {
+    "run_id": "gbm_pos_n4",
+    "candidate_tar": "/home/ubuntu/gh/rpo-ptcg/submission_gbm.tar.gz",
+    "candidate_sha256": "06e729e14efaf3edb10820d5d55c086d2fb66d4896f4edbcde606b6b33b721d6",
+    "candidate_strategy_sha256": "245b9ad7149c0afa0ef980853d9221d44d3fe60d4665ff6b45c8f31c5df6a6d2",
+    "baseline_tar": "/home/ubuntu/gh/rpo-ptcg/submission_search_s14.tar.gz",
+    "baseline_sha256": "c66908ffeb228a734b09bdf163ab15ec94263a5debb7fd3c50eb94a7b50f6546",
+    "baseline_strategy_sha256": "12992951d0b06cb290616331b2b567f83961edda6c37c6f4398785880460ba4a",
+    "games": 4,
+    "wins": 2,
+    "losses": 2,
+    "draws": 0,
+    "invalid": 0,
+    "winrate": 0.5,
+    "wilson": [
+     0.15,
+     0.85
+    ],
+    "candidate_search_begin_calls": 0,
+    "baseline_search_begin_calls": 4,
+    "candidate_bundle_kind": "imitation",
+    "candidate_imitation_decisions": 196,
+    "candidate_imitation_ranker_ok": 196,
+    "candidate_imitation_fallback_heuristic": 0,
+    "candidate_imitation_fallback_structural": 0,
+    "candidate_imitation_rank_calls": 195,
+    "candidate_imitation_rank_nontrivial": 156,
+    "candidate_imitation_nontrivial_frac": 0.8,
+    "candidate_imitation_ko_rail": 1,
+    "candidate_imitation_weights_n": 177,
+    "candidate_imitation_feat_key_hit_frac": 0.9965,
+    "candidate_imitation_import_ok": true,
+    "candidate_liveness": "LIVE",
+    "baseline_bundle_kind": "search",
+    "baseline_imitation_decisions": null,
+    "baseline_imitation_ranker_ok": null,
+    "baseline_imitation_fallback_heuristic": null,
+    "baseline_imitation_fallback_structural": null,
+    "baseline_imitation_rank_calls": null,
+    "baseline_imitation_rank_nontrivial": null,
+    "baseline_imitation_nontrivial_frac": null,
+    "baseline_imitation_ko_rail": null,
+    "baseline_imitation_weights_n": null,
+    "baseline_imitation_feat_key_hit_frac": null,
+    "baseline_imitation_import_ok": null,
+    "baseline_liveness": null,
+    "imitation_weights_env_override": false,
+    "by_candidate_seat": {
+     "0": {
+      "games": 2,
+      "wins": 2,
+      "losses": 0,
+      "draws": 0,
+      "invalid": 0
+     },
+     "1": {
+      "games": 2,
+      "wins": 0,
+      "losses": 2,
+      "draws": 0,
+      "invalid": 0
+     }
+    },
+    "seconds_per_game": 0.819
+   }
+  },
+  "negative_controls": [
+   {
+    "control": "N1",
+    "json_line_emitted": false,
+    "error": "ImportError: N1 import-dead negative control",
+    "expected_failure_mode": "ImportError (eager import crash)"
+   },
+   {
+    "control": "N2",
+    "json_line_emitted": false,
+    "error": "RuntimeError: candidate imitation bundle failed liveness invariant I2_weights_n: ranker not actually deciding the game; gate result is inadmissible",
+    "expected_failure_mode": "I2_weights_n"
+   },
+   {
+    "control": "N3",
+    "json_line_emitted": false,
+    "error": "RuntimeError: candidate imitation bundle failed liveness invariant I4_per_decision_ranker: ranker not actually deciding the game; gate result is inadmissible",
+    "expected_failure_mode": "I4_per_decision_ranker"
+   },
+   {
+    "control": "N4",
+    "json_line_emitted": false,
+    "error": "RuntimeError: candidate imitation bundle failed liveness invariant I5_nontrivial: ranker not actually deciding the game; gate result is inadmissible",
+    "expected_failure_mode": "I5_nontrivial"
+   },
+   {
+    "control": "N5",
+    "json_line_emitted": false,
+    "error": "RuntimeError: candidate imitation bundle failed liveness invariant I6_feat_key_hit: ranker not actually deciding the game; gate result is inadmissible",
+    "expected_failure_mode": "I6_feat_key_hit"
+   },
+   {
+    "control": "N6",
+    "json_line_emitted": false,
+    "error": "RuntimeError: I3: PTCG_IMITATION_WEIGHTS is set in the gate process; it overrides the bundled weights and decouples play from candidate_strategy_sha256",
+    "expected_failure_mode": "I3_env_override"
+   }
+  ],
+  "all_negatives_fail_loud": true
+ },
+ "stageD_screen": {
+  "kind": "kill-only n40 screen, GBM-bundle vs s14",
+  "loadavg_before": "1.20 1.34 0.96",
+  "loadavg_after": "1.26 1.52 1.12",
+  "nproc": 8,
+  "run_seconds_per_game": 0.64,
+  "s14_search_begin_calls_total": 40,
+  "winrate": 0.125,
+  "wins": 5,
+  "losses": 35,
+  "draws": 0,
+  "invalid": 0,
+  "wilson": [
+   0.055,
+   0.261
+  ],
+  "by_candidate_seat": {
+   "0": {
+    "games": 20,
+    "wins": 4,
+    "losses": 16,
+    "draws": 0,
+    "invalid": 0
+   },
+   "1": {
+    "games": 20,
+    "wins": 1,
+    "losses": 19,
+    "draws": 0,
+    "invalid": 0
+   }
+  },
+  "candidate_liveness_in_screen": "LIVE",
+  "candidate_nontrivial_frac_in_screen": 0.7307,
+  "preregistered_kill_floor": 0.55,
+  "winrate_below_floor": true,
+  "screen_result_json": {
+   "run_id": "gbm_screen_n40",
+   "candidate_tar": "/home/ubuntu/gh/rpo-ptcg/submission_gbm.tar.gz",
+   "candidate_sha256": "06e729e14efaf3edb10820d5d55c086d2fb66d4896f4edbcde606b6b33b721d6",
+   "candidate_strategy_sha256": "245b9ad7149c0afa0ef980853d9221d44d3fe60d4665ff6b45c8f31c5df6a6d2",
+   "baseline_tar": "/home/ubuntu/gh/rpo-ptcg/submission_search_s14.tar.gz",
+   "baseline_sha256": "c66908ffeb228a734b09bdf163ab15ec94263a5debb7fd3c50eb94a7b50f6546",
+   "baseline_strategy_sha256": "12992951d0b06cb290616331b2b567f83961edda6c37c6f4398785880460ba4a",
+   "games": 40,
+   "wins": 5,
+   "losses": 35,
+   "draws": 0,
+   "invalid": 0,
+   "winrate": 0.125,
+   "wilson": [
+    0.055,
+    0.261
+   ],
+   "candidate_search_begin_calls": 0,
+   "baseline_search_begin_calls": 40,
+   "candidate_bundle_kind": "imitation",
+   "candidate_imitation_decisions": 1801,
+   "candidate_imitation_ranker_ok": 1801,
+   "candidate_imitation_fallback_heuristic": 0,
+   "candidate_imitation_fallback_structural": 0,
+   "candidate_imitation_rank_calls": 1797,
+   "candidate_imitation_rank_nontrivial": 1313,
+   "candidate_imitation_nontrivial_frac": 0.7307,
+   "candidate_imitation_ko_rail": 4,
+   "candidate_imitation_weights_n": 177,
+   "candidate_imitation_feat_key_hit_frac": 0.9921,
+   "candidate_imitation_import_ok": true,
+   "candidate_liveness": "LIVE",
+   "baseline_bundle_kind": "search",
+   "baseline_imitation_decisions": null,
+   "baseline_imitation_ranker_ok": null,
+   "baseline_imitation_fallback_heuristic": null,
+   "baseline_imitation_fallback_structural": null,
+   "baseline_imitation_rank_calls": null,
+   "baseline_imitation_rank_nontrivial": null,
+   "baseline_imitation_nontrivial_frac": null,
+   "baseline_imitation_ko_rail": null,
+   "baseline_imitation_weights_n": null,
+   "baseline_imitation_feat_key_hit_frac": null,
+   "baseline_imitation_import_ok": null,
+   "baseline_liveness": null,
+   "imitation_weights_env_override": false,
+   "by_candidate_seat": {
+    "0": {
+     "games": 20,
+     "wins": 4,
+     "losses": 16,
+     "draws": 0,
+     "invalid": 0
+    },
+    "1": {
+     "games": 20,
+     "wins": 1,
+     "losses": 19,
+     "draws": 0,
+     "invalid": 0
+    }
+   },
+   "seconds_per_game": 0.64
+  }
+ },
+ "status": "complete"
+}
