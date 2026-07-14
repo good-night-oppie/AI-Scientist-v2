@@ -74,3 +74,28 @@ n40 = mirage (kills, never crowns). Liveness=LIVE for any learned candidate. Asy
 admissibility (#3325). A gate PASS is a licence to *ask Eddie for a probe*, never a promotion.
 
 — ai-scientist-7, 2026-07-13, per rpo #3332 + sctst-aide #3331
+
+---
+
+## ANNEX 2026-07-14 — LEAGUE-POOL CORRECTION (canonical CSV supersedes BFS pseudo-leaderboard)
+
+sctst-aide's canonical-leaderboard validation (bus #3342; audit memo sect 5c + `canonical_top6.json`)
+found the v3 "top-6" listing was 4/6 valid, 2/6 BFS sampling artifacts: kashiwashira is canonical
+**#254 (928.7)** and S4nkurero **#767 (839.7)** — mid-pack, not top-tier.
+
+**League pool (Phase-3) recenters on the canonical top-6:**
+Majkel1337 #1 (1288.6) · Yushin Ito #2 (1228.0) · bono #3 (1200.3) · Budew #4 (1170.9) ·
+THIRD PTCG Club #5 (1169.1) · MPGaming #6 (1140.6). All six present in the harvest; decklists in
+`canonical_top6.json`. taksai (#22) and vibechu (#12) remain as extra diversity arms.
+
+**Nothing about the PROMOTION field changes** — it was and is one arm (s14). This annex fixes the
+league/diversity roster only (the C3 defense explicitly requires refreshing league composition from
+canonical data). kashiwashira/S4nkurero decks may stay in the league as *diversity*, but carry no
+"top-meta" label.
+
+**58f62b5135 RESOLVED (was flagged ambiguous):** it has a strong local gate on disk (pooled 0.639
+vs s14, n=1000, all rungs 0.625–0.653 — stronger than 2c1368bc03's 0.571) and was NEVER submitted
+⇒ no ladder standing ⇒ **DIAGNOSTIC-ONLY per rule (1a), second canary.** It is the 2c1368bc03
+failure mode waiting to happen; never a promotion arm, never resubmit without Eddie's slot ruling.
+
+— ai-scientist-8, per sctst-aide #3342

@@ -175,6 +175,55 @@ local number rises.** `2c1368bc03` is the precedent proving that failure mode is
 program, not hypothetical.** Rules (1a)/(1b) are the only defense that operates on the failure G4
 cannot see.
 
+## 5c. CANONICAL-LEADERBOARD RE-VALIDATION (2026-07-14, per ai-scientist-8 #3341)
+
+I executed my own §6(1) caveat: pulled the **canonical public leaderboard CSV** (4,992 teams, via the
+PAT-gated `kaggle competitions leaderboard pokemon-tcg-ai-battle` path — token read by the SDK at
+point of use, never touched by me) and joined it to the harvest by **TeamId** (robust; `TeamName` is
+blank for top teams on this comp, so BFS-name matching alone would have been unreliable).
+
+### The v3 league-pool six — 4 legit, 2 are BFS artifacts
+
+| v3 name | TeamId | **canonical rank** | canonical score | top-tier? |
+|---|---:|---:|---:|:---:|
+| Majkel1337 | 16374395 | **#1** | 1288.6 | ✅ |
+| Budew | 16371434 | **#4** | 1170.9 | ✅ |
+| vibechu | 16382914 | **#12** | 1096.6 | ✅ |
+| taksai | 16441839 | **#22** | 1073.2 | ✅ (top-25) |
+| **kashiwashira** | 16385372 | **#254** | 928.7 | ❌ **mid-pack** |
+| **S4nkurero** | 16372517 | **#767** | 839.7 | ❌ **mid-pack** |
+
+**This is exactly the BFS sampling bias §6(1) warned about.** 4 of 6 are genuine top-25; **2 of 6
+(kashiwashira #254, S4nkurero #767) are not remotely top-tier** — they ranked high in my BFS pseudo-
+leaderboard only because the walk over-sampled them. For a Phase-3 league pool, seeding with #254 and
+#767 as "top meta archetypes" would train self-play against non-representative opponents. **Membership
+verdict: 4/6 valid, 2/6 must be replaced.**
+
+### The corrected canonical top-6 (all harvestable, decklists extracted)
+
+| # | team | canonical score | harvest seats | distinct lists | k/6 | Jaccard vs s14 | basic energy |
+|---:|---|---:|---:|---:|:---:|---:|---:|
+| 1 | Majkel1337 | 1288.6 | 97 | 5 | 1/6 | 0.000 | 0 |
+| 2 | Yushin Ito | 1228.0 | 1263 | 3 | 0/6 | 0.160 | 9 |
+| 3 | bono | 1200.3 | 97 | 2 | 1/6 | 0.000 | 0 |
+| 4 | Budew | 1170.9 | 34 | 3 | 1/6 | 0.083 | 0 |
+| 5 | THIRD PTCG Club | 1169.1 | 322 | 5 | 1/6 | 0.000 | 0 |
+| 6 | MPGaming | 1140.6 | 33 | 4 | 0/6 | 0.034 | 0 |
+
+Only **2 names overlap** between the v3 set and the canonical top-6 (Majkel1337, Budew). Decklists in
+`canonical_top6.json`. All six are present in the harvest, so the league pool can be seeded directly.
+`taksai` (#22) and `vibechu` (#12) are legitimately strong and fine as *additional* diversity arms,
+but they are not the top-6.
+
+### 58f62b5135 — RESOLVED (not dropped): a SECOND canary
+
+I found its gate — I had looked in the wrong directory during the audit. It lives in
+`runs/deck_search/evals/58f62b5135_r{0,1,2,3}.json`: **pooled 0.639 vs s14 (639/1000, all four rungs
+0.625–0.653) — a STRONGER local gate than 2c1368bc03's 0.571.** But it was **never submitted → no
+ladder standing.** Under rule (1a) that makes it DIAGNOSTIC-ONLY. It is the 2c1368bc03 failure mode
+*waiting to happen*: the strongest local deck we own, ladder-untested, and rpo condition 3 blocks
+probing it. **Keep it as a second diagnostic canary alongside 2c1368bc03, never a promotion arm.**
+
 ## 6. HONEST LIMITS — read before pre-registering
 
 1. **This is a PSEUDO-leaderboard, not the canonical one.** Ranks come from a BFS harvest (12,402
