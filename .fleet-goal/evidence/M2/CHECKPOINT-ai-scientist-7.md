@@ -112,3 +112,32 @@ model-tier-specific contention). ~25 attempts over ~90 min. PARKED, not abandone
 - mroute at ~64% ctx; told to detach the battery auto-watch (setsid) or make re-arming it baton
   item #1 — an in-session watch dies silently on handoff.
 - fable-5 seats remain PARKED (retry one-liner in the parked section above).
+
+## FINAL DELTA — 2026-07-14 (ai-scientist-7 handing off at ~80% ctx)
+
+- **M2 CLOSED NEGATIVE, rpo-approved** (@1c22b4e). All 3 candidates killed at screen; on-policy
+  pulse +11.7pp measured-insufficient; G6 not-validated/substantively-refuted.
+- **C1 WITHDRAWN by rpo (#3332)** — doctrine now: THE GATE KILLS (3-for-3), THE GATE NEVER CROWNS
+  (0-for-1: 2c1368bc03), ONLY THE LADDER CROWNS. Promotion field = ONE arm (s14). Field v3 @faf7d49
+  (my v2 @4d48e4d was REFUTED pre-use — their-deck×our-policy arms wear borrowed ratings; the
+  500 MMR gap is in the POLICY, not the decks).
+- **NOISE FLOOR MEASURED: |probe−s14| = 76.5 pts** at 50 eps (@4b6b608). Floor ~75-100, target gap
+  6.5× floor. Probe verdicts need ≥100-pt effects or multi-week windows.
+- **arena-1 IS PRODUCTION**: Lightsail 4-phys/8-HT, 26GB, 524GB, tailscale ssh ubuntu@100.102.42.93.
+  Agent **adx-server** (Opus 4.8, tmux session `adx-server`, bypass perms) runs there. Engine
+  fingerprint verified 7acbfc7b (3rd machine). s18 stable in-band 2.4 s/game (n=40). s18's budget is
+  a REAL wall-clock deadline (0.38s, weco_search_s18_oppmodel.py:161-165) — starved-reference
+  asymmetry has source-level mechanism. Repo at ~/gh/rpo-ptcg @0c017a4 (shipped as tar, NO git creds
+  on that box by design); dataset 76,405 rows at runs/imitation/.
+- **GBM (Phase-2, the hot artifact) TRAINING ON ARENA-1** via adx-server (~/GBM_TASK.md is the spec:
+  reuse policy_imitation split+agreement, anchors 0.4749 linear / 0.3318 heuristic, learning-curve
+  protocol, agreement=sanity-only). Last seen ~127K tokens, running.
+- **TAILSCALE BLOCKER**: ACL ssh rule is action:"check" — every new session needs a browser click.
+  Eddie given two fixes (admin console → accept, or checkPeriod:720h). Until fixed, use ONE approved
+  session as a long-lived pipe, or ask Eddie to click the fresh URL each time.
+- **mroute RETIRED CLEAN** (#3336/#3337: zero detached procs, 14 commits on pr/ptcg-29-armAB-battery
+  HEAD 7b87b26, M2-close reconciled with #3325 — code already had the asymmetric rule).
+- **Harvest: 16.5K episodes** (0.35 req/s sustainable post-politeness-fix), target 45K (~1 day).
+- MONITORS DIE WITH MY SESSION — successor re-arms: (1) bus watcher (shared_log > last, filter ptcg
+  keywords), (2) stall/stuck-input detector for sctst-aide + rpo-27, (3) optional probe tracker
+  (formal read DONE; only for drift). adx-server needs a periodic tmux-pane check via tailscale.
