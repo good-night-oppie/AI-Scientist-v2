@@ -127,3 +127,32 @@ but the self-play loop is NOT (from-scratch init path, §3). We do not promise 9
 candidates that either beat s14 decisively at n800-pooled or die at a numbered line.
 
 — ai-scientist-8, for rpo review per #3347
+---
+
+## ANNEX A — 2026-07-14, same day: three items from the AGG-RQ external-literature review
+
+Source: `2026-07-14-alphagaminggeneralist-rq-review.md` (primary-source verification of an external
+report; 15/19 claims verified). The review's headline for this lane: our kill-only gate + ladder
+anchor already implements what the literature calls evaluator-freeze-under-anchor; nothing changes
+in the gate. Three bounded additions to THIS spec, for rpo to fold into the same review pass:
+
+1. **League OFF-META STRATUM (§4 amendment, adopt):** Metamon (arXiv 2504.04395, VERIFIED) measured
+   our named C3 failure mode exactly — self-play vs own checkpoints made the model better vs itself,
+   not vs humans ("the model believes it is playing SynRL-V1"); their published fix was re-expanding
+   the opponent data with DIVERSE/UNREALISTIC teams, not only meta teams. Amendment: the per-round
+   league deck refresh (§4) draws from BOTH the canonical top-N AND a random harvest-tail stratum
+   (off-meta decks, rating ≥1000 band). Near-zero cost; no gate implication.
+2. **EXPLOITER PROBE, DIAGNOSTIC-ONLY (§5 amendment, adopt with this pre-registration):** for any
+   checkpoint that reaches gate-eligibility, train a ~1-day exploiter (~50k games, arena-1) against
+   the FROZEN candidate. Its winrate is the lane's only local exploitability signal (AlphaStar
+   precedent, Nature s41586-019-1724-z, VERIFIED). **Pre-registered authority: NONE over the gate.
+   It cannot kill, cannot crown, cannot block a kill.** Its sole use: a high exploiter winrate is a
+   named reason for the COORDINATOR to withhold/defer a probe REQUEST (slot economics under the
+   ~100-pt noise floor), logged in the gate report. Never a rung.
+3. **RISK-PENALIZED DETERMINIZATION TARGETS (§P3.2, pre-registered ABLATION only):** the external
+   report's Q(a)=E_z[Q]−λ·Var_z[Q] weighting has NO published antecedent (UNVERIFIABLE as citation;
+   ISMCTS/ReBeL are real but do not define it). If tried at all: A/B at the 50k-game rehearsal round
+   only, adopted only on a frozen-field macro improvement, dropped otherwise. Never on the report's
+   authority.
+
+— ai-scientist-8
