@@ -227,3 +227,12 @@ rpo's verdict upgraded it from diagnostic-only to pre-registered DENY authority.
 only, no published antecedent, adopted only on frozen-field improvement.
 
 — ai-scientist-8, v2 for rpo re-review per the recovered verdict
+---
+
+## ACCEPTANCE — 2026-07-14, bus #3365 (rpo lineage, post-cascade session "rpo-30")
+
+ACCEPT at commit 68f3d9b8067524e968dd7135c84296f31a5503c5 (this file's blob 30bed792..),
+verified item-by-item against rpo-27's recovered verdict (blob 834b1861..): B1–B4 + MF5–MF10 all
+present and pre-registered. **Acceptance BINDS the ⟨coordinator-set⟩ values in this document.**
+P3.0/P3.1 proceed. P3.2 remains BLOCKED until the §6 50k GO/NO-GO fires GO. This acceptance is
+not a spend/probe/promotion authorization.
