@@ -1,0 +1,216 @@
+{
+ "D4": {
+  "ckpt": "runs/imitation/nn_ckpt/model_best.pt",
+  "val_main_top1_agreement_numpy_serve": 0.618,
+  "val_top1_agreement_numpy_serve": 0.6092,
+  "val_main_n": 8481,
+  "val_main_top1_agreement_torch": 0.62,
+  "anchors_same_split": {
+   "linear": 0.4749,
+   "heuristic": 0.3318
+  },
+  "torch_vs_numpy_argmax_agreement": 0.9733,
+  "torch_vs_numpy_n": 3072,
+  "numpy_serve_secs_full_val": 451.0,
+  "epochs_trained": 10,
+  "sec_per_epoch_mean": 182.9,
+  "peak_rss_mb": 3220.7,
+  "torch_threads": 4,
+  "loss_curve": [
+   {
+    "epoch": 0,
+    "train_loss": 1.059,
+    "val_loss": 0.9447,
+    "val_main_agreement": 0.4963
+   },
+   {
+    "epoch": 1,
+    "train_loss": 0.9368,
+    "val_loss": 0.876,
+    "val_main_agreement": 0.5563
+   },
+   {
+    "epoch": 2,
+    "train_loss": 0.854,
+    "val_loss": 0.8614,
+    "val_main_agreement": 0.5891
+   },
+   {
+    "epoch": 3,
+    "train_loss": 0.7862,
+    "val_loss": 0.8467,
+    "val_main_agreement": 0.5964
+   },
+   {
+    "epoch": 4,
+    "train_loss": 0.7328,
+    "val_loss": 0.873,
+    "val_main_agreement": 0.5971
+   },
+   {
+    "epoch": 5,
+    "train_loss": 0.6843,
+    "val_loss": 0.8534,
+    "val_main_agreement": 0.6077
+   },
+   {
+    "epoch": 6,
+    "train_loss": 0.6475,
+    "val_loss": 0.8549,
+    "val_main_agreement": 0.61
+   },
+   {
+    "epoch": 7,
+    "train_loss": 0.6194,
+    "val_loss": 0.8724,
+    "val_main_agreement": 0.6181
+   },
+   {
+    "epoch": 8,
+    "train_loss": 0.586,
+    "val_loss": 0.8793,
+    "val_main_agreement": 0.6063
+   },
+   {
+    "epoch": 9,
+    "train_loss": 0.5656,
+    "val_loss": 0.8793,
+    "val_main_agreement": 0.62
+   }
+  ]
+ },
+ "D5": {
+  "liveness_positive": {
+   "exit": 0,
+   "liveness": "LIVE",
+   "bundle_kind": "nn",
+   "ranker_ok": 197,
+   "decisions": 197,
+   "fallback_heuristic": 0,
+   "fallback_structural": 0,
+   "I5_nontrivial_frac": 0.7411,
+   "I6_feat_key_hit_frac": 1.0,
+   "weights_n": 65
+  },
+  "liveness_negatives": [
+   {
+    "control": "N1",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": null,
+    "expected": "ImportError",
+    "fail_loud": true
+   },
+   {
+    "control": "N2",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": "I2_weights_n",
+    "expected": "I2/I4",
+    "fail_loud": true
+   },
+   {
+    "control": "N3",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": "I4_per_decision_ranker",
+    "expected": "I4_per_decision_ranker",
+    "fail_loud": true
+   },
+   {
+    "control": "N4",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": "I5_nontrivial",
+    "expected": "I5_nontrivial",
+    "fail_loud": true
+   },
+   {
+    "control": "N5",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": "I6_feat_key_hit",
+    "expected": "I6_feat_key_hit",
+    "fail_loud": true
+   },
+   {
+    "control": "N6",
+    "exit": 1,
+    "json_emitted": false,
+    "invariant": "I3",
+    "expected": "I3_env_override",
+    "fail_loud": true
+   }
+  ],
+  "all_negatives_fail_loud": true,
+  "diagnostic_n40": {
+   "loadavg_before": "5.32 3.61 2.04",
+   "loadavg_after": "9.22 5.67 2.97",
+   "winrate_vs_s14": 0.35,
+   "wins": 14,
+   "losses": 26,
+   "draws": 0,
+   "invalid": 0,
+   "wilson": [
+    0.221,
+    0.505
+   ],
+   "seconds_per_game": 2.71,
+   "candidate_liveness": "LIVE",
+   "by_candidate_seat": {
+    "0": {
+     "games": 20,
+     "wins": 7,
+     "losses": 13,
+     "draws": 0,
+     "invalid": 0
+    },
+    "1": {
+     "games": 20,
+     "wins": 7,
+     "losses": 13,
+     "draws": 0,
+     "invalid": 0
+    }
+   },
+   "note": "SHAKEDOWN diagnostic \u2014 NO kill authority. Expectation on record: loses (imitation family 0-for-4; first learned opponent, loop starting point).",
+   "wilson_lower": 0.221,
+   "wilson_upper": 0.505,
+   "amended_reading": {
+    "rule1_full_wilson": "winrate 0.35, Wilson95 [0.221, 0.505]; Wilson-UPPER 0.505 < 0.55",
+    "rule2_fidelity_admissibility": "result is BELOW 0.55 (Wilson-upper 0.505 < 0.55) -> toward no-go, for which serve fidelity 0.9733 IS admissible; no pass/probe claim is made (and none would be admissible until action parity = 1.0).",
+    "rule4_serve_liveness": "n40 ran the frozen numpy SERVE path; candidate_liveness LIVE in the run; positive control LIVE + all 6 negatives fail loud (GBM bar).",
+    "SHAKEDOWN_NO_KILL_AUTHORITY": "This task carries no kill authority (P30 addendum 5). NUMBER reported only; verdict language is the coordinator's."
+   }
+  },
+  "deployment_fidelity": {
+   "sampled_decisions": 250,
+   "numpy_vs_stdlib_argmax_agreement": 0.972,
+   "argmax_mismatches": 7,
+   "max_score_abs_delta": 8.881784197001252e-15,
+   "stdlib_sec_per_decision": 1.141,
+   "full_val_decisions": 14087,
+   "projected_full_val_stdlib_hours": 4.47,
+   "note": "numpy is the deployed tier (numpy is on the Kaggle runner); stdlib is the numpy-absent fallback. max delta ~1e-15 => paths numerically identical; residual flips are exact ties. Full-val stdlib sweep is compute-bound (projected hours) so a large sample is reported."
+  },
+  "checkpoint": {
+   "frozen_ckpt": "runs/imitation/nn_ckpt/model_best.pt",
+   "sha256": "5027b5660e2bb44bb317baa4c7d2da21f0f749b6471848c9bf148d7411f0a8be",
+   "selected_epoch": 9,
+   "selection_criterion": "MAX val_main_top1_agreement (0.62)",
+   "val_loss_min_epoch": 3,
+   "val_loss_min": 0.8467,
+   "val_loss_at_selected": 0.8793,
+   "OVERFIT_HAZARD": "NAMED: best-by-valMAIN (ep9) was chosen while val LOSS was RISING (min 0.8467 @ep3 -> 0.8793 @ep9). This is a top-1-agreement-overfit hazard: the ranker's argmax keeps improving while its calibrated loss degrades. For a real candidate, ep3 (val-loss-optimal) or early-stopping-on-val-loss would be the conservative pick; ep9 was used here to report the strongest agreement number for the SHAKEDOWN, not as a candidate."
+  },
+  "serve_fidelity": {
+   "torch_vs_numpy_argmax_agreement": 0.9733,
+   "gbm_reference": 1.0,
+   "diagnosis": "All divergences are EXACTLY-TIED options: at every flip the torch top1-top2 logit gap = 0.0 (max |logit delta| 6e-6, float32-vs-float64). Identical option features -> identical embeddings -> exact ties that float32(torch) and float64(numpy) resolve to different indices. NOT a policy divergence; unlike the GBM's exact-threshold tree walk, a transformer produces genuine ties.",
+   "action_parity_to_1.0": "Would require a tolerance-based lowest-index tie-break shared by train+serve (treat scores within eps as tied). NOT applied here (shakedown); noted as the pre-registered path to 1.000000 parity a real candidate needs before any >=0.55 claim.",
+   "n40_ran_on_serve_path": true,
+   "serve_backend": "numpy (float64); stdlib fallback is the numpy-absent tier"
+  }
+ },
+ "status": "complete"
+}
