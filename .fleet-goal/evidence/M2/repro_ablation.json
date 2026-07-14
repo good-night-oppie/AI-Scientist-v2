@@ -1,0 +1,35 @@
+{
+ "R0_heuristic_val": {
+  "n": 14087,
+  "top1_agreement": 0.4777,
+  "main_n": 8481,
+  "main_top1_agreement": 0.3318
+ },
+ "C_FULL_val": {
+  "n": 14087,
+  "top1_agreement": 0.498,
+  "main_n": 8481,
+  "main_top1_agreement": 0.4749
+ },
+ "C_AG_val": {
+  "n": 14087,
+  "top1_agreement": 0.4256,
+  "main_n": 8481,
+  "main_top1_agreement": 0.3547
+ },
+ "weights_full_total": 176,
+ "weights_card": 132,
+ "weights_generic": 44,
+ "ablation_main_pp": 12.02,
+ "ablation_overall_pp": 7.24,
+ "coverage_archetype": [
+  1227
+ ],
+ "coverage_full": [
+  1092,
+  1121,
+  1145,
+  1219,
+  1227
+ ]
+}

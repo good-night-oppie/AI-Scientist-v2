@@ -1,0 +1,478 @@
+{
+ "rows": [
+  {
+   "team": "BluezLee",
+   "energy": 18,
+   "main_n": 314,
+   "dead": 25
+  },
+  {
+   "team": "pokeka_ryo",
+   "energy": 7,
+   "main_n": 820,
+   "dead": 39
+  },
+  {
+   "team": "WinDecks",
+   "energy": 7,
+   "main_n": 8561,
+   "dead": 473
+  },
+  {
+   "team": "Pokk\u00e9n",
+   "energy": 7,
+   "main_n": 63,
+   "dead": 9
+  },
+  {
+   "team": "XP3RiX",
+   "energy": 6,
+   "main_n": 231,
+   "dead": 6
+  },
+  {
+   "team": "ebisu_ya",
+   "energy": 6,
+   "main_n": 41,
+   "dead": 4
+  },
+  {
+   "team": "zoroark190",
+   "energy": 1,
+   "main_n": 1859,
+   "dead": 22
+  },
+  {
+   "team": "LiamK",
+   "energy": 1,
+   "main_n": 446,
+   "dead": 15
+  },
+  {
+   "team": "Akifumi Okubo",
+   "energy": 0,
+   "main_n": 43,
+   "dead": 12
+  },
+  {
+   "team": "Benjamin Zhao3927",
+   "energy": 0,
+   "main_n": 328,
+   "dead": 11
+  },
+  {
+   "team": "monnosuke",
+   "energy": 0,
+   "main_n": 66,
+   "dead": 7
+  },
+  {
+   "team": "kuma_jp",
+   "energy": 0,
+   "main_n": 45,
+   "dead": 2
+  },
+  {
+   "team": "tonakaiiii",
+   "energy": 0,
+   "main_n": 3168,
+   "dead": 363
+  },
+  {
+   "team": "kazuki0123",
+   "energy": 0,
+   "main_n": 8248,
+   "dead": 903
+  },
+  {
+   "team": "Yushin Ito",
+   "energy": 0,
+   "main_n": 1678,
+   "dead": 161
+  },
+  {
+   "team": "\u3084\u308b\u6c17\u5143\u6c17\u30df\u30ef\u30cf\u30eb\u30ad",
+   "energy": 0,
+   "main_n": 47,
+   "dead": 1
+  },
+  {
+   "team": "\u6e21\u908a\u5f81\u592e",
+   "energy": 0,
+   "main_n": 1410,
+   "dead": 219
+  },
+  {
+   "team": "disgruntled.coffee",
+   "energy": 0,
+   "main_n": 213,
+   "dead": 12
+  },
+  {
+   "team": "btk15049",
+   "energy": 0,
+   "main_n": 1626,
+   "dead": 112
+  },
+  {
+   "team": "ZETADIVISION",
+   "energy": 0,
+   "main_n": 470,
+   "dead": 23
+  },
+  {
+   "team": "THIRD PTCG Club",
+   "energy": 0,
+   "main_n": 1308,
+   "dead": 108
+  },
+  {
+   "team": "MR.h",
+   "energy": 0,
+   "main_n": 69,
+   "dead": 12
+  },
+  {
+   "team": "TEAM NAME",
+   "energy": 0,
+   "main_n": 45,
+   "dead": 5
+  },
+  {
+   "team": "D\u0169ng \u0110\u1ed7",
+   "energy": 0,
+   "main_n": 4454,
+   "dead": 354
+  },
+  {
+   "team": "kashiwashira",
+   "energy": 0,
+   "main_n": 400,
+   "dead": 52
+  },
+  {
+   "team": "ShumpeiNomura",
+   "energy": 0,
+   "main_n": 127,
+   "dead": 4
+  },
+  {
+   "team": "S4nkurero",
+   "energy": 0,
+   "main_n": 128,
+   "dead": 15
+  },
+  {
+   "team": "noikaret",
+   "energy": 0,
+   "main_n": 97,
+   "dead": 11
+  },
+  {
+   "team": "Claude and codex suck ;)",
+   "energy": 0,
+   "main_n": 93,
+   "dead": 6
+  },
+  {
+   "team": "Gengar",
+   "energy": 0,
+   "main_n": 98,
+   "dead": 19
+  },
+  {
+   "team": "Kohenyan",
+   "energy": 0,
+   "main_n": 75,
+   "dead": 9
+  },
+  {
+   "team": "kawachi",
+   "energy": 0,
+   "main_n": 64,
+   "dead": 6
+  },
+  {
+   "team": "1++++++++",
+   "energy": 0,
+   "main_n": 40,
+   "dead": 0
+  },
+  {
+   "team": "TeamSCSQ(\u30c1\u30fc\u30e0\u30b9\u30af\u30b9\u30af)",
+   "energy": 0,
+   "main_n": 43,
+   "dead": 15
+  },
+  {
+   "team": "Ajishio",
+   "energy": 0,
+   "main_n": 73,
+   "dead": 2
+  },
+  {
+   "team": "\u5909\u5316\u306e\u66f8\u30be\u30ed\u30a2\u30fc\u30af",
+   "energy": 0,
+   "main_n": 82,
+   "dead": 10
+  },
+  {
+   "team": "capbloo",
+   "energy": 0,
+   "main_n": 235,
+   "dead": 22
+  },
+  {
+   "team": "LagrangianLocomotive",
+   "energy": 0,
+   "main_n": 85,
+   "dead": 4
+  },
+  {
+   "team": "Hachi TCG",
+   "energy": 0,
+   "main_n": 47,
+   "dead": 5
+  },
+  {
+   "team": "Nghia Tran",
+   "energy": 0,
+   "main_n": 73,
+   "dead": 5
+  },
+  {
+   "team": "Mitudru Dutta",
+   "energy": 0,
+   "main_n": 41,
+   "dead": 1
+  },
+  {
+   "team": "Akira-Ninth",
+   "energy": 0,
+   "main_n": 44,
+   "dead": 4
+  },
+  {
+   "team": "nasuo445",
+   "energy": 0,
+   "main_n": 3505,
+   "dead": 684
+  },
+  {
+   "team": "easonyanyan",
+   "energy": 0,
+   "main_n": 951,
+   "dead": 220
+  },
+  {
+   "team": " me-keh-dev",
+   "energy": 0,
+   "main_n": 40,
+   "dead": 0
+  },
+  {
+   "team": "Pilkwang Kim",
+   "energy": 0,
+   "main_n": 61,
+   "dead": 1
+  },
+  {
+   "team": "Ryo Ochi",
+   "energy": 0,
+   "main_n": 98,
+   "dead": 9
+  },
+  {
+   "team": "RicardoL\u00f3pez",
+   "energy": 0,
+   "main_n": 49,
+   "dead": 9
+  },
+  {
+   "team": "tomworks",
+   "energy": 0,
+   "main_n": 45,
+   "dead": 0
+  },
+  {
+   "team": "hoshippi",
+   "energy": 0,
+   "main_n": 116,
+   "dead": 17
+  },
+  {
+   "team": "Boss's Orders Are All You Need",
+   "energy": 0,
+   "main_n": 120,
+   "dead": 11
+  },
+  {
+   "team": "Hiroto Tarora",
+   "energy": 0,
+   "main_n": 52,
+   "dead": 28
+  },
+  {
+   "team": "titako0000",
+   "energy": 0,
+   "main_n": 51,
+   "dead": 2
+  },
+  {
+   "team": "iwashi",
+   "energy": 0,
+   "main_n": 403,
+   "dead": 64
+  },
+  {
+   "team": "\u4e8e\u7b11\u975elilishyxf",
+   "energy": 0,
+   "main_n": 139,
+   "dead": 3
+  },
+  {
+   "team": "Akhil Chinta",
+   "energy": 0,
+   "main_n": 46,
+   "dead": 3
+  },
+  {
+   "team": "\u76ae\u5361\u4e18\u6218\u961f",
+   "energy": 0,
+   "main_n": 40,
+   "dead": 3
+  },
+  {
+   "team": "Sean Jones",
+   "energy": 0,
+   "main_n": 46,
+   "dead": 3
+  },
+  {
+   "team": "Majkel1337",
+   "energy": 0,
+   "main_n": 2458,
+   "dead": 152
+  },
+  {
+   "team": "junlee789",
+   "energy": 0,
+   "main_n": 60,
+   "dead": 6
+  },
+  {
+   "team": "Rmy",
+   "energy": 0,
+   "main_n": 230,
+   "dead": 15
+  },
+  {
+   "team": "kidekikish",
+   "energy": 0,
+   "main_n": 45,
+   "dead": 4
+  },
+  {
+   "team": "EPHEMORIA",
+   "energy": 0,
+   "main_n": 47,
+   "dead": 0
+  },
+  {
+   "team": "vibechu",
+   "energy": 0,
+   "main_n": 169,
+   "dead": 5
+  },
+  {
+   "team": "bono",
+   "energy": 0,
+   "main_n": 300,
+   "dead": 8
+  },
+  {
+   "team": "aaa",
+   "energy": 0,
+   "main_n": 156,
+   "dead": 6
+  },
+  {
+   "team": "lmaffei",
+   "energy": 0,
+   "main_n": 42,
+   "dead": 0
+  },
+  {
+   "team": "Hase2727",
+   "energy": 0,
+   "main_n": 47,
+   "dead": 0
+  },
+  {
+   "team": "Michael Long",
+   "energy": 0,
+   "main_n": 129,
+   "dead": 2
+  },
+  {
+   "team": "djschmit",
+   "energy": 0,
+   "main_n": 42,
+   "dead": 4
+  },
+  {
+   "team": "Raihan Ramadistra",
+   "energy": 0,
+   "main_n": 345,
+   "dead": 4
+  },
+  {
+   "team": "213tubo",
+   "energy": 0,
+   "main_n": 40,
+   "dead": 5
+  },
+  {
+   "team": "fujiborozoukin",
+   "energy": 0,
+   "main_n": 56,
+   "dead": 0
+  },
+  {
+   "team": "mitomeat823",
+   "energy": 0,
+   "main_n": 54,
+   "dead": 10
+  },
+  {
+   "team": "\u3054\u3093\u3055\u304f\u3088\u306d\u304d\u3061",
+   "energy": 0,
+   "main_n": 43,
+   "dead": 7
+  },
+  {
+   "team": "Alberto Bonsanto",
+   "energy": 0,
+   "main_n": 105,
+   "dead": 0
+  },
+  {
+   "team": "Tahsin Arafat",
+   "energy": 0,
+   "main_n": 50,
+   "dead": 0
+  },
+  {
+   "team": "junlee789 - \uc774\uc900",
+   "energy": 0,
+   "main_n": 47,
+   "dead": 10
+  },
+  {
+   "team": "MPGaming",
+   "energy": 0,
+   "main_n": 137,
+   "dead": 4
+  }
+ ]
+}

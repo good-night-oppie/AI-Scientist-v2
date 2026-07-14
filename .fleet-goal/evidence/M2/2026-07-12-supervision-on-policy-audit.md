@@ -115,9 +115,16 @@ Against the **raw 679-episode corpus** there are **three** teams at 6/6:
 > My 732 / 3-teams figure is correct only against the raw corpus, which is a different
 > population. The charter was right; I was measuring a different thing. Retracted.
 
-> **Second self-correction:** the fielded deck is byte-identical across **six** tarballs
-> (SHA256 `1156379a…`), not five — `s15_ordered_reply` also carries it. I undercounted my
-> own evidence.
+> **Second self-correction — "the deck has never changed" is WRONG.** There are **eight**
+> bundles, not five. Six share one deck (SHA256 `1156379a…`), but the **two deck-search
+> bundles carry different decks**: `2c1368bc03` (10 distinct, 34× basic energy, Jaccard 0.750
+> vs base) and `58f62b5135` (12 distinct, 34× basic energy, Jaccard 0.533). And the deck *did*
+> change on the ladder — per `LANE_STATE.md`, the `2c1368bc03` deck was probed on Kaggle as ref
+> **54585744**: scored 600.0, then **regressed to 464.5**, tripping rpo condition 3 and freezing
+> further deck submissions.
+>
+> **The substance survives:** both evolved decks are still **k/6 = 0** and carry *more* basic
+> energy (34 vs 33). Every deck we have ever fielded or probed is zero-core.
 
 ---
 
@@ -134,16 +141,66 @@ And there is no version of Task 2 that fixes this by mining harder: **no ladder 
 our deck** (max Jaccard 0.429 across 135 teams; only 4/135 carry ≥20 basic energy). You
 cannot mine on-policy data for a deck nobody plays.
 
-**The real fork** — this is a decision for ai-scientist-7, not for me:
+### ARCHETYPE_CORE is UNREACHABLE BY CONSTRUCTION (hardens everything above)
 
-1. **Change the deck.** Field a deck that the supervision actually covers (e.g. the
-   Mega-Lucario-ex core, or kazuki0123/WinDecks which are 41 % of supervision). Then
-   ladder imitation becomes on-policy by construction. This is the only route that makes
-   the existing 76k records on-policy.
-2. **Accept off-policy imitation** and require the ranker to be deck-agnostic (score option
-   *types* + board state, not card identities). Then "on-policy fraction" is the wrong
-   metric and the gate should measure cross-deck transfer instead.
-3. **Generate on-policy data by self-play on OUR deck** — not ladder mining at all.
+`deck_search.py:126-134` builds the basic-Pokémon pool as **`water_basics`**:
+
+```python
+"water_basics": [c["cardId"] for c in cards.values()
+                 if c["cardType"] == 0 and c.get("basic")
+                 and c.get("energyType") == 3          # WATER
+                 and (c.get("hp") or 0) >= 100]
+```
+
+The Mega-Lucario-ex core cards `{6, 678, 1102, 1141, 1142, 1152}` **can never enter a searched
+deck**. So *every* deck our pipeline can produce — current, probed, or future — is **k/6 = 0**.
+On-archetype supervision is not merely 0 % today; it is **structurally unattainable** through
+deck search.
+
+### Root cause of the charter's error (worth a one-line fix)
+
+`policy_imitation.py:549` comments the strict 6/6 **eval slice** as *"(the meta0 **gate deck**)"*,
+and `:566` tags it `"val_eval_archetype6": _eval(val_arch),  # the deployment/gate deck`.
+
+That comment calls an **eval slice** "the deployment/gate deck." That is almost certainly the
+source of "ARCHETYPE_CORE is the deck WE field" — a **misleading comment**, not a reasoning
+error by the charter author. Recommend mroute fix the wording; it is a latent trap that has
+already cost one charter.
+
+---
+
+## THE FORK — revised after verification
+
+> **RETRACTION (mine, material).** My first draft recommended *"change the deck to one the
+> supervision covers."* **That experiment already ran, and it lost.** The meta0 /
+> Benjamin-Zhao (ARCHETYPE_CORE) deck was built as a candidate bundle and gated head-to-head
+> against the s14 baseline. From the bytes (`runs/replay_mining/eval_meta0_*.json`):
+>
+> | n | W–L | winrate |
+> |---:|---:|---:|
+> | 40 | 25–15 | 0.625 ← small-sample noise |
+> | 160 | 72–88 | 0.450 |
+> | 400 | 203–197 | 0.5075 |
+> | 400b | 189–211 | 0.4725 |
+> | **pooled 1000** | **489–511** | **0.489** |
+>
+> The ARCHETYPE_CORE deck **does not beat our water deck**. Option 1 as written is withdrawn.
+>
+> **Nuance — do not over-read the retraction.** That gate paired the meta0 *deck* with **our
+> search policy** (via `--deck-path` override). Our policy is co-adapted to our deck — its
+> determinization literally computes `Counter(DECK) - seen`. So what was tested is *"our policy
+> + their deck"*: precisely the co-adaptation mismatch the lane's own lesson predicts will fail.
+> The pairing that was **never tested** is *"meta0 deck + meta0-**trained** ranker."* That is the
+> one live version of option 1, and it is the honest test of the co-adaptation hypothesis.
+
+1. **~~Change the deck~~ — WITHDRAWN.** Already gated: winrate 0.489 @ n = 1000. Only live
+   variant is *meta0 deck + meta0-trained ranker* (untested, expensive).
+2. **Deck-agnostic ranker — now the primary recommendation.** Ablate `play_card=` / `abil_card=`,
+   accept the −11.73 pp, and gate on **cross-deck transfer** rather than an "on-policy fraction"
+   that is structurally 0 %. Half our deck (33/60 basic energy via `OPT_ATTACH`) and 40 % of all
+   decisions already ride **zero** card-identity features.
+3. **Self-play on OUR deck** — the only route to genuinely on-policy data, since nobody plays our
+   deck and deck-search cannot reach theirs.
 
 The lane's own hard-won lesson (*"policy and deck are CO-ADAPTED"* — the A1 bug-fixed policy
 *lost* on the unchanged deck) cuts **in favour of taking this seriously**: if policy and deck

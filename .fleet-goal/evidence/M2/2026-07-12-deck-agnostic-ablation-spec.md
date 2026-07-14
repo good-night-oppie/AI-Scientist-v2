@@ -7,6 +7,14 @@ This ablation answers, with ZERO GAMES, whether the other 36% (the deck-agnostic
 == GOAL ==
 Produce, on ONE fixed episode-disjoint split, static held-out top-1 agreement for FOUR rankers scored on the decisions of the deck WE FIELD, and report them side by side:
   R0  A1 heuristic baseline (no learning)         <- sanity anchor: full-set MAIN must reproduce ~0.2866
+      [CORRECTED 2026-07-13 by sctst-aide per Eddie order — the ~0.2866 anchor is WRONG for this harness.
+       Reproduced from the bytes (frozen heuristic_scorer + agreement, 332a390): full-set MAIN =
+       0.3385 on the 679-corpus (0.4177 on the 106-corpus). NEITHER corpus yields 0.2866 through
+       policy_imitation. The 0.2866 is "the independently-measured 28.2% plateau" from M1's SEPARATE
+       divergence analysis (different code path / pre-bugfix policy), NOT an R0 the ablation harness
+       produces. Keeping 0.2866 would trip the "harness is lying → STOP" clause as a FALSE ALARM.
+       >>> R0 sanity anchor := full-set MAIN 0.3385 (val-split val_eval_full MAIN = 0.3318).
+       Evidence: 2026-07-13-r0-anchor-correction.md + repro_anchor output.]
   R1  C-v1  = shipped imitation_weights.json (111 keys, trained on the 106-replay corpus)
   R2  C-v2  = same trainer, retrained on the 679-replay corpus (67,802 pairs)
   R3  C-AG  = DECK-AGNOSTIC: retrained on the 679-replay corpus with CARD-IDENTITY FEATURES DISABLED
@@ -65,3 +73,7 @@ The four agreement numbers (full-set + MAIN-only) on one identical split, with R
 harness sanity anchor — if it does not, the harness is lying and you should STOP and say so rather than
 reporting numbers off a broken split. Plus the I5/I6 fractions per ranker, weight-key counts, and the SHA-256
 of each weights file. Tests green, ruff clean, git diff confirming every intended write survived the hook.
+  [CORRECTED 2026-07-13 (sctst-aide, per Eddie): the R0 sanity anchor is 0.3385 (full-set MAIN,
+   679-corpus), NOT 0.2866. See the R0 line above and 2026-07-13-r0-anchor-correction.md. If R0
+   reproduces ~0.3385 the harness is HONEST; treating 0.2866 as the pass condition would falsely
+   halt a correct run.]

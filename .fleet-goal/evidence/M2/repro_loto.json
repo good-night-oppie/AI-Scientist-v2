@@ -1,0 +1,143 @@
+{
+ "loto": [
+  {
+   "team": "kazuki0123",
+   "records": 16426,
+   "C-FULL": 0.4528,
+   "C-FULL_n": 8248,
+   "C-AG": 0.3745,
+   "C-AG_n": 8248,
+   "delta_full_minus_ag_pp": 7.83
+  },
+  {
+   "team": "WinDecks",
+   "records": 15062,
+   "C-FULL": 0.2712,
+   "C-FULL_n": 8561,
+   "C-AG": 0.2378,
+   "C-AG_n": 8561,
+   "delta_full_minus_ag_pp": 3.34
+  },
+  {
+   "team": "tonakaiiii",
+   "records": 7310,
+   "C-FULL": 0.4662,
+   "C-FULL_n": 3168,
+   "C-AG": 0.3955,
+   "C-AG_n": 3168,
+   "delta_full_minus_ag_pp": 7.07
+  },
+  {
+   "team": "D\u0169ng \u0110\u1ed7",
+   "records": 6872,
+   "C-FULL": 0.5263,
+   "C-FULL_n": 4454,
+   "C-AG": 0.3172,
+   "C-AG_n": 4454,
+   "delta_full_minus_ag_pp": 20.91
+  },
+  {
+   "team": "nasuo445",
+   "records": 5617,
+   "C-FULL": 0.5524,
+   "C-FULL_n": 3505,
+   "C-AG": 0.4094,
+   "C-AG_n": 3505,
+   "delta_full_minus_ag_pp": 14.3
+  },
+  {
+   "team": "Majkel1337",
+   "records": 4408,
+   "C-FULL": 0.4036,
+   "C-FULL_n": 2458,
+   "C-AG": 0.3779,
+   "C-AG_n": 2458,
+   "delta_full_minus_ag_pp": 2.57
+  },
+  {
+   "team": "Yushin Ito",
+   "records": 3470,
+   "C-FULL": 0.4583,
+   "C-FULL_n": 1678,
+   "C-AG": 0.4273,
+   "C-AG_n": 1678,
+   "delta_full_minus_ag_pp": 3.1
+  },
+  {
+   "team": "zoroark190",
+   "records": 3369,
+   "C-FULL": 0.3314,
+   "C-FULL_n": 1859,
+   "C-AG": 0.2959,
+   "C-AG_n": 1859,
+   "delta_full_minus_ag_pp": 3.55
+  },
+  {
+   "team": "btk15049",
+   "records": 2754,
+   "C-FULL": 0.3432,
+   "C-FULL_n": 1626,
+   "C-AG": 0.302,
+   "C-AG_n": 1626,
+   "delta_full_minus_ag_pp": 4.12
+  },
+  {
+   "team": "THIRD PTCG Club",
+   "records": 2312,
+   "C-FULL": 0.3739,
+   "C-FULL_n": 1308,
+   "C-AG": 0.341,
+   "C-AG_n": 1308,
+   "delta_full_minus_ag_pp": 3.29
+  },
+  {
+   "team": "easonyanyan",
+   "records": 2036,
+   "C-FULL": 0.5216,
+   "C-FULL_n": 951,
+   "C-AG": 0.5005,
+   "C-AG_n": 951,
+   "delta_full_minus_ag_pp": 2.11
+  },
+  {
+   "team": "ZETADIVISION",
+   "records": 1001,
+   "C-FULL": 0.3702,
+   "C-FULL_n": 470,
+   "C-AG": 0.3511,
+   "C-AG_n": 470,
+   "delta_full_minus_ag_pp": 1.91
+  },
+  {
+   "team": "LiamK",
+   "records": 784,
+   "C-FULL": 0.2668,
+   "C-FULL_n": 446,
+   "C-AG": 0.2175,
+   "C-AG_n": 446,
+   "delta_full_minus_ag_pp": 4.93
+  },
+  {
+   "team": "kashiwashira",
+   "records": 631,
+   "C-FULL": 0.4125,
+   "C-FULL_n": 400,
+   "C-AG": 0.345,
+   "C-AG_n": 400,
+   "delta_full_minus_ag_pp": 6.75
+  },
+  {
+   "team": "Benjamin Zhao3927",
+   "records": 553,
+   "C-FULL": 0.4238,
+   "C-FULL_n": 328,
+   "C-AG": 0.3018,
+   "C-AG_n": 328,
+   "delta_full_minus_ag_pp": 12.2
+  }
+ ],
+ "wins_full": 15,
+ "wins_ag": 0,
+ "mean_delta_unweighted_pp": 6.53,
+ "mean_delta_weighted_pp": 7.6
+}
