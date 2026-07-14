@@ -194,3 +194,23 @@ final_papers/
 # HF
 cache/
 huggingface/
+
+# --- per-runtime agent + local state (never shippable) -------------------- #
+# Checkout-local: agent memory, per-tool config, scratch outputs. Ignored so a
+# `git add -A` in this multi-session lane can't commit them (bene.db/kaos.db are
+# 400KB SQLite blobs; .serena/ is agent memory).
+bene.db
+kaos.db
+.serena/
+.claude/
+.codex/
+.devin/
+.factory/
+.cursorrules
+working/
+# host-specific droid skill table (refs ~/.factory/skills/)
+AGENTS.md
+# per-checkout instructions (currently empty)
+CLAUDE.md
+# auto-generated session digest (marked DO NOT EDIT)
+LATEST_HIGHLIGHTS.md
