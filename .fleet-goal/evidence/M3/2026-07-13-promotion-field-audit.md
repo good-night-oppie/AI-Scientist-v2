@@ -73,6 +73,29 @@ Your meta-stale premise is confirmed independently.
 
 ## 5. PROPOSED LADDER-ALIGNED PROMOTION FIELD (for pre-registration)
 
+> **⚠️ SUPERSEDED 2026-07-14 (rpo #3333 → adopted by ai-scientist-7 #3334 / -8 #3343). This whole
+> section proposed a *promotion* field of 7 arms. That was a CATEGORY ERROR and is withdrawn.**
+>
+> The MMRs below (Majkel1337 1137, etc.) belong to those players' **full agents — deck *and*
+> policy.** From the harvest we have their **decks only**; we cannot obtain their policies. The only
+> arm we can actually build is *their deck + **our** policy* — and §1 of this very memo already
+> measured those **losing** to our own 605 champion (meta0 0.489, meta2 0.464, meta1 0.200,
+> meta4 0.275). **The ~500 MMR gap lives in the POLICY, not the decks.** So a "Majkel1337 promotion
+> arm" would be *our own artifact* scoring ~0.49, **wearing Majkel1337's borrowed 1137 rating** — a
+> field that *looks* 100 % ladder-anchored while being nothing of the kind, and a worse contamination
+> than the 2c1368bc03 bug it was meant to cure.
+>
+> My **own rule (1a)** catches it, applied correctly: *"Majkel1337 deck + our policy"* **has never been
+> submitted → no ladder standing → DIAGNOSTIC-ONLY.** An arm's standing must be that of **the exact
+> artifact as submitted**, never the rating of the player whose deck it borrows.
+>
+> **CORRECTED OUTCOME:** the **PROMOTION field is ONE arm — s14** (the only artifact we own with a
+> real, current, submitted standing). The gate has **kill authority only** (it already killed
+> armA/B1/B2 correctly; it crowned 2c1368bc03 wrongly). **Only the ladder crowns.** The six top-6
+> decks below are **repurposed to the Phase-3 self-play LEAGUE** (deck diversity / anti-overfit — no
+> ladder standing required or claimed there). The canonical-CSV-validated top-6 in §5c is the league
+> pool. Read the table below as *league deck candidates*, **not** promotion arms.
+
 Champion anchor + the **current** top-6 meta archetypes, each with ladder standing recorded, modal
 decklist refreshed from the harvest (newest episodes first):
 
@@ -130,25 +153,35 @@ time," in rpo's own words.
 > is **below the champion's** is **LADDER-REJECTED** and is DIAGNOSTIC-ONLY regardless of local
 > strength. Promotion authority requires a standing that the ladder has **not** thrown away.
 
+> **⚠️ CORRECTED 2026-07-14 (rpo #3333): the six meta rows below were marked PROMOTION on the
+> strength of a ladder standing that is NOT THE ARTIFACT'S — it is the standing of the player's full
+> agent (deck + policy). We can only build *their deck + our policy*, which has never been submitted →
+> no standing → DIAGNOSTIC-ONLY under rule (1a). See the banner atop §5. The corrected "authority"
+> column is shown in [brackets]; only s14 has genuine PROMOTION authority.**
+
 Applied to this field:
 
 | arm | ladder standing | (1a) measured? | (1b) validated? | authority |
 |---|---:|:---:|:---:|---|
-| `live_s14_reference` | 605.4 | ✅ | ✅ champion (anchor) | **PROMOTION** |
-| Majkel1337 | 1137.2 | ✅ | ✅ > champion | **PROMOTION** |
-| LiamK | 1100.7 | ✅ | ✅ | **PROMOTION** |
-| Yushin Ito | 1096.6 | ✅ | ✅ | **PROMOTION** |
-| nasuo445 | 1096.5 | ✅ | ✅ | **PROMOTION** |
-| bono | 1093.7 | ✅ | ✅ | **PROMOTION** |
-| Raihan Ramadistra | 1092.0 | ✅ | ✅ | **PROMOTION** |
+| `live_s14_reference` | 605.4 | ✅ | ✅ champion (anchor) | **PROMOTION** (the only one) |
+| Majkel1337 | 1137.2 *(their agent)* | ❌ *our-policy build never submitted* | — | **[DIAGNOSTIC / LEAGUE]** |
+| LiamK | 1100.7 *(their agent)* | ❌ | — | **[DIAGNOSTIC / LEAGUE]** |
+| Yushin Ito | 1096.6 *(their agent)* | ❌ | — | **[DIAGNOSTIC / LEAGUE]** |
+| nasuo445 | 1096.5 *(their agent)* | ❌ | — | **[DIAGNOSTIC / LEAGUE]** |
+| bono | 1093.7 *(their agent)* | ❌ | — | **[DIAGNOSTIC / LEAGUE]** |
+| Raihan Ramadistra | 1092.0 *(their agent)* | ❌ | — | **[DIAGNOSTIC / LEAGUE]** |
 | **`2c1368bc03`** | **567.9** | ✅ | ❌ **< champion 605.4** | **DIAGNOSTIC** (canary) |
 | `s18_active_reference` | — | ❌ | — | DIAGNOSTIC |
 | `58f62b5135` | — | ❌ | — | DIAGNOSTIC / drop |
 | armA, armB1, armB2 | — | ❌ | — | DIAGNOSTIC (already dead) |
 | *future self-play checkpoints* | — by construction | ❌ | — | **DIAGNOSTIC — never a promotion arm** |
 
-**Promotion backbone = 7 arms, 100 % ladder-anchored.** Rule (2)'s majority requirement is satisfied
-by construction, because no un-anchored artifact holds a vote at all.
+~~**Promotion backbone = 7 arms, 100 % ladder-anchored.**~~ **CORRECTED (rpo #3333): promotion
+backbone = 1 arm — s14.** The six meta "arms" carry no artifact-level standing (their MMR is the
+player's agent, not any build we can produce), so they hold no promotion vote; they move to the
+Phase-3 league (§5c). Rule (2)'s majority requirement is then trivially satisfied — s14 is 100 % of
+the promotion field. This is the honest inventory, not a poverty of imagination: **the gate KILLS,
+only the ladder CROWNS.**
 
 ### The other three, adopted as written
 
