@@ -58,6 +58,9 @@ class Node(DataClassJsonMixin):
     parent: Optional["Node"] = field(default=None, kw_only=True)
     children: set["Node"] = field(default_factory=set, kw_only=True)
     exp_results_dir: str = field(default=None, kw_only=True)  # type: ignore
+    # helios content handle. PLAIN str ("blake3:<64hex>") — NEVER a Path, NEVER run
+    # through .resolve().relative_to(os.getcwd()). Pickled into checkpoint.pkl; keep it a str.
+    snapshot_id: Optional[str] = field(default=None, kw_only=True)  # type: ignore
 
     # ---- execution info ----
     _term_out: list[str] = field(default=None, kw_only=True)  # type: ignore
@@ -241,6 +244,11 @@ class Node(DataClassJsonMixin):
                 if self.exp_results_dir
                 else None
             ),
+            # Plain passthrough — NEVER the exp_results_dir Path idiom above (that
+            # raises ValueError off-cwd and would kill the node result at
+            # parallel_agent.py:1785). getattr guards a Node unpickled from a
+            # pre-change checkpoint (mirrors the overall_plan hasattr guard).
+            "snapshot_id": getattr(self, "snapshot_id", None),
             "metric": {
                 "value": self.metric.value if self.metric else None,
                 "maximize": self.metric.maximize if self.metric else None,
@@ -295,7 +303,7 @@ class Node(DataClassJsonMixin):
         """Create a Node from a dictionary, optionally linking to journal for relationships"""
         # Remove relationship IDs from constructor data
         parent_id = data.pop("parent_id", None)
-        children = data.pop("children", [])
+        data.pop("children", [])
 
         # Handle metric conversion
         metric_data = data.pop("metric", None)
@@ -347,13 +355,13 @@ class InteractiveSession(DataClassJsonMixin):
         trace = []
         header_prefix = "## " if comment_headers else ""
         for n in self.nodes:
-            trace.append(f"\n{header_prefix}In [{n.step+1}]:\n")
+            trace.append(f"\n{header_prefix}In [{n.step + 1}]:\n")
             trace.append(n.code)
-            trace.append(f"\n{header_prefix}Out [{n.step+1}]:\n")
+            trace.append(f"\n{header_prefix}Out [{n.step + 1}]:\n")
             trace.append(n.term_out)
 
         if include_prompt and self.nodes:
-            trace.append(f"\n{header_prefix}In [{self.nodes[-1].step+2}]:\n")
+            trace.append(f"\n{header_prefix}In [{self.nodes[-1].step + 2}]:\n")
 
         return "\n".join(trace).strip()
 
@@ -417,7 +425,9 @@ class Journal:
         """Return a list of all metric values in the journal."""
         return [n.metric for n in self.nodes]
 
-    def get_best_node(self, only_good=True, use_val_metric_only=False, cfg=None) -> None | Node:
+    def get_best_node(
+        self, only_good=True, use_val_metric_only=False, cfg=None
+    ) -> None | Node:
         """Return the best solution found so far."""
         if only_good:
             nodes = self.good_nodes
@@ -452,13 +462,13 @@ class Journal:
         for node in nodes:
             if not node.is_seed_node:
                 candidate_info = (
-                    f"ID: {node.id}\n" f"Metric: {str(node.metric)}\n"
+                    f"ID: {node.id}\nMetric: {str(node.metric)}\n"
                     if node.metric
                     else (
-                        "N/A\n" f"Training Analysis: {node.analysis}\n"
+                        f"N/A\nTraining Analysis: {node.analysis}\n"
                         if hasattr(node, "analysis")
                         else (
-                            "N/A\n" f"VLM Feedback: {node.vlm_feedback_summary}\n"
+                            f"N/A\nVLM Feedback: {node.vlm_feedback_summary}\n"
                             if hasattr(node, "vlm_feedback_summary")
                             else "N/A\n"
                         )
@@ -478,7 +488,7 @@ class Journal:
                 user_message=None,
                 func_spec=node_selection_spec,
                 model=model,
-                temperature=temperature
+                temperature=temperature,
             )
 
             # Find and return the selected node
@@ -542,7 +552,7 @@ class Journal:
                 "3. Specific recommendations for future experiments based on both successes and failures"
             ),
             model=model_kwargs.get("model", "gpt-4o"),
-            temperature=model_kwargs.get("temp", 0.3)
+            temperature=model_kwargs.get("temp", 0.3),
         )
 
         return summary
@@ -562,7 +572,9 @@ class Journal:
         """Convert journal to a JSON-serializable dictionary"""
         return {"nodes": [node.to_dict() for node in self.nodes]}
 
-    def save_experiment_notes(self, workspace_dir: str, stage_name: str, cfg: Any) -> None:
+    def save_experiment_notes(
+        self, workspace_dir: str, stage_name: str, cfg: Any
+    ) -> None:
         """Save experimental notes and summaries to files"""
         notes_dir = os.path.join(workspace_dir, "experiment_notes")
         os.makedirs(notes_dir, exist_ok=True)
@@ -604,8 +616,12 @@ class Journal:
         stage_summary = query(
             system_message=summary_prompt,
             user_message="Generate a comprehensive summary of the experimental findings in this stage",
-            model=cfg.agent.summary.model if cfg.agent.get("summary", None) else "gpt-4o",
-            temperature=cfg.agent.summary.temp if cfg.agent.get("summary", None) else 0.3
+            model=cfg.agent.summary.model
+            if cfg.agent.get("summary", None)
+            else "gpt-4o",
+            temperature=cfg.agent.summary.temp
+            if cfg.agent.get("summary", None)
+            else 0.3,
         )
 
         with open(os.path.join(notes_dir, f"{stage_name}_summary.txt"), "w") as f:

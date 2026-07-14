@@ -22,6 +22,7 @@ from rich import print
 from pathlib import Path
 import base64
 import sys
+import uuid
 
 logger = logging.getLogger("ai-scientist")
 
@@ -389,6 +390,30 @@ class MinimalAgent:
         if self.cfg.agent.k_fold_validation > 1:
             impl_guideline.append(
                 f"The evaluation should be based on {self.cfg.agent.k_fold_validation}-fold cross-validation but only if that's an appropriate evaluation for the task at hand."
+            )
+
+        # --- Phase 7 warm-start reuse instruction (flag-gated, default OFF) ---
+        # LOAD-BEARING: without telling the model to reuse the restored cache, a
+        # warm-started (materialized) parent working dir is IGNORED and the speedup is
+        # ZERO. Gated on cfg.helios.warm_start so flag-OFF stays byte-identical to the
+        # Phase-6 baseline guideline; the getattr keeps it None-safe on installs
+        # without helios. "validate, else regenerate" is ALSO the torn-.npy mitigation:
+        # a truncated cache fails np.load -> the script recomputes instead of crashing.
+        if (
+            getattr(self.cfg, "helios", None) is not None
+            and self.cfg.helios.enabled
+            and self.cfg.helios.warm_start
+        ):
+            impl_guideline.extend(
+                [
+                    "Warm-start / cached-artifact reuse: a previous node's working directory has "
+                    "been restored into working_dir. BEFORE any expensive download or preprocessing:",
+                    "  - Check whether the artifact already exists in working_dir (e.g. os.path.exists).",
+                    "  - Load and VALIDATE it (wrap np.load(..., allow_pickle=True) in try/except); if it "
+                    "loads and passes a shape/sanity check, REUSE it and skip regeneration.",
+                    "  - If the cached file is missing, corrupt, or fails validation, regenerate it "
+                    "from scratch exactly as you otherwise would (this keeps the script self-contained).",
+                ]
             )
 
         return {"Implementation guideline": impl_guideline}
@@ -1295,6 +1320,8 @@ class ParallelAgent:
             seed_eval = True
             memory_summary = ""
             print("[yellow]Starting multi-seed eval...[/yellow]")
+            # Pre-mint a distinct node id so each seed's isolated exec dir is unique.
+            seed_child_node_id = uuid.uuid4().hex
             futures.append(
                 self.executor.submit(
                     self._process_node_wrapper,
@@ -1311,6 +1338,7 @@ class ParallelAgent:
                     best_stage2_plot_code,
                     best_stage3_plot_code,
                     seed_eval,
+                    seed_child_node_id,
                 )
             )
 
@@ -1421,6 +1449,7 @@ class ParallelAgent:
         best_stage2_plot_code=None,
         best_stage1_plot_code=None,
         seed_eval=False,
+        child_node_id: str = None,
     ):
         """Wrapper function that creates a fresh environment for each process"""
         from .interpreter import Interpreter
@@ -1428,17 +1457,28 @@ class ParallelAgent:
         from copy import deepcopy
         import os
         import multiprocessing
+        from .workspace_isolation import (
+            resolve_node_workdir,
+            detect_saved_npy,
+            gc_node_workdir,
+            gc_bounded_node_workdirs,
+        )
 
         print("Starting _process_node_wrapper")
 
-        # Create process-specific workspace
+        # Resolve this node's exec dir. Baseline (isolated=False) keys on the
+        # POOL WORKER name (byte-identical to the pre-Phase-6 expression); isolated
+        # mode keys on the pre-minted child_node_id so every node gets a FRESH
+        # EMPTY dir and cannot inherit a previous node's un-moved experiment_data.npy.
         process_id = multiprocessing.current_process().name
-        workspace = os.path.join(cfg.workspace_dir, f"process_{process_id}")
-        os.makedirs(workspace, exist_ok=True)
+        isolated = bool(
+            getattr(cfg, "helios", None)
+            and getattr(cfg.helios, "isolate_node_dirs", False)
+        )
+        workspace, working_dir = resolve_node_workdir(
+            cfg.workspace_dir, child_node_id, process_id, isolated
+        )
         print(f"Process {process_id} using workspace: {workspace}")
-        # Create process-specific working directory
-        working_dir = os.path.join(workspace, "working")
-        os.makedirs(working_dir, exist_ok=True)
 
         if gpu_id is not None:
             os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
@@ -1521,18 +1561,52 @@ class ParallelAgent:
                         child_node = worker_agent._improve(parent_node)
                         child_node.parent = parent_node
 
+            # Bind the node's identity to the pre-minted id BEFORE the Phase-5
+            # snapshot hook and before ANY set/journal insertion (which happens in
+            # the main process at step()). Keeps the exec dir, the snapshot node_id,
+            # and Node.id all in agreement. Node.__hash__/__eq__ are id-derived, so
+            # this must precede any membership use — and it does (insertion is later).
+            if child_node_id is not None:
+                child_node.id = child_node_id
+
             # Execute and parse results
             print("Running code")
+            # --- Phase 7 warm-start (flag-gated, default OFF) ---
+            # Seed this node's FRESH per-node working_dir (Phase 6) with the parent's
+            # committed filesystem BEFORE exec so cached artifacts are already on disk.
+            # Never raises: draft/buggy-parent/disabled/failure all degrade to cold.
+            from .helios_store import maybe_warm_start
+
+            warm_state = maybe_warm_start(cfg, parent_node, working_dir)  # 'warm'|'cold'
+            logger.info("node warm_state=%s", warm_state)
+            # --- end Phase 7 ---
             exec_result = process_interpreter.run(child_node.code, True)
             process_interpreter.cleanup_session()
+
+            # --- Helios write-only provenance hook (Phase 5) ---
+            # Snapshot the node's post-exec working dir for EVERY node, incl. buggy.
+            # Placed after cleanup_session (files flushed) but BEFORE parse_exec_result
+            # / the metric-parse and plotting runs mutate the dir, and OUTSIDE the
+            # `if not child_node.is_buggy:` archival gate below that rename()s the
+            # .npy/.png out. Write-only: never restores, never raises (a throw here
+            # would kill the node result at to_dict() and regress the search).
+            from .helios_store import snapshot_node_working_dir
+
+            child_node.snapshot_id = snapshot_node_working_dir(
+                cfg, working_dir, node_id=child_node.id
+            )
 
             print("Parsing execution results")
             worker_agent.parse_exec_result(
                 node=child_node, exec_result=exec_result, workspace=working_dir
             )
 
-            # Add check for saved data files
-            data_files = [f for f in os.listdir(working_dir) if f.endswith(".npy")]
+            # Add check for saved data files. In isolated mode this dir is the
+            # node's own fresh dir, so a node that saved nothing yields [] instead
+            # of a prior node's un-moved .npy (the metric-contamination fix). Uses
+            # the SAME predicate the replay harness imports, so the fix is
+            # exercised end-to-end, not asserted against a copy.
+            data_files = detect_saved_npy(working_dir)
             if not data_files:
                 logger.warning(
                     "No .npy files found in working directory. Data may not have been saved properly."
@@ -1794,6 +1868,23 @@ class ParallelAgent:
 
             traceback.print_exc()
             raise
+
+        finally:
+            # Bounded, double-gated GC. Deletes this node's isolated dir only when
+            # isolation is ON *and* a durable helios snapshot exists (so a copy is
+            # always recoverable), then caps total node_* dirs as a safety net for
+            # the helios-OFF-but-isolated case. Inert under baseline. GC must never
+            # mask the node result, so every failure here is swallowed.
+            try:
+                _cn = locals().get("child_node")
+                gc_node_workdir(
+                    workspace,
+                    isolated,
+                    getattr(_cn, "snapshot_id", None) if _cn is not None else None,
+                )
+                gc_bounded_node_workdirs(cfg.workspace_dir, isolated=isolated)
+            except Exception:
+                pass
 
     def _generate_hyperparam_tuning_idea(self) -> Optional[HyperparamTuningIdea]:
         """Generate the next hyperparam tuning idea based on what's been done.
@@ -2125,6 +2216,12 @@ class ParallelAgent:
                 self.best_stage3_node.plot_code if self.best_stage3_node else None
             )
             seed_eval = False
+            # Pre-mint the child's node id in the MAIN process so the worker can key
+            # its isolated exec dir on it before the node object exists (the node is
+            # built inside the worker, after the Interpreter). Threaded as the LAST
+            # positional arg so the pre-existing best_stageN_plot_code ordering is
+            # left untouched. Distinct per future -> no two nodes share a dir.
+            child_node_id = uuid.uuid4().hex
             futures.append(
                 self.executor.submit(
                     self._process_node_wrapper,
@@ -2141,6 +2238,7 @@ class ParallelAgent:
                     best_stage2_plot_code,
                     best_stage3_plot_code,
                     seed_eval,
+                    child_node_id,
                 )
             )
 

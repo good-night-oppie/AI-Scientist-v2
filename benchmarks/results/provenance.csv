@@ -1,0 +1,5 @@
+tool,scenario,recovered_ok,store_bytes,commit_s,restore_s
+helios,single_node,1,5251057,0.1152,0.1771
+tar_hash,single_node,1,5244826,0.2106,0.043
+helios,multinode_high_redundancy,1,16531656,0.8164,0.4017
+tar_hash,multinode_high_redundancy,1,31470341,1.2179,0.2299

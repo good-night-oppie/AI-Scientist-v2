@@ -276,7 +276,7 @@ if __name__ == "__main__":
             small_model=args.model_citation,
         )
         for attempt in range(args.writeup_retries):
-            print(f"Writeup attempt {attempt+1} of {args.writeup_retries}")
+            print(f"Writeup attempt {attempt + 1} of {args.writeup_retries}")
             if args.writeup_type == "normal":
                 writeup_success = perform_writeup(
                     base_folder=idea_dir,
@@ -344,19 +344,14 @@ if __name__ == "__main__":
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             continue
 
-    # Additional cleanup: find any orphaned processes containing specific keywords
-    keywords = ["python", "torch", "mp", "bfts", "experiment"]
-    for proc in psutil.process_iter(["name", "cmdline"]):
-        try:
-            # Check both process name and command line arguments
-            cmdline = " ".join(proc.cmdline()).lower()
-            if any(keyword in cmdline for keyword in keywords):
-                proc.send_signal(signal.SIGTERM)
-                proc.wait(timeout=3)
-                if proc.is_running():
-                    proc.kill()
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.TimeoutExpired):
-            continue
+    # NOTE: a previous version of this block enumerated EVERY process on the host and
+    # then force-terminated any whose lowercased
+    # command line contained one of several short substrings. That is unsafe on any
+    # multi-tenant machine: a two-letter token matches /tmp/, gnome-keyring, x11vnc, and
+    # the like, and a "python" token matches every unrelated interpreter on the box, so
+    # on a shared host it kills processes this run never spawned. Cleanup is now scoped
+    # strictly to this process's own descendants (the children(recursive=True) loop
+    # above), which is the only set this run is responsible for.
 
     # Finally, terminate the current process
     # current_process.send_signal(signal.SIGTERM)

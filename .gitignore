@@ -194,3 +194,10 @@ final_papers/
 # HF
 cache/
 huggingface/
+
+# helios integration: planning scaffolding + build store (not part of the PR diff)
+.supergoal/
+.serena/
+.helios/
+HELIOS_STORE_DIR/
+.venv-test/

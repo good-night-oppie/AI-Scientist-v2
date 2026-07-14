@@ -32,9 +32,10 @@ This system autonomously generates hypotheses, runs experiments, analyzes data, 
     *   [Supported Models and API Keys](#supported-models-and-api-keys)
 2.  [Generate Research Ideas](#generate-research-ideas)
 3.  [Run AI Scientist-v2 Paper Generation Experiments](#run-ai-scientist-v2-paper-generation-experiments)
-4.  [Citing The AI Scientist-v2](#citing-the-ai-scientist-v2)
-5.  [Frequently Asked Questions](#frequently-asked-questions)
-6.  [Acknowledgement](#acknowledgement)
+4.  [Helios Snapshot Checkpointing (Optional)](#helios-snapshot-checkpointing-optional)
+5.  [Citing The AI Scientist-v2](#citing-the-ai-scientist-v2)
+6.  [Frequently Asked Questions](#frequently-asked-questions)
+7.  [Acknowledgement](#acknowledgement)
 
 ## Requirements
 
@@ -155,6 +156,16 @@ python launch_scientist_bfts.py \
 Once the initial experimental stage is complete, you will find a timestamped log folder inside the `experiments/` directory. Navigate to `experiments/"timestamp_ideaname"/logs/0-run/` within that folder to find the tree visualization file `unified_tree_viz.html`.
 After all experiment stages are complete, the writeup stage begins. The writeup stage typically takes about 20 to 30 minutes in total. Once it finishes, you should see `timestamp_ideaname.pdf` in the `timestamp_ideaname` folder.
 For this example run, all stages typically finish within several hours.
+
+## Helios Snapshot Checkpointing (Optional)
+
+This fork can optionally checkpoint every tree-search node's working directory with the
+[helios](https://github.com/good-night-oppie/helios) snapshot engine, making any node's
+post-exec file state — including buggy nodes — reconstructable byte-for-byte. All helios
+features are flag-gated and **default OFF**; with the flag off, behavior and journals are
+identical to baseline. Before enabling, read the honest benchmark verdict (helios does
+**not** beat `tar` at realistic per-node sizes) and the operator guide in
+[docs/helios.md](docs/helios.md).
 
 ## Citing The AI Scientist-v2
 
