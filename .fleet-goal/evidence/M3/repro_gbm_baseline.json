@@ -1,0 +1,362 @@
+{
+ "status": "done",
+ "gbm_params": {
+  "objective": "lambdarank",
+  "metric": "ndcg",
+  "learning_rate": 0.05,
+  "num_leaves": 31,
+  "max_depth": 6,
+  "min_data_in_leaf": 50,
+  "lambda_l2": 1.0,
+  "feature_fraction": 1.0,
+  "bagging_fraction": 1.0,
+  "label_gain": [
+   0,
+   1
+  ],
+  "seed": 0,
+  "deterministic": true,
+  "num_threads": 1,
+  "force_col_wise": true,
+  "verbosity": -1
+ },
+ "num_boost_round": 300,
+ "corpus": {
+  "records": 76405,
+  "train_records": 60973,
+  "val_records": 15432,
+  "val_episodes": 135,
+  "train_episodes": 538
+ },
+ "vocab_size": 177,
+ "anchors_on_split": {
+  "heuristic_a1_main": 0.3318,
+  "linear_perceptron_main": 0.4749
+ },
+ "plumbing_proof": {
+  "linear_via_our_vectorizer_main": 0.4749,
+  "perceptron_scorer_main": 0.4749,
+  "abs_delta": 0.0,
+  "matches_perceptron_scorer": true,
+  "main_n": 8481
+ },
+ "gbm_full": {
+  "val_main_top1_agreement": 0.5181,
+  "val_top1_agreement": 0.5762,
+  "val_main_n": 8481,
+  "train_main_top1_agreement": 0.524,
+  "n_trees": 300,
+  "train_option_rows": 418781,
+  "train_secs": 16.8,
+  "model_bytes": 702312
+ },
+ "importances": {
+  "gbm_top_gain": [
+   {
+    "key": "tgt_best_atk",
+    "gain": 65091.65925531089,
+    "splits": 1226
+   },
+   {
+    "key": "bias_type=10",
+    "gain": 42118.73673057556,
+    "splits": 33
+   },
+   {
+    "key": "bias_type=8",
+    "gain": 40950.8030796051,
+    "splits": 136
+   },
+   {
+    "key": "bias_type=14",
+    "gain": 26712.924639701843,
+    "splits": 84
+   },
+   {
+    "key": "bias_type=9",
+    "gain": 24521.95464706421,
+    "splits": 54
+   },
+   {
+    "key": "bias_type=12",
+    "gain": 21306.942678451538,
+    "splits": 72
+   },
+   {
+    "key": "dmg_target_low_hp",
+    "gain": 15711.917670726776,
+    "splits": 185
+   },
+   {
+    "key": "abil_card=112",
+    "gain": 15405.088206291199,
+    "splits": 52
+   },
+   {
+    "key": "play_card=305",
+    "gain": 12741.901601791382,
+    "splits": 41
+   },
+   {
+    "key": "tgt_hp_frac",
+    "gain": 12229.941302191466,
+    "splits": 721
+   },
+   {
+    "key": "card_pokemon_value",
+    "gain": 11272.109187364578,
+    "splits": 290
+   },
+   {
+    "key": "atk_dmg",
+    "gain": 10376.073388576508,
+    "splits": 178
+   },
+   {
+    "key": "poke_hp",
+    "gain": 10065.813178032637,
+    "splits": 284
+   },
+   {
+    "key": "play_card=756",
+    "gain": 9502.35189151764,
+    "splits": 54
+   },
+   {
+    "key": "tgt_bench",
+    "gain": 9469.34038579464,
+    "splits": 19
+   },
+   {
+    "key": "bias_type=2",
+    "gain": 9416.857206344604,
+    "splits": 22
+   },
+   {
+    "key": "tgt_active",
+    "gain": 6827.757750246674,
+    "splits": 352
+   },
+   {
+    "key": "bias_type=1",
+    "gain": 6230.552262306213,
+    "splits": 20
+   },
+   {
+    "key": "is_mine",
+    "gain": 5874.494596481323,
+    "splits": 82
+   },
+   {
+    "key": "abil_area=4",
+    "gain": 5728.693343497813,
+    "splits": 86
+   },
+   {
+    "key": "play_card=1086",
+    "gain": 5350.313493728638,
+    "splits": 47
+   },
+   {
+    "key": "play_card=1259",
+    "gain": 5318.437637329102,
+    "splits": 44
+   },
+   {
+    "key": "play_card=741",
+    "gain": 5003.38781452179,
+    "splits": 45
+   },
+   {
+    "key": "play_card=1123",
+    "gain": 4831.513333320618,
+    "splits": 36
+   },
+   {
+    "key": "play_card=1229",
+    "gain": 4699.573991775513,
+    "splits": 45
+   },
+   {
+    "key": "play_card=1121",
+    "gain": 4473.479660987854,
+    "splits": 37
+   },
+   {
+    "key": "play_card=1182",
+    "gain": 4466.304948806763,
+    "splits": 30
+   },
+   {
+    "key": "abil_card=66",
+    "gain": 4439.254717826843,
+    "splits": 39
+   },
+   {
+    "key": "play_card=1152",
+    "gain": 4207.586894989014,
+    "splits": 33
+   },
+   {
+    "key": "play_card=1079",
+    "gain": 4001.2711267471313,
+    "splits": 33
+   }
+  ],
+  "linear_top_abs_weight": [
+   {
+    "key": "dmg_target_low_hp",
+    "weight": 9.302
+   },
+   {
+    "key": "loss_keep_value",
+    "weight": -7.079
+   },
+   {
+    "key": "heal_missing_hp",
+    "weight": 6.385
+   },
+   {
+    "key": "play_card=169",
+    "weight": 5.965
+   },
+   {
+    "key": "is_mine",
+    "weight": -5.536
+   },
+   {
+    "key": "play_card=673",
+    "weight": 4.985
+   },
+   {
+    "key": "play_card=756",
+    "weight": -4.917
+   },
+   {
+    "key": "play_card=183",
+    "weight": 4.629
+   },
+   {
+    "key": "play_card=162",
+    "weight": 4.464
+   },
+   {
+    "key": "play_card=506",
+    "weight": 4.403
+   },
+   {
+    "key": "play_card=649",
+    "weight": -4.155
+   },
+   {
+    "key": "play_card=1259",
+    "weight": 3.948
+   },
+   {
+    "key": "play_card=1087",
+    "weight": -3.784
+   },
+   {
+    "key": "play_card=1123",
+    "weight": -3.712
+   },
+   {
+    "key": "play_card=117",
+    "weight": -3.496
+   },
+   {
+    "key": "play_card=1252",
+    "weight": -3.423
+   },
+   {
+    "key": "abil_card=132",
+    "weight": -3.299
+   },
+   {
+    "key": "play_card=144",
+    "weight": -3.106
+   },
+   {
+    "key": "play_card=689",
+    "weight": -3.051
+   },
+   {
+    "key": "abil_card=133",
+    "weight": -3.021
+   },
+   {
+    "key": "play_card=379",
+    "weight": 2.929
+   },
+   {
+    "key": "play_card=1091",
+    "weight": -2.79
+   },
+   {
+    "key": "play_card=119",
+    "weight": 2.761
+   },
+   {
+    "key": "abil_card=1052",
+    "weight": -2.7
+   },
+   {
+    "key": "play_card=63",
+    "weight": -2.69
+   },
+   {
+    "key": "play_card=741",
+    "weight": 2.661
+   },
+   {
+    "key": "play_card=108",
+    "weight": -2.554
+   },
+   {
+    "key": "play_card=57",
+    "weight": -2.553
+   },
+   {
+    "key": "abil_card=174",
+    "weight": 2.534
+   },
+   {
+    "key": "play_card=1134",
+    "weight": 2.364
+   }
+  ],
+  "n_features_used_by_gbm": 110
+ },
+ "learning_curve": [
+  {
+   "frac": 0.25,
+   "train_episodes": 134,
+   "train_records": 15175,
+   "val_main_top1_agreement": 0.5104,
+   "n_trees": 300
+  },
+  {
+   "frac": 0.5,
+   "train_episodes": 269,
+   "train_records": 30296,
+   "val_main_top1_agreement": 0.5181,
+   "n_trees": 300
+  },
+  {
+   "frac": 1.0,
+   "train_episodes": 538,
+   "train_records": 60973,
+   "val_main_top1_agreement": 0.5181,
+   "n_trees": 300
+  }
+ ],
+ "deployability": {
+  "n_trees": 300,
+  "max_depth_used": 6,
+  "mean_depth": 6.0,
+  "path": "dump_model() -> stdlib if/else trees OR numpy dot; numpy IS on Kaggle runner",
+  "per_decision_cost_note": "n_options x n_trees x max_depth comparisons ~= microseconds vs 0.38s budget",
+  "known_next_step": "float-threshold reproducibility between lgbm predict and transpiled trees (not solved; bundle not built per task)"
+ },
+ "total_secs": 95.2
+}
