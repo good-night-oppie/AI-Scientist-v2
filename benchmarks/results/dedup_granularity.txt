@@ -1,0 +1,9 @@
+# Dedup granularity probe (measured, not assumed) -- helios HEAD fa8e1d0
+# Commit file F (fresh store), du; commit F with 1 middle byte flipped, du; delta = store growth.
+# whole-file => a 1-byte change re-stores the whole file (delta >= 0.9x|F|, per cli.go:118).
+# sub-file   => block/CDC dedup (delta <= 0.1x|F|).
+FILESIZE_BYTES=20971520
+STORE_BEFORE_BYTES=20984252
+STORE_AFTER_BYTES=41957822
+DELTA_BYTES=20973570
+GRANULARITY=whole-file

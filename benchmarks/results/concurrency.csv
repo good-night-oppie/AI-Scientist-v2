@@ -1,0 +1,13 @@
+config,K,wall_s,commits_ok,commits_failed,throughput_cps
+helios+flock,1,0.1789,1,0,5.5902
+helios+flock,2,0.3382,2,0,5.9132
+helios+flock,4,0.643,4,0,6.2206
+helios+flock,8,1.6493,8,0,4.8504
+helios-flock,1,0.1505,1,0,6.6427
+helios-flock,2,0.2041,1,1,4.9002
+helios-flock,4,0.1679,1,3,5.9544
+helios-flock,8,0.2021,1,7,4.947
+tar,1,0.3621,1,0,2.7613
+tar,2,0.3702,2,0,5.4025
+tar,4,0.4906,4,0,8.1537
+tar,8,0.7291,8,0,10.9727

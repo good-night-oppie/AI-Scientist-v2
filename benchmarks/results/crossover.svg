@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="640" viewBox="0 0 720 640">
+<rect width="720" height="640" fill="white"/>
+<text x="360" y="24" font-size="17" text-anchor="middle" font-family="sans-serif" font-weight="bold">helios / tar crossover (lower is better for helios; below 1.0 = helios wins)</text>
+<rect x="90" y="60" width="560" height="210" fill="none" stroke="#888" stroke-width="1"/>
+<text x="370.0" y="52" font-size="14" text-anchor="middle" font-family="sans-serif">store_bytes ratio  helios / tar</text>
+<line x1="90" y1="133.0" x2="650" y2="133.0" stroke="#333" stroke-width="1" stroke-dasharray="6 3"/>
+<text x="646" y="129.0" font-size="11" text-anchor="end" font-family="sans-serif" fill="#333">break-even (y=1.0)</text>
+<line x1="90.0" y1="60" x2="90.0" y2="270" stroke="#1f77b4" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="94.0" y="74" font-size="11" font-family="sans-serif" fill="#1f77b4">anchor 5242880B (5MB)</text>
+<line x1="90.0" y1="270" x2="90.0" y2="274" stroke="#888"/>
+<text x="90.0" y="286" font-size="11" text-anchor="middle" font-family="sans-serif">5MB</text>
+<line x1="370.0" y1="270" x2="370.0" y2="274" stroke="#888"/>
+<text x="370.0" y="286" font-size="11" text-anchor="middle" font-family="sans-serif">50MB</text>
+<line x1="650.0" y1="270" x2="650.0" y2="274" stroke="#888"/>
+<text x="650.0" y="286" font-size="11" text-anchor="middle" font-family="sans-serif">500MB</text>
+<line x1="86" y1="270.0" x2="90" y2="270.0" stroke="#888"/>
+<text x="84" y="273.0" font-size="10" text-anchor="end" font-family="sans-serif">0.00</text>
+<line x1="86" y1="165.0" x2="90" y2="165.0" stroke="#888"/>
+<text x="84" y="168.0" font-size="10" text-anchor="end" font-family="sans-serif">0.77</text>
+<line x1="86" y1="60.0" x2="90" y2="60.0" stroke="#888"/>
+<text x="84" y="63.0" font-size="10" text-anchor="end" font-family="sans-serif">1.53</text>
+<polyline points="90.0,198.0 370.0,175.3 650.0,87.4" fill="none" stroke="#2ca02c" stroke-width="2"/>
+<circle cx="90.0" cy="198.0" r="3" fill="#2ca02c"/>
+<circle cx="370.0" cy="175.3" r="3" fill="#2ca02c"/>
+<circle cx="650.0" cy="87.4" r="3" fill="#2ca02c"/>
+<polyline points="90.0,133.0 370.0,110.2 650.0,87.4" fill="none" stroke="#d62728" stroke-width="2"/>
+<circle cx="90.0" cy="133.0" r="3" fill="#d62728"/>
+<circle cx="370.0" cy="110.2" r="3" fill="#d62728"/>
+<circle cx="650.0" cy="87.4" r="3" fill="#d62728"/>
+<polyline points="90.0,167.2 370.0,144.5 650.0,87.4" fill="none" stroke="#ff7f0e" stroke-width="2"/>
+<circle cx="90.0" cy="167.2" r="3" fill="#ff7f0e"/>
+<circle cx="370.0" cy="144.5" r="3" fill="#ff7f0e"/>
+<circle cx="650.0" cy="87.4" r="3" fill="#ff7f0e"/>
+<rect x="90" y="360" width="560" height="210" fill="none" stroke="#888" stroke-width="1"/>
+<text x="370.0" y="352" font-size="14" text-anchor="middle" font-family="sans-serif">commit_s ratio  helios / tar</text>
+<line x1="90" y1="387.4" x2="650" y2="387.4" stroke="#333" stroke-width="1" stroke-dasharray="6 3"/>
+<text x="646" y="383.4" font-size="11" text-anchor="end" font-family="sans-serif" fill="#333">break-even (y=1.0)</text>
+<line x1="90.0" y1="360" x2="90.0" y2="570" stroke="#1f77b4" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="94.0" y="374" font-size="11" font-family="sans-serif" fill="#1f77b4">anchor 5242880B (5MB)</text>
+<line x1="90.0" y1="570" x2="90.0" y2="574" stroke="#888"/>
+<text x="90.0" y="586" font-size="11" text-anchor="middle" font-family="sans-serif">5MB</text>
+<line x1="370.0" y1="570" x2="370.0" y2="574" stroke="#888"/>
+<text x="370.0" y="586" font-size="11" text-anchor="middle" font-family="sans-serif">50MB</text>
+<line x1="650.0" y1="570" x2="650.0" y2="574" stroke="#888"/>
+<text x="650.0" y="586" font-size="11" text-anchor="middle" font-family="sans-serif">500MB</text>
+<line x1="86" y1="570.0" x2="90" y2="570.0" stroke="#888"/>
+<text x="84" y="573.0" font-size="10" text-anchor="end" font-family="sans-serif">0.00</text>
+<line x1="86" y1="465.0" x2="90" y2="465.0" stroke="#888"/>
+<text x="84" y="468.0" font-size="10" text-anchor="end" font-family="sans-serif">0.57</text>
+<line x1="86" y1="360.0" x2="90" y2="360.0" stroke="#888"/>
+<text x="84" y="363.0" font-size="10" text-anchor="end" font-family="sans-serif">1.15</text>
+<polyline points="90.0,455.5 370.0,477.7 650.0,429.7" fill="none" stroke="#2ca02c" stroke-width="2"/>
+<circle cx="90.0" cy="455.5" r="3" fill="#2ca02c"/>
+<circle cx="370.0" cy="477.7" r="3" fill="#2ca02c"/>
+<circle cx="650.0" cy="429.7" r="3" fill="#2ca02c"/>
+<polyline points="90.0,441.6 370.0,466.5 650.0,471.9" fill="none" stroke="#d62728" stroke-width="2"/>
+<circle cx="90.0" cy="441.6" r="3" fill="#d62728"/>
+<circle cx="370.0" cy="466.5" r="3" fill="#d62728"/>
+<circle cx="650.0" cy="471.9" r="3" fill="#d62728"/>
+<polyline points="90.0,457.4 370.0,479.2 650.0,431.1" fill="none" stroke="#ff7f0e" stroke-width="2"/>
+<circle cx="90.0" cy="457.4" r="3" fill="#ff7f0e"/>
+<circle cx="370.0" cy="479.2" r="3" fill="#ff7f0e"/>
+<circle cx="650.0" cy="431.1" r="3" fill="#ff7f0e"/>
+<rect x="90" y="590" width="14" height="10" fill="#d62728"/>
+<text x="108" y="600" font-size="12" font-family="sans-serif">redundancy=low</text>
+<rect x="240" y="590" width="14" height="10" fill="#ff7f0e"/>
+<text x="258" y="600" font-size="12" font-family="sans-serif">redundancy=med</text>
+<rect x="390" y="590" width="14" height="10" fill="#2ca02c"/>
+<text x="408" y="600" font-size="12" font-family="sans-serif">redundancy=high</text>
+</svg>
