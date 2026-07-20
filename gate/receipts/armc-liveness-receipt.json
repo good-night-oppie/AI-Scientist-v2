@@ -1,0 +1,159 @@
+{
+ "core": {
+  "arm_symmetry": {
+   "cutoff.py": {
+    "arm_conditional_branches": [],
+    "raise_only_guard_branches": [],
+    "sha256": "4d4e2c361f0f9b41f2ab6ceaab85ba5c2ed562bf4399cff88983cb2e4a098358"
+   },
+   "harness_bridge.py": {
+    "arm_conditional_branches": [],
+    "raise_only_guard_branches": [
+     {
+      "line": 721,
+      "test": "arm not in ARMS"
+     }
+    ],
+    "sha256": "3b51cfb2a80cdf5fe9da211207efa728b1e8590d035f100a2fda57b8836d4c0d"
+   },
+   "numeric_equality_claim": "NOT ASSERTED and NOT assertable: the cabt engine uses std::random_device, so two batteries cannot produce equal counts. Symmetry is proven as semantic identity (one arm-agnostic code path, zero arm-conditional branches), which is the strongest available claim.",
+   "shared_entrypoint": "both arms drive HarnessBridge.curriculum_battery; ARM-C adds only sampling-weight evolution via armc_evolution.run_epoch, which never touches the counter"
+  },
+  "armc_branch_liveness": {
+   "genome_dim": 6,
+   "run_epoch_invocations": 2,
+   "transitions": {
+    "adopted": true,
+    "adoption_decided": true,
+    "alignment_computed": true,
+    "challenger": "tilt-strong",
+    "confirmation_fired": true,
+    "d_gate_select_computed": true,
+    "d_signal_nonzero_for_weak_family": true,
+    "deterministic_given_seed": true,
+    "guard_stage_fired": true,
+    "n_candidates": 5,
+    "proposal_fired": true,
+    "reason": "challenger 'tilt-strong' adopted: lower CI bound 0.011300 > gate margin 0.0 (one-sided matched-block bootstrap, n=2000)",
+    "selection_fired": true,
+    "w_next_produced": true
+   }
+  },
+  "pass": true,
+  "schema": "armc-liveness-receipt/v2",
+  "search_counter_liveness": {
+   "completed_seat_pairs": 5,
+   "decision_totals": {
+    "learner": 365,
+    "opponents": 470,
+    "total": 835
+   },
+   "games_played": 10,
+   "launch_context": {
+    "_rule": "coordinator ruling #3539: instrumentation games are liveness evidence ONLY \u2014 validate_receipt refuses any experiment receipt stamped launch_mode=instrumentation-preflight. RR#5 item 5: the FULL nested pool_integrity_core is carried so the freeze loader can recompute its sha and re-check legal_for_preflight.",
+    "constructor": "HarnessBridge.for_instrumentation_preflight",
+    "games_as_evidence": false,
+    "mode": "instrumentation-preflight",
+    "pool_integrity_core": {
+     "bundle_sha256": {
+      "bfts_heuristic_s4_clean": "8e7195ce5c63f6041c64f950fd238a87d5eeb23431c74e20a857a8560a11f901",
+      "heur_deck_2c1368bc03": "de9865df385b419ca7e3f613b4d136bfcf5cc172af516c7915a2b1e3d7b14347",
+      "heur_s14_refdeck": "fcd2dce531e992fa109ac9c6011d862e9de1e225bc084e01ef64484474b1521b",
+      "linear_armA": "0ca1177d7553ca14452954fd0b3f2db8d680043bbfab6536008be8cb09b01bf1",
+      "metamon_router_r1": "ceaf111392c60352a029957ea258625fc11e468f84bd78672c8d027754c8b24a",
+      "mroute_candidate_1": "f3d85ebce4a2cba7d3fd6eefe05835605168ac929f4f1603426f3e65e645bff1",
+      "mroute_candidate_2": "1d00fbc0eea3dda5a01c9d3519e176a73ccff499dc50e1676bcb2e72e15918f2",
+      "mroute_candidate_3": "7be77d344817b490fe430948a560e6d50d0530e0ba2808ec36026f0ee7980846",
+      "mroute_candidate_4": "217799c8cd0f9978beae9dc1f052bb11b711526a79d5218a4a6672a37a89859b",
+      "pokechamp_macro_minimax_r1": "7e4bc5bf82ef26845fbddb096072517e28cfead1541834f2feabc9a3a5d66718",
+      "search_s18_oppmodel": "89cfd976c1bef0918ccc62905f0fe3364ce21081d6affb8e29676509ecf736dc",
+      "weco_best_0765": "fc398b07a61d857d4abc2738fc4fd088c8754fc1c8e21f324fdace48ecaf3913",
+      "weco_heur_0780": "09bf07ab5ba4477f69d1d182166f0b90d87db5c9fd2d657c76632a88cbec173b",
+      "weco_search_0712": "ca6fb05a83f124752762277e4eb098ebca562eb73becea0a9e7e81de1ddc2f3e",
+      "weco_search_s14": "c4ac15eac08006aa3636d18ce537668c950466e756f99af18c8c93dda5ab248f",
+      "weco_search_s17_fixed_ply2": "428333102d7771e0853f45d6099afb194ad66c4ee5fabef4f705c442d508a209",
+      "weco_search_s18_oppmodel": "eada6f69d0e5536bd06c1fad9c4ad2da37c58092c28c51796172473bea72d7d1"
+     },
+     "engine_guard_module_sha256": "843a09cfa774987fa4378ae8b29422e16a0e26ffab0179d74e73872a15255ab0",
+     "executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+     "mode": "instrumentation-preflight",
+     "n_bundles": 17,
+     "pass": true,
+     "pool_manifests": {
+      "/home/admin/gh/wt/rq-tcg-mvp-supergoal/gate/armb-pilot/opponent_pool_dtrain.json": "a0e6a2d517d9f1af301e77e1385e76915a2b302c06d74d887edcd25ca565d851",
+      "/home/admin/gh/wt/rq-tcg-mvp-supergoal/gate/armb-pilot/opponent_pool_manifest.json": "c6c436701c99d91db0255578ee4951fe29040b5fa76b10907606b6c8ea61268d"
+     },
+     "schema": "battery-pool-integrity/v2",
+     "tool_sha256": "68de44827f523d07d5ec69e3ca482fd27a1f0655cf9310e51f613ab5d1b2038c",
+     "trust_chain": {
+      "anchor_capsule_id": null,
+      "anchor_verified": false,
+      "basis": "current full trust chain ok",
+      "bound_executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+      "chain": "external anchor -> split bytes -> immutable projection (inline) -> bound freeze sha -> freeze bytes -> gatekeeper self-pins (all fail-closed)",
+      "engine_guard_module_sha256": "843a09cfa774987fa4378ae8b29422e16a0e26ffab0179d74e73872a15255ab0",
+      "executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+      "expected_split_sha256": null,
+      "legal_for_preflight": true,
+      "ok": true,
+      "split_immutable_projection_sha256": "ec5602b4d4cdf46bad1cffbf2409f141e46075101303b2a0e5c9c32ef25fe5f3",
+      "split_manifest_sha256": "9f3ad650dd072544c4378d80fcd3a374ca4d35bf2ebba8f91384e09c06b71f84",
+      "validator_self_sha256": "68de44827f523d07d5ec69e3ca482fd27a1f0655cf9310e51f613ab5d1b2038c"
+     }
+    },
+    "pool_integrity_core_sha256": "2e4d5f088c18e3539c2ed2e535a444fdb1f65de4e083abe62abad6102fc26c6f",
+    "pool_integrity_pass": true,
+    "trust_chain": {
+     "anchor_capsule_id": null,
+     "anchor_verified": false,
+     "basis": "current full trust chain ok",
+     "bound_executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+     "chain": "external anchor -> split bytes -> immutable projection (inline) -> bound freeze sha -> freeze bytes -> gatekeeper self-pins (all fail-closed)",
+     "engine_guard_module_sha256": "843a09cfa774987fa4378ae8b29422e16a0e26ffab0179d74e73872a15255ab0",
+     "executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+     "expected_split_sha256": null,
+     "legal_for_preflight": true,
+     "ok": true,
+     "split_immutable_projection_sha256": "ec5602b4d4cdf46bad1cffbf2409f141e46075101303b2a0e5c9c32ef25fe5f3",
+     "split_manifest_sha256": "9f3ad650dd072544c4378d80fcd3a374ca4d35bf2ebba8f91384e09c06b71f84",
+     "validator_self_sha256": "68de44827f523d07d5ec69e3ca482fd27a1f0655cf9310e51f613ab5d1b2038c"
+    }
+   },
+   "learner_search_begin": 0,
+   "negative_control": {
+    "expected": 0,
+    "opponent": "linear_armA",
+    "search_begin": 0
+   },
+   "per_family_search_begin": {
+    "heuristic-ref-deck": 4,
+    "linear-imitation": 0,
+    "live-search": 648
+   },
+   "per_opponent_search_begin": {
+    "heur_deck_2c1368bc03": 2,
+    "heur_s14_refdeck": 2,
+    "linear_armA": 0,
+    "search_s18_oppmodel": 648
+   },
+   "positive_search_bundles_fired": {
+    "heur_deck_2c1368bc03": 2,
+    "heur_s14_refdeck": 2,
+    "search_s18_oppmodel": 648
+   }
+  },
+  "source_bindings": {
+   "freeze_generator_sha256": "9e424ef4fb8e04483777b8cfaa72366088187a8e41084d1dae6804ee3b901a89",
+   "generator_source_projection_sha256": "464a7132c1dc2ebeffae57fc2ad35216b3a0cfa657d9eb9fdad38d5b1a228aa6",
+   "rpo_head": "5fe2fc0f87a560edb19ce17688f84a584e0d99e7",
+   "rule": "the loader in make_executable_freeze_manifest must verify: every arm_symmetry source sha == the file pin being generated THIS round; rpo_head == the expected frozen head; the generator source projection == the projection asserted at generation start; the freeze-generator identity == its own self-pin. Receipts are re-generated LAST, on the final tree \u2014 never mid-chain."
+  },
+  "tool_sha256": "a5c9e3f4f7c0261d5bb23a9a7617bcb4a569f50cf3679a7cd544c6aaddc40871"
+ },
+ "core_sha256": "bfda68182e92ee44046334abe22968c25076ab63a92f59dd19e45212b1eecb43",
+ "volatile": {
+  "hostname": "ip-172-26-14-40",
+  "note": "game counts/outcomes are engine-RNG dependent and live in core only as liveness evidence, never as a scientific result",
+  "utc": "2026-07-19T04:25:38Z"
+ }
+}
