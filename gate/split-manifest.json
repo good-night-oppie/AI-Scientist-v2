@@ -1,0 +1,653 @@
+{
+ "audit": {
+  "blockers": [
+   "Arena-1 single point of failure: GBM and transformer-NN checkpoints + trainers exist only on adx-server (arena-1); gate step (e) recovery not done. S2/E_gate production for 2 of 6 dev families is impossible if arena-1 is lost, and new-checkpoint production for them must run there.",
+   "4 diversity-deck arms (kashiwashira, S4nkurero, vibechu, taksai) are pending_coordinator_input \u2014 no 60-card decklists exist; 4 of the 18 pool arms are not playable units yet. Off-meta stratum needs the real (non-sample) harvest index.",
+   "Checkpoint production is on the critical path: 9-12 new imitation checkpoints (3-4 x linear/GBM/NN) on disjoint corpus slices must be trained, vetted (liveness bar incl. c-gate defect check), and hash-committed BEFORE any decisive-arm T0; this work is not scheduled anywhere in the 72h gate plan and step 3 (ARM-B pilot) has NOT STARTED.",
+   "Canonical top-6 deck archetype collapse: 3 of 6 decks are one archetype (Jaccard 0.765-0.875), so the heur-meta-deck stratum has ~4 independent deck archetypes, not 6; role assignment across D_train/D_signal/E_gate must respect archetype boundaries or the family's holdout gap signal is diluted.",
+   "Shared 76,405-row teacher corpus across all three imitation families: disjoint slices reduce but cannot remove cross-family correlation (same teacher population). Must be stated as a limitation in the prereg; it weakens the claim that the 6 dev families are 6 independent generalization directions.",
+   "Prereg wording conflict (node 5b '8-family sampling-mass vector' vs node 6 '6 development families') must be amended before the gate closes \u2014 the treatment's genome dimension is currently ambiguous.",
+   "live-search stratum has only 2 semi-independent configs sharing s14's board_value; if kept as a dev family, its E_gate/S2 roles rest on correlated config variants \u2014 either demote to S2-only or preregister the correlation caveat explicitly."
+  ],
+  "findings": [
+   {
+    "detail": "Units are effectively independent iff different decision-code lineage OR parameters from disjoint training data. Same policy code + different deck = 1 policy unit with N correlated deck-units. Decks with multiset-Jaccard>0.5 = same archetype. Seeds/hyperparam jitter alone do not create independence (prereg amendment 3). Sources: /home/admin/gh/fac/PREREG-rq-evaluator-evolution.md nodes 5b/6, /home/admin/gh/AI-Scientist-v2/.fleet-goal/evidence/M3/2026-07-14-p31-league-report.md (18-arm pool), configs/pcmm_r1_portfolio.json.",
+    "item": "Independence criterion (stated per audit requirement)",
+    "verdict": "DEFINED"
+   },
+   {
+    "detail": "The 18-arm league pool = 5 frozen bundles (s14, s18, linear, GBM, NN) + 6 heuristic-on-top6-deck arms + 4 diversity slots (decklists PENDING) + off-meta slot (pending harvest) + empty checkpoints pool + reserved exploiter slot. The 6 meta-deck arms run the SAME heuristic policy code as s14-effective (family 1) \u2014 a deck-axis stratum, not an independent policy family. s15/s16 lineages are A/A siblings of the heuristic (search never fired; LANE_STATE.md confirmed crash signature). s17/s18 share s14's board_value evaluation inside live search. Honest lineage count: heuristic, live-search, linear-imitation, GBM, transformer-NN, metamon-router, macro-minimax = 7.",
+    "item": "Family inventory: '8 families' collapses to 7 independent policy lineages",
+    "verdict": "CORRELATED-INVENTORY"
+   },
+   {
+    "detail": "heuristic-ref-deck: 1 brain x deck-units {ref, 2c1368bc03, 58f62b5135, 46 PROMOTABLE of 2,857 generated; deck_search.py + ledger verdicts prove production at scale: screened_out 2450, promoted 506, PROMOTABLE 46, reconfirm_out 17}. heuristic-meta-deck: 6 canonical decks = ~4 archetypes (Majkel1337-bono-THIRD cluster Jaccard 0.765/0.875/0.818) + 3 extra field decks (LiamK, nasuo445, Raihan Ramadistra) + 4 diversity decks PENDING decklists + producible off-meta stratum (league_deckrefresh recipe). live-search: 2 configs (s17, s18); further variants = correlated config grid. linear: 3 ckpts (armA/B1/B2) + ~3-4 producible via scripts/policy_imitation.py on disjoint corpus slices. GBM: 1 ckpt + producible (scripts/gbm_imitation.py, arena-1). NN: 1 ckpt + producible (P3.0 trainer, arena-1). metamon-router: 1. macro-minimax: 1. Caveat: linear/GBM/NN all distill the same 76,405-row top-1100 corpus (runs/imitation/imitation_pairs.jsonl) \u2014 cross-family teacher correlation; mitigate with disjoint slices per family AND per role.",
+    "item": "Units per family (existing / producible)",
+    "verdict": "COUNTED"
+   },
+   {
+    "detail": "metamon-router and macro-minimax (1 unit each) cannot fill D_train+D_signal+P_dev+S2, so they cannot be dev families under any split \u2014 they must be the S1 sealed pair. Defensible as preregistered taxonomy stratification ('external-algorithm ports'), and their bundles are clean of the dev data path (local pcmm-r1 only, kaggle_submission_allowed=false, not in the ladder replay corpus). Honesty cost: S1 whole-family extrapolation rests on exactly 2 single opponents \u2014 the highest-variance stratum just got thinner; the composite-primary weighting (0.5 S1) should be re-examined at prereg level.",
+    "item": "S1 sealed-pair choice is capacity-FORCED",
+    "verdict": "FORCED"
+   },
+   {
+    "detail": "linear: D_train=armA, D_signal=armB1, P_dev=armB2, E_gate+S2=3-4 NEW disjoint-slice ckpts. GBM: existing ckpt=D_train; D_signal/P_dev/E_gate/S2 = 3-4 NEW ckpts (arena-1). NN: same as GBM. heur-ref-deck: D_train=ref deck+2c1368bc03, P_dev=58f62b5135, D_signal+E_gate=held-back PROMOTABLE decks (committed pre-training), S2=fresh deck_search RNG stream. heur-meta-deck: D_train=1 deck/archetype (Majkel1337, Yushin Ito, Budew), D_signal=MPGaming, E_gate=LiamK/nasuo445/Raihan, S2=diversity-4+off-meta sample. live-search: D_train=s18, D_signal=s17; E_gate/P_dev/S2 only via correlated config variants \u2014 weakest stratum; recommend demoting to S2-only or accepting with stated correlation. P_dev units are fixed and reusable across epochs (P_dev does not evolve); E_gate is the scarce consumable.",
+    "item": "Feasible role assignment (6 dev strata)",
+    "verdict": "FEASIBLE-WITH-PRODUCTION"
+   },
+   {
+    "detail": "E_gate is family-balanced, so K_max = min over dev families of floor(U_Egate/2) (select+confirm unit-disjoint per epoch, no unit reuse ever). Existing units only: K=0 (GBM/NN have zero spare units). After pre-training production (~6 ckpts per trainable family, U_Egate~2-3): K=1. One epoch nullifies 'evolution' \u2014 plain PASS is arithmetically impossible. With rotation cross-fitting (unit-disjoint select/confirm within epoch, spacing>=2 epochs between reuses, fresh games every shard, per-unit gate-outcome drift logged as anchor-overfit diagnostic): K=4-6 preregisterable. Deck-rich strata support K>=10 on the deck axis; the min-family bound governs. Games are not the constraint (~25k/hr, C3 READY); units are.",
+    "item": "Max evaluator-update epochs K (the audit's required number)",
+    "verdict": "K=1 STRICT / K=4-6 WITH CROSS-FITTING"
+   },
+   {
+    "detail": "Node 5b text says 'Genome (restricted, preregisterable): 8-family sampling-mass vector' but the lock table (row 5b) and node 6 bind C's genome to the 6 development families ('C's genome therefore spans the 6 development families, not 8'). Must be corrected to 6 (or to the honest post-merge stratum count) before decisive runs \u2014 file: /home/admin/gh/fac/PREREG-rq-evaluator-evolution.md lines ~312 vs ~372.",
+    "item": "Prereg internal inconsistency: genome dimension",
+    "verdict": "DEFECT"
+   },
+   {
+    "detail": "PASS fails on arithmetic (K<=1 strict; two families cannot fill base roles). HARD FAIL is not warranted: amendment 3 explicitly authorizes 'reduce the update count or adopt a preregistered cross-fitting design', production machinery is proven (deck_search at scale; imitation trainers exist), and a concrete preregisterable design is sketched. Conditions: (1) produce and hash-commit 3-4 disjoint-slice checkpoints for each of linear/GBM/NN BEFORE training T0; (2) commit the full unit-role split manifest pre-training; (3) preregister the E_gate unit-rotation schedule with K precommitted (4-6) and the anchor-reuse drift diagnostic; (4) seal metamon-router+macro-minimax as S1 via preregistered taxonomy language; (5) fix the 8-vs-6 genome wording; (6) resolve blockers below.",
+    "item": "OVERALL",
+    "verdict": "PASS-WITH-CROSS-FITTING"
+   }
+  ],
+  "summary": "SPLIT-CAPACITY AUDIT (gate step b) \u2014 VERDICT: PASS-WITH-CROSS-FITTING (plain PASS is arithmetically impossible; HARD FAIL is not warranted because the prereg's own amendment-3 escape hatch \u2014 reduce update count or preregister cross-fitting \u2014 is satisfiable with demonstrated production machinery). Independence criterion used: two opponent units are effectively independent iff they embody different decision-code lineages OR parameters trained on disjoint data; same policy code + different deck = ONE policy unit with deck-units (correlated at the belief/strategy axis); decks with multiset-Jaccard>0.5 = one archetype; random seeds/hyperparam jitter alone = NOT independent (per amendment 3). Under this criterion the \"8 families / 14-20 frozen opponents\" inventory collapses to SEVEN independent policy lineages: heuristic (s14-effective; also the brain behind the top-6-meta-deck arms AND behind s15/s16 whose search never fired), live determinized search (s17/s18 \u2014 2 configs of one lineage, sharing s14's board_value evaluation function), linear imitation (armA/B1/B2 \u2014 3 checkpoints, one trainer+corpus), GBM imitation (1 ckpt), transformer-BC NN (1 ckpt), metamon-router (1 bundle), macro-minimax (1 bundle) \u2014 and all three imitation families distill the SAME 76,405-row top-1100 replay corpus (cross-family correlation via shared teacher population). Units per family after honest counting: heuristic-ref-deck ~unlimited deck-units (2,857 generated, 46 fully-vetted PROMOTABLE, deck_search.py proven at scale) but 1 policy brain; heuristic-meta-deck 6 canonical decks = only ~4 archetypes (Majkel1337/bono/THIRD PTCG Club are one cluster at Jaccard 0.765-0.875) +3 field decks +4 diversity decks PENDING coordinator decklists + producible off-meta stratum; live-search 2 configs; linear 3 ckpts (+3-4 producible on disjoint corpus slices); GBM 1 (+3-4 producible, arena-1 only); NN 1 (+3-4 producible, arena-1 only); metamon-router 1; macro-minimax 1. ROLE-FILL ARITHMETIC: each dev family must fill D_train, D_signal, P_dev, S2 with disjoint units (4 minimum) PLUS 2K one-use E_gate units for K epochs (E_gate units must be disjoint from D_train or d_gate=p_train-p_gate leaks to ~0). Single-unit families (metamon-router, macro-minimax) cannot fill even the 4 base roles \u2192 they are FORCED into the S1 sealed pair; this is capacity-forced, must be preregistered as taxonomy-based (\"external-algorithm ports\" stratum) and honestly flagged \u2014 S1 then rests on exactly 2 single opponents (thin, high-variance extrapolation stratum). Because E_gate is family-balanced, K_max = min over dev families: with existing units only K=0; after pre-training production of 3-4 disjoint-slice checkpoints per trainable family K=1 strict (floor(U_E/2) with U_E\u22482-3); i.e. THE DESIGN AS LITERALLY SPECIFIED SUPPORTS AT MOST ONE EVALUATOR-UPDATE EPOCH \u2014 which nullifies \"evolution\". With the preregistered cross-fitting design below, K=4-6 is supportable. Feasible role assignment (6 dev strata = heur-ref-deck, heur-meta-deck, live-search, linear, GBM, NN; S1 = metamon-router + macro-minimax quarantined): linear D_train=armA, D_signal=armB1, P_dev=armB2, E_gate+S2=3-4 NEW disjoint-slice ckpts; GBM/NN existing ckpt=D_train, all other roles need NEW production (arena-1); heur-ref-deck splits along vetted-deck axis (D_train=ref+2c1368bc03, P_dev=58f62b5135, D_signal/E_gate=held-back PROMOTABLE decks committed pre-training, S2=fresh deck_search stream); heur-meta-deck D_train=1 deck per archetype (e.g. Majkel1337, Yushin Ito, Budew), D_signal=MPGaming, E_gate=field decks (LiamK/nasuo445/Raihan), S2=diversity-4+off-meta (blocked on decklists); live-search is the weakest stratum (D_train=s18, D_signal=s17, remaining roles only via correlated config-grid variants \u2014 recommend demoting it to S2-only or accepting with stated correlation). CROSS-FITTING SKETCH (preregisterable): (1) commit all produced units + role manifest, hashed, BEFORE training; (2) per family, non-train units form a rotation pool; at epoch k, E_gate_select[k] and E_gate_confirm[k] draw unit-disjoint shards, no unit appears in consecutive epochs (spacing >=2), fresh games every shard (games cheap at ~25k/hr; UNITS are the scarce axis); (3) deck-rich strata shard along vetted-deck-cross-seat blocks instead; (4) anchor-reuse honesty: per-unit gate-outcome drift logged as the old-opponent-overfit diagnostic (already in the D-arm attack list); (5) precommit K (recommend 4-6) and shard schedule in the split manifest. Also flagged: prereg internal inconsistency \u2014 node 5b says \"8-family sampling-mass vector\" while the lock table/node 6 bind the genome to the 6 development families; must be corrected to 6 before decisive runs."
+ },
+ "date": "2026-07-15",
+ "deliverable": "split-manifest (gate step 2)",
+ "rotation_freeze": {
+  "K": 4,
+  "binding_source": "capsule ptcg-pret0-freeze-chain-v1 item 2 + repair dispatch (R1-R4); advisor D3 (fac b30029c: K=4, 8 gens/run, gate-every-2); prereg node 5b rotation cross-fitting; gate/PRE-T0-EXECUTION-PLAN.md STEP 1d + STEP 2 failed-slot rule @ 5818b0c",
+  "bound_manifests": {
+   "_rule": "these close the manifest-to-manifest edge (C7): the split manifest now names the exact executable freeze and R-DIV artifact it was frozen against. Both are inside the immutable projection.",
+   "executable_freeze_manifest_sha256": "f8d3665a22deccb484ed523ec9ccef4a9dd5ddd92376073e767e7df50e8ca52a",
+   "rdiv_decklists_sha256": "f3c0b92143cf363e68972d55339066106bfff986f8ea4b6243bed6c119a5508a"
+  },
+  "bound_rdiv_slot_1": {
+   "_ratification": "RQ navigator FORK-2 ruling: per-seat EXCLUSION adopted and THAT ruling is the final ratification of this deck. The prior artifact is recorded SUPERSEDED in rdiv-decklists.json superseded_artifacts; this binding names only the authoritative one.",
+   "canonical_deck_sha256": "25c6e394440063e8a9991f20f4fbbb79e33f57d78bb544421d95b1224bbd6da8",
+   "rdiv_rule_source": "fac b30029c (D1a/D1b/D1c) + 7353fd7 raw-payload tightening + RR#2 D-seat/D3/T1",
+   "slot_id": "heur_meta_deck.E4 -> rdiv-diversity-slot-1",
+   "source_raw_payload_manifest_sha256": "086fb8b1c2ef6cb5bc1cdc6f2632c87f2b7c4df833d22df7681fa6f49a7314e4",
+   "source_slot_index": 0,
+   "team": "kashiwashira"
+  },
+  "checkpoint_slots": [
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "linear",
+    "model_class": "linear",
+    "role": "egate:E1",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S01",
+    "slice_n_episodes": 36,
+    "slot_id": "lin-cf-s01",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 17710945,
+    "staged_pairs_n_records": 4057,
+    "staged_pairs_sha256": "c87c49aaa9b5180e36cdeab5cd6937c3bb71e830f499c92c3fac2a590d7130da",
+    "train_seed": 3311476365,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:lin-cf-s01')[:8],16)",
+    "trains_on": "local (pinned rpo venv)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "linear",
+    "model_class": "linear",
+    "role": "egate:E2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S02",
+    "slice_n_episodes": 36,
+    "slot_id": "lin-cf-s02",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 16191945,
+    "staged_pairs_n_records": 3714,
+    "staged_pairs_sha256": "dfca400e58fadb923e1b76880e16fc74ea09679e6ab1a83c6dcba4c65e196ec9",
+    "train_seed": 875067648,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:lin-cf-s02')[:8],16)",
+    "trains_on": "local (pinned rpo venv)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "linear",
+    "model_class": "linear",
+    "role": "egate:E3",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S03",
+    "slice_n_episodes": 36,
+    "slot_id": "lin-cf-s03",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 17609463,
+    "staged_pairs_n_records": 4089,
+    "staged_pairs_sha256": "c1e72d99041e9dae9ce3d413bc50bd7f72f9f7a08e82bddc59b2506faf1dabf7",
+    "train_seed": 3752760805,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:lin-cf-s03')[:8],16)",
+    "trains_on": "local (pinned rpo venv)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "linear",
+    "model_class": "linear",
+    "role": "egate:E4",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S04",
+    "slice_n_episodes": 36,
+    "slot_id": "lin-cf-s04",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 20122693,
+    "staged_pairs_n_records": 4516,
+    "staged_pairs_sha256": "77050d15ca112440e122faa893ffebc5f38f2c929c34b6954247b7268442d688",
+    "train_seed": 4258984673,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:lin-cf-s04')[:8],16)",
+    "trains_on": "local (pinned rpo venv)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "linear",
+    "model_class": "linear",
+    "role": "s2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S05",
+    "slice_n_episodes": 36,
+    "slot_id": "lin-cf-s05",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 15898999,
+    "staged_pairs_n_records": 3692,
+    "staged_pairs_sha256": "4e8e7b459ac5f7b9e18ced7c91689505e9f89eaf58cdce74dd8841711520c124",
+    "train_seed": 2413570073,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:lin-cf-s05')[:8],16)",
+    "trains_on": "local (pinned rpo venv)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "d_signal",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S06",
+    "slice_n_episodes": 36,
+    "slot_id": "gbm-cf-s06",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 21496783,
+    "staged_pairs_n_records": 4728,
+    "staged_pairs_sha256": "7648130f7d628e3c94f092ad723c60e3506d07926bc6d37d9a98c87097bb55b8",
+    "train_seed": 3135896120,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s06')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 137
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "p_dev",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S07",
+    "slice_n_episodes": 36,
+    "slot_id": "gbm-cf-s07",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 16201873,
+    "staged_pairs_n_records": 3679,
+    "staged_pairs_sha256": "cf18b4a64be4112e07f723f01557c7d05a177b29847e59d6b04702cd1b26f81d",
+    "train_seed": 2301492409,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s07')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 139
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "egate:E1",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S08",
+    "slice_n_episodes": 36,
+    "slot_id": "gbm-cf-s08",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 19514805,
+    "staged_pairs_n_records": 4498,
+    "staged_pairs_sha256": "ee5036de2613108208fe233266f6a88b2ea1d0223e4993c06151cea16b89b637",
+    "train_seed": 1470170149,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s08')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 145
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "egate:E2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S09",
+    "slice_n_episodes": 35,
+    "slot_id": "gbm-cf-s09",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 15469209,
+    "staged_pairs_n_records": 3736,
+    "staged_pairs_sha256": "fd1f268257b471f3be9ab4d480c540bbce56bf80b923a102cd304a3700e9e806",
+    "train_seed": 957832668,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s09')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 152
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "egate:E3",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S10",
+    "slice_n_episodes": 35,
+    "slot_id": "gbm-cf-s10",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 20123427,
+    "staged_pairs_n_records": 4473,
+    "staged_pairs_sha256": "7432e699d97167cbe2b4e655f089f36c21df75cfb98761e4d445186e59aa3df4",
+    "train_seed": 3875703304,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s10')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 144
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "egate:E4",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S11",
+    "slice_n_episodes": 35,
+    "slot_id": "gbm-cf-s11",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 16637071,
+    "staged_pairs_n_records": 3911,
+    "staged_pairs_sha256": "86ff2ec786c3651812cba039709879a693c7364baa3a4ee7ade1c2942a9d85e4",
+    "train_seed": 393791209,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s11')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 153
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "gbm",
+    "model_class": "GBM",
+    "role": "s2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S12",
+    "slice_n_episodes": 35,
+    "slot_id": "gbm-cf-s12",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 15941243,
+    "staged_pairs_n_records": 3637,
+    "staged_pairs_sha256": "fa2a646bca7b19795721c1c6e098b1b54c551ee3e64c7da71c1aea01ac1eb8df",
+    "train_seed": 4194683872,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:gbm-cf-s12')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)",
+    "expected_vocab_size": 128
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "d_signal",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S13",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s13",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 15584946,
+    "staged_pairs_n_records": 3741,
+    "staged_pairs_sha256": "08ad7ee5d60ba6eff94ffb41640388ab406c896fed2cab8fd6f2f96219a4e273",
+    "train_seed": 923736246,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s13')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "p_dev",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S14",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s14",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 17717437,
+    "staged_pairs_n_records": 4078,
+    "staged_pairs_sha256": "76c5b8551b2f3f3d8fffa8c7f090a4eed9f6a459b4b44dd4516b0da585bfef5e",
+    "train_seed": 1649466557,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s14')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "egate:E1",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S15",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s15",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 16975702,
+    "staged_pairs_n_records": 3810,
+    "staged_pairs_sha256": "b34d55c2f7aec49279e12f428474dc4e124e16a1392cca64c93f6ffd71a141c9",
+    "train_seed": 2287377172,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s15')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "egate:E2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S16",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s16",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 18724908,
+    "staged_pairs_n_records": 4304,
+    "staged_pairs_sha256": "301ed8cf9aa53bb23cc617d712498ad4ffab2289f6ff7b9e783a86c09623af98",
+    "train_seed": 1488374228,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s16')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "egate:E3",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S17",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s17",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 17983377,
+    "staged_pairs_n_records": 4106,
+    "staged_pairs_sha256": "563137d14b4fd1d4acb0321ba7b09016f76d5ac37061e698b9fc55ce7b3daf80",
+    "train_seed": 1773075794,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s17')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "egate:E4",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S18",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s18",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 17175710,
+    "staged_pairs_n_records": 3962,
+    "staged_pairs_sha256": "e50c16b31a3900530ac7953e86f52ca4f64a4f7b83cc7806559c7435025ceaf8",
+    "train_seed": 1820450275,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s18')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   },
+   {
+    "_fill_rule": "transient infrastructure failures retry with the IDENTICAL slice, seed, config, and executable hashes \u2014 bounded attempts, host swap permitted, seed swap NEVER; a reproducible deterministic failure means the slot does not exist: slot_status=FAILED, fail-closed (missing-slot branch) \u2014 no completion-conditioned seed reassignment",
+    "_fill_semantics": "artifact_sha256 and slot_status are the ONLY mutable fields (mechanical hash fill after liveness vetting -> FILLED, or reproducible deterministic failure -> FAILED); everything else is covered by the immutable projection hash",
+    "artifact_sha256": null,
+    "family": "nn",
+    "model_class": "NN",
+    "role": "s2",
+    "slice_derivation_schema": "slice-pairs-derivation/v1",
+    "slice_id": "S19",
+    "slice_n_episodes": 35,
+    "slot_id": "nn-cf-s19",
+    "slot_status": "PENDING",
+    "staged_pairs_n_bytes": 15472090,
+    "staged_pairs_n_records": 3674,
+    "staged_pairs_sha256": "a9845c89416d2759cb31c885db2dac71567c2de388c2f41837ad0f764d0ddbcc",
+    "train_seed": 1267994619,
+    "train_seed_rule": "int(sha256('{PREREG_SHA}:ckptseed:nn-cf-s19')[:8],16)",
+    "trains_on": "arena-1 (provenance procedure binding)"
+   }
+  ],
+  "egate_families": {
+   "gbm": {
+    "E1": "gbm-cf-s08",
+    "E2": "gbm-cf-s09",
+    "E3": "gbm-cf-s10",
+    "E4": "gbm-cf-s11"
+   },
+   "heur_meta_deck": {
+    "E1": "deck_LiamK",
+    "E2": "deck_nasuo445",
+    "E3": "deck_RaihanRamadistra",
+    "E4": "rdiv-diversity-slot-1",
+    "_e4_note": "The logical slot and its authoritative deck hash are bound now; STEP 3 only joins the already-bound artifact into the assembled pool. (RR#4 MUST-FIX, reviewer's sentence verbatim \u2014 the prior text still claimed STEP-3-only binding while bound_rdiv_slot_1 in this same projection already binds the hash. bound_rdiv_slot_1 + gate/tfreeze/rdiv-decklists.json carry the deck hash and any supersession; this note still names no hash so a correction can never leave it asserting a retracted one.)"
+   },
+   "heur_ref_deck": {
+    "E1": {
+     "deck_sha256": [
+      "26552fd05d7def4b78086715822a7834d5b6b414dfb75e7ca3f2b1ae3c0e5947",
+      "977058eb23e3997f4a8462ce300aa8250acb3d1c75d885114540e7e1fb585af7"
+     ],
+     "shard": [
+      "6a00261701",
+      "58c77982cd"
+     ]
+    },
+    "E2": {
+     "deck_sha256": [
+      "628815e73d4b05435cf9b98e7fb29eb8536c118be8e08246688619528467afe0",
+      "ed7f9fd2e4caccd305ba21acb673d4b4042e28cd09de7cfc37dab5b71dc01988"
+     ],
+     "shard": [
+      "47e2cb37fe",
+      "64dd2f9788"
+     ]
+    },
+    "E3": {
+     "deck_sha256": [
+      "4fa326932489521c0623e56baec7794fec86627beb9644bc318f03bfc76503b7",
+      "d591080c37994b409e75b11a04d6721fc9af5a6f77ec7085f5638b024d586282"
+     ],
+     "shard": [
+      "70901ccf24",
+      "ab2272e903"
+     ]
+    },
+    "E4": {
+     "deck_sha256": [
+      "585326cc427b4ad917d9a6d5030d565a96e7123b779e206a71382304aa47bb48",
+      "8a2b90bc934c948eb4ea9c5ecb28260abc935e4aca2b7f1911f15f84ca2f9544"
+     ],
+     "shard": [
+      "61343e4a40",
+      "95984d2d73"
+     ]
+    }
+   },
+   "linear": {
+    "E1": "lin-cf-s01",
+    "E2": "lin-cf-s02",
+    "E3": "lin-cf-s03",
+    "E4": "lin-cf-s04"
+   },
+   "nn": {
+    "E1": "nn-cf-s15",
+    "E2": "nn-cf-s16",
+    "E3": "nn-cf-s17",
+    "E4": "nn-cf-s18"
+   }
+  },
+  "epoch_pattern": [
+   {
+    "confirm": "E2",
+    "k": 1,
+    "select": "E1"
+   },
+   {
+    "confirm": "E4",
+    "k": 2,
+    "select": "E3"
+   },
+   {
+    "confirm": "E1",
+    "k": 3,
+    "select": "E2"
+   },
+   {
+    "confirm": "E3",
+    "k": 4,
+    "select": "E4"
+   }
+  ],
+  "frozen": true,
+  "gate_cadence": "adoption gate at every 2nd generation boundary (gens 2,4,6,8)",
+  "generation_counter": {
+   "_rule": "round-5 audit must-fix 6: narrative ordinals were not reproducible (eacfa56 said '7th generation'; the audited count was 9th committed version / 8th regen). From version 10 the ordinal is an artifact field covered by the immutable projection; each regen bumps version+ordinal and pins the sha of the committed executable freeze it supersedes, so an auditor reproduces the count from git history alone (git show <commit>:gate/executable-freeze-manifest.json | sha256sum).",
+   "committed_rotation_freeze_version": 18,
+   "predecessor_freeze_manifest_sha256": "7b1facb818c8c4fb2d993275b1c6a9f97afed8923223ad005a48d49873760e43",
+   "regen_ordinal": 17
+  },
+  "generations_per_run": 8,
+  "heur_ref_deck_units": {
+   "d_signal": [
+    {
+     "cand_id": "a130790fab",
+     "deck_sha256": "b6c314bc588260b41ddbc8833d0abae62654875540c3a21e75b804711dd449b4"
+    },
+    {
+     "cand_id": "59d312127e",
+     "deck_sha256": "630be00f4c8bb92ae45eadd6430272adfbecdac17f91e7a3cf929680bada81e3"
+    }
+   ],
+   "egate_shards": {
+    "E1": [
+     {
+      "cand_id": "6a00261701",
+      "deck_sha256": "26552fd05d7def4b78086715822a7834d5b6b414dfb75e7ca3f2b1ae3c0e5947"
+     },
+     {
+      "cand_id": "58c77982cd",
+      "deck_sha256": "977058eb23e3997f4a8462ce300aa8250acb3d1c75d885114540e7e1fb585af7"
+     }
+    ],
+    "E2": [
+     {
+      "cand_id": "47e2cb37fe",
+      "deck_sha256": "628815e73d4b05435cf9b98e7fb29eb8536c118be8e08246688619528467afe0"
+     },
+     {
+      "cand_id": "64dd2f9788",
+      "deck_sha256": "ed7f9fd2e4caccd305ba21acb673d4b4042e28cd09de7cfc37dab5b71dc01988"
+     }
+    ],
+    "E3": [
+     {
+      "cand_id": "70901ccf24",
+      "deck_sha256": "4fa326932489521c0623e56baec7794fec86627beb9644bc318f03bfc76503b7"
+     },
+     {
+      "cand_id": "ab2272e903",
+      "deck_sha256": "d591080c37994b409e75b11a04d6721fc9af5a6f77ec7085f5638b024d586282"
+     }
+    ],
+    "E4": [
+     {
+      "cand_id": "61343e4a40",
+      "deck_sha256": "585326cc427b4ad917d9a6d5030d565a96e7123b779e206a71382304aa47bb48"
+     },
+     {
+      "cand_id": "95984d2d73",
+      "deck_sha256": "8a2b90bc934c948eb4ea9c5ecb28260abc935e4aca2b7f1911f15f84ca2f9544"
+     }
+    ]
+   },
+   "ledger_source": {
+    "path": "/home/admin/gh/ready-player-one-ptcg/runs/deck_search/ledger.jsonl",
+    "row_count": 3399,
+    "sha256": "60b96c7e71048cbea7a5c894aeccf90013cf2f7522c688ba0c142640274690e5"
+   },
+   "n_reserve": 34,
+   "selection_rule": "order the 44 held-back PROMOTABLE deck canonical sha256s (46 unique final-verdict PROMOTABLE cand_ids in runs/deck_search/ledger.jsonl minus role decks 2c1368bc03/58f62b5135) by sha256(f'{PREREG_SHA}:deck:{deck_sha}'); first 2 -> D_signal, next 8 -> E_gate (4 shards x 2, deck-cross-seat blocks), rest reserve; canonical deck sha256 = sha256 of sorted-ascending one-id-per-line CSV"
+  },
+  "immutable_projection_rule": "sha256 over the canonical JSON (indent=1, sort_keys, trailing NL) of this section with immutable_projection_sha256/_rule removed and every checkpoint_slots[*].artifact_sha256 and slot_status normalized to null \u2014 recompute after any mechanical fill; a mismatch means a non-fill field changed (freeze violation)",
+  "immutable_projection_sha256": "ae8ef5faebe409d1c64d97a92bd404c3c5aa535a7379118af7edf299ae50b4ab",
+  "live_search": {
+   "disposition": "S2-ONLY (advisor D2 choice b, fac b30029c): units are config-grid variants sharing s14 board_value and may not serve as independent E_gate units; E_gate runs on the remaining 5 dev families; genome dimension unchanged at 6 with live-search sampling mass frozen",
+   "excluded_from": [
+    "E_gate"
+   ]
+  },
+  "no_training_receipts": {
+   "arena-1": {
+    "artifact_count": 0,
+    "core_sha256": "cd31a5cf79190a6d43567d5d6da87d7674da8d685167fae5ffdc42bfab67a1b2",
+    "preflight_tool_sha256": "a413bcbe1d8614ac123b66d78ee0efc2ea31badef251e4069e75619b6869632f",
+    "process_count": 0,
+    "receipt": "gate/receipts/no-training-receipt-arena-1.json",
+    "roots": [
+     "/home/ubuntu/gh/rpo-ptcg"
+    ],
+    "validated_by": "gate/validate_no_training_receipt.py (fail-closed: schema, core-sha, tool pin, host label, expected roots, exit semantics, counts, array/count consistency, earned pass flag)"
+   },
+   "local": {
+    "artifact_count": 0,
+    "core_sha256": "404ec630cd7e3af03be8abb5fc6a7d160be09391f849cc825981b8512c0faf2f",
+    "preflight_tool_sha256": "a413bcbe1d8614ac123b66d78ee0efc2ea31badef251e4069e75619b6869632f",
+    "process_count": 0,
+    "receipt": "gate/receipts/no-training-receipt-local.json",
+    "roots": [
+     "/home/admin/gh/fac",
+     "/home/admin/gh/ready-player-one-ptcg"
+    ],
+    "validated_by": "gate/validate_no_training_receipt.py (fail-closed: schema, core-sha, tool pin, host label, expected roots, exit semantics, counts, array/count consistency, earned pass flag)"
+   }
+  },
+  "prereg_sha256": "e0cbd12e6877bba335b107b0b787636281efbfb91fa99c7605b30d67e22dd58d",
+  "rotation_constraints": [
+   "E_gate_select[k] and E_gate_confirm[k] unit-disjoint within every epoch",
+   "no unit occupies the same role twice consecutively (prereg node 5b); under this K=4 pattern every unit serves each role at most once",
+   "no unit appears in consecutive epochs (audit spacing>=2 satisfied)",
+   "one-use within epoch: each E_gate unit plays exactly one role per epoch",
+   "fresh games every shard; gate-game seeds = derive_child_seed(master, 'gate', epoch)",
+   "per-unit gate-outcome drift logged every epoch (anchor-reuse diagnostic, MANDATORY)"
+  ],
+  "schema": "rotation-freeze/v2",
+  "slice_definition_sha256": "8540cbac92ab98af17859ddd572dd8d82639e1c6dfdb8aa54428e459b48d0657"
+ },
+ "source_workflow": "wf_d989d9e1-e61",
+ "verdict": "PASS-WITH-CROSS-FITTING"
+}
